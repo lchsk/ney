@@ -4,6 +4,9 @@
 #include <cstdlib>  // malloc(), realloc(), free(), size_t
 #include <cstring>  // memset(), memcpy(), memmove(), memcmp()
 #include <omp.h>
+#include <iomanip>
+#include <unistd.h>
+
 
 #ifndef LIB_NAME
 #define LIB_NAME ney
@@ -36,7 +39,12 @@
 #define VEC_LEN 64
 #endif
 
+// Options
+
 #define USE_ALIGNMENT TRUE
+#define USE_MKL TRUE
+
+// -- Options
 
 #if USE_ALIGNMENT
 #define MALLOC _mm_malloc
@@ -48,6 +56,10 @@
 #define FREE free
 #define ALIGN
 #define ALIGN_CODE
+#endif
+
+#if USE_MKL == TRUE
+#include <mkl.h>
 #endif
 
 
@@ -72,6 +84,7 @@
         - use_offloading = { true, false }
 ****************/
 
+
 NEY_NS_BEGIN
 
 enum target_enum
@@ -80,24 +93,76 @@ enum target_enum
     GPU
 };
 
+static const std::string target_array[] =
+{
+    "Intel",
+    "GPU",
+};
+
 class config_t
 {
     public:
         config_t()
+        : target(Intel)
+        , use_offloading(true)
+        , running_on_mic_(false)
+        , mic_count_(0)
+        , threads(1)
+        , max_threads_(1)
         {
             #pragma omp parallel
             #pragma omp master
 
             threads = max_threads_ = omp_get_num_threads();
+
             #pragma omp barrier
 
-            target = Intel;
-            use_offloading = true;
+            #if MIC == 1
+                running_on_mic = true;
+            #else
+                #if USE_MKL == TRUE
+                    mic_count_ = mkl_mic_get_device_count();
+                #endif
+            #endif
         }
 
         unsigned max_threads() const
         {
             return max_threads_;
+        }
+
+        unsigned mic_count() const
+        {
+            return mic_count_;
+        }
+
+        bool running_on_mic() const
+        {
+            return running_on_mic_;
+        }
+
+        void print() const
+        {
+            int w = 1;
+            int x = 16;
+
+            // char* tmp = getenv("USER");
+
+            char hostname[128];
+            if (gethostname(hostname, 128) == 0)
+            {
+                std::string host(hostname);
+                std::cout << "Running on " << host << std::endl;
+            }
+
+            std::cout << std::setw(x) << "Architecture: "   << std::setw(w) << target_array[target] << std::endl;
+            std::cout << std::setw(x) << "Threads used: "   << std::setw(w) << threads << std::endl;
+            std::cout << std::setw(x) << "Max threads: "    << std::setw(w) << max_threads_ << std::endl;
+            std::cout << std::setw(x) << "Number of MICs: " << std::setw(w) << mic_count_ << std::endl;
+            std::cout << std::setw(x) << std::boolalpha     << std::setw(w) << "Use offloading: " << use_offloading << std::endl;
+            std::cout << std::setw(x) << std::boolalpha     << std::setw(w) << "Running on MIC: " << running_on_mic_ << std::endl;
+
+            std::cout << std::endl;
         }
 
         unsigned threads;
@@ -106,6 +171,9 @@ class config_t
 
     private:
         unsigned max_threads_;
+        unsigned mic_count_;
+        bool running_on_mic_;
+
 };
 config_t config;
 // namespace config

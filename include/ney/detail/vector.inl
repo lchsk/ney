@@ -25,8 +25,6 @@ template <typename T>
 inline vector<T>::
 ~vector()
 {
-    std::cout << "Bye" << std::endl;
-
     if (data_ != NULL)
         FREE (data_);
 }
