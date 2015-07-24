@@ -3,6 +3,7 @@
 
 #include <cstdlib>  // malloc(), realloc(), free(), size_t
 #include <cstring>  // memset(), memcpy(), memmove(), memcmp()
+#include <omp.h>
 
 #ifndef LIB_NAME
 #define LIB_NAME ney
@@ -73,22 +74,57 @@
 
 NEY_NS_BEGIN
 
-namespace config
+enum target_enum
 {
-    enum target_enum
-    {
-        Intel,
-        GPU
-    };
+    Intel,
+    GPU
+};
 
-    // Intel Xeon/Xeon Phi is the default architecture
-    target_enum target = Intel;
+class config_t
+{
+    public:
+        config_t()
+        {
+            #pragma omp parallel
+            #pragma omp master
 
-    // If target architecture == Intel, then setting this to true
-    // means that offloading to MIC can be used.
-    bool use_offloading = true;
+            threads = max_threads_ = omp_get_num_threads();
+            #pragma omp barrier
 
-}
+            target = Intel;
+            use_offloading = true;
+        }
+
+        unsigned max_threads() const
+        {
+            return max_threads_;
+        }
+
+        unsigned threads;
+        target_enum target;
+        bool use_offloading;
+
+    private:
+        unsigned max_threads_;
+};
+config_t config;
+// namespace config
+
+    //
+    // enum target_enum
+    // {
+    //     Intel,
+    //     GPU
+    // };
+    //
+    // // Intel Xeon/Xeon Phi is the default architecture
+    // target_enum target = Intel;
+    //
+    // // If target architecture == Intel, then setting this to true
+    // // means that offloading to MIC can be used.
+    // bool use_offloading = true;
+    //
+
 
 NEY_NS_END
 
