@@ -176,23 +176,6 @@ class config_t
 
 };
 config_t config;
-// namespace config
-
-    //
-    // enum target_enum
-    // {
-    //     Intel,
-    //     GPU
-    // };
-    //
-    // // Intel Xeon/Xeon Phi is the default architecture
-    // target_enum target = Intel;
-    //
-    // // If target architecture == Intel, then setting this to true
-    // // means that offloading to MIC can be used.
-    // bool use_offloading = true;
-    //
-
 
 NEY_NS_END
 
