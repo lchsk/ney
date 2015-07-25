@@ -15,7 +15,7 @@ class vector
 
         size_t size() const;
 
-        void reset();
+        vector& reset();
 
         vector& operator<<(T x);
         template <typename T>
@@ -28,6 +28,10 @@ class vector
         vector& to (unsigned x);
         vector& stride (unsigned x);
         vector& slice(unsigned from, unsigned to, unsigned stride = 1);
+
+        unsigned from () const;
+        unsigned to () const;
+        unsigned stride () const;
 
         // should be private!!!
         T* data_;
