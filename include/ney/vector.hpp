@@ -41,6 +41,8 @@ class vector
     private:
         const new_vector config_;
 
+        template <typename T> friend class fill;
+
         // for << operator
         unsigned incr;
 

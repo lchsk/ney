@@ -2,7 +2,7 @@
 #include <iostream>
 
 template <typename T>
-inline
+// inline
 status::status(const fill<T>& obj)
 {
     obj.run();

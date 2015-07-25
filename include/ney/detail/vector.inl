@@ -25,7 +25,10 @@ inline vector<T>::
 ~vector()
 {
     if (data_ != NULL)
+    {
         FREE (data_);
+        data_ = NULL;
+    }
 }
 
 template <typename T>

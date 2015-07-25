@@ -11,10 +11,13 @@ class fill : public operation
     public:
         fill(vector<T>& a);
 
+        fill& value(T value);
+        fill& run() const;
+
     private:
         friend class status;
 
-        fill& run() const;
+        T value_;
 
         vector<T>& out;
 };

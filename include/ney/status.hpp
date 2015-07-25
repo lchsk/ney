@@ -6,8 +6,7 @@ NEY_NS_BEGIN
 class status
 {
     public:
-        template <typename T>
-        status(const fill<T>& obj);
+        template <typename T> status(const fill<T>& obj);
 
 };
 
