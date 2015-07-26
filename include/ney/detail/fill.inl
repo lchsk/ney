@@ -1,7 +1,8 @@
 #include "../fill.hpp"
 #include "../vector.hpp"
+// #include <typeinfo>
 
-template <class T>
+template <typename T>
 inline fill<T>::
 // fill(const vector<T>& vec)
 fill(vector<T>& v) : out(v)
@@ -23,7 +24,7 @@ fill<T>& fill<T>::value(T value)
 
 template <typename T>
 inline
-fill<T>& fill<T>::run() const
+void fill<T>::run() const
 {
     if (ney::config.target == Intel)
     {

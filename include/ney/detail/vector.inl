@@ -31,6 +31,9 @@ inline vector<T>::
     }
 }
 
+/**
+    Size blablabal
+*/
 template <typename T>
 inline size_t vector<T>::size() const
 {

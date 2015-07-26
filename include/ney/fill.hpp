@@ -6,16 +6,18 @@
 NEY_NS_BEGIN
 
 template <typename T>
-class fill : public operation
+class fill : public operation<T>
 {
     public:
         fill(vector<T>& a);
+        ~fill(){};
 
         fill& value(T value);
-        fill& run() const;
+        void run() const;
 
     private:
         friend class status;
+        // bool time_;
 
         T value_;
 

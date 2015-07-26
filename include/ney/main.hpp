@@ -43,6 +43,7 @@
 
 #define USE_ALIGNMENT TRUE
 #define USE_MKL TRUE
+#define USE_OPENMP_TIME TRUE
 
 // -- Options
 
