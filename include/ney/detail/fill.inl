@@ -1,24 +1,10 @@
 #include "../fill.hpp"
 #include "../vector.hpp"
-// #include <typeinfo>
 
 template <typename T>
 inline fill<T>::
-// fill(const vector<T>& vec)
 fill(vector<T>& v) : out(v)
 {
-    // for (int i = out.from(); i < out.to(); i += out.stride())
-    // {
-    //     out.data_[i] = value_;
-    // }
-}
-
-template <typename T>
-fill<T>* fill<T>::cast(fill<T>* obj)
-{
-    // return static_cast<fill<T> >(*this);
-    return dynamic_cast<fill<T>&>(*obj);
-
 }
 
 template <typename T>
@@ -44,6 +30,4 @@ void fill<T>::run() const
     {
 
     }
-
-    // return *this;
 }

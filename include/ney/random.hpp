@@ -16,8 +16,6 @@ class random : public operation<T, random>
         random& min(T min);
         random& max(T max);
 
-        // random& cast();
-
     private:
         friend class status;
 

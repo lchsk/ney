@@ -5,19 +5,7 @@ template <typename T>
 inline random<T>::
 random(vector<T>& v) : out(v), min_(0), max_(RAND_MAX)
 {
-    // std::cout << msg;
-    this->msg = "random";
 }
-
-// template <typename T>
-// random<T>& random<T>::cast()
-// {
-//     return (random<T>&)*this;
-//     // return &((random<T>)*this);
-//     // return *dynamic_cast<random<T>&>(*this);
-//     // random<T> t = static_cast<random<T> >(*this);
-//     // return t;
-// }
 
 template <typename T>
 inline random<T>& random<T>::min(T min)

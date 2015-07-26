@@ -6,7 +6,7 @@
 NEY_NS_BEGIN
 
 template <typename T>
-class fill : public operation<T>
+class fill : public operation<T, fill>
 {
     public:
         fill(vector<T>& a);
@@ -14,14 +14,10 @@ class fill : public operation<T>
 
         fill& value(T value);
         void run() const;
-        fill* cast(fill* obj);
 
     private:
         friend class status;
-        // bool time_;
-
         T value_;
-
         vector<T>& out;
 };
 
