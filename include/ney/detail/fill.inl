@@ -14,6 +14,14 @@ fill(vector<T>& v) : out(v)
 }
 
 template <typename T>
+fill<T>* fill<T>::cast(fill<T>* obj)
+{
+    // return static_cast<fill<T> >(*this);
+    return dynamic_cast<fill<T>&>(*obj);
+
+}
+
+template <typename T>
 inline
 fill<T>& fill<T>::value(T value)
 {
@@ -28,11 +36,9 @@ void fill<T>::run() const
 {
     if (ney::config.target == Intel)
     {
+        // #pragma omp parallel for
         for (int i = out.from(); i < out.to(); i += out.stride())
-        {
             out.data_[i] = value_;
-        }
-
     }
     else if (ney::config.target == GPU)
     {

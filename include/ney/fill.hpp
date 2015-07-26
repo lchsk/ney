@@ -14,6 +14,7 @@ class fill : public operation<T>
 
         fill& value(T value);
         void run() const;
+        fill* cast(fill* obj);
 
     private:
         friend class status;

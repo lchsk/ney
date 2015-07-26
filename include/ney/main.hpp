@@ -7,7 +7,6 @@
 #include <iomanip>
 #include <unistd.h>
 
-
 #ifndef LIB_NAME
 #define LIB_NAME ney
 #endif
@@ -68,8 +67,8 @@
 /****************
     Macros
 ****************/
-#define min(a,b) (((a) < (b)) ? (a) : (b))
-#define max(a,b) (((a) > (b)) ? (a) : (b))
+#define MIN(a,b) (((a) < (b)) ? (a) : (b))
+#define MAX(a,b) (((a) > (b)) ? (a) : (b))
 
 // namespace ney
 // {
@@ -125,6 +124,8 @@ class config_t
                     mic_count_ = mkl_mic_get_device_count();
                 #endif
             #endif
+
+            srand(time(NULL));
         }
 
         unsigned max_threads() const
@@ -177,6 +178,7 @@ class config_t
 
 };
 config_t config;
+
 
 NEY_NS_END
 

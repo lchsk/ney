@@ -7,15 +7,18 @@ NEY_NS_BEGIN
 
 class status;
 
-template <typename T>
+template <class T, template <typename> class Derived_ >
 class operation
 {
     public:
+        typedef Derived_<T> DerivedType;
         operation();
         virtual ~operation(){};
 
-        virtual operation& time();
+        virtual DerivedType& time();
         virtual void run() const = 0;
+        std::string msg;
+        // virtual operation& cast() = 0;
 
     private:
         friend class status;

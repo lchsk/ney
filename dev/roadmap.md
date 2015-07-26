@@ -2,11 +2,11 @@
 
 |Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |---|---|---|---|---|---|
-|`vector`|
-|`status`|
-|`fill`|
-|`config`
-|`time measurement`|
+|`vector`|yes|
+|`status`|yes|
+|`fill`|yes|
+|`config`|yes|
+|`time measurement`|yes|
 |`random`|
 |`replace`|
 |`reduce`|
