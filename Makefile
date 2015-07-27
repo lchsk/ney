@@ -2,4 +2,7 @@
 INCLUDE_DIR = ./include/ney
 
 all:
-	$(CC) $(INCLUDE_DIR)/main.hpp
+	$(CXX) $(INCLUDE_DIR)/main.hpp
+
+test:
+	echo "No tests :("
