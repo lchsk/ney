@@ -12,7 +12,7 @@ vector(const new_vector& config)
     , to_(config.size_)
     , stride_(1)
 {
-    #if USE_ALIGNMENT
+    #if ALIGNMENT_OK
         data_ = (T*) MALLOC (sizeof (T*) * config.size_, ALIGN);
     #else
         data_ = (T*) MALLOC (sizeof (T*) * config.size_);

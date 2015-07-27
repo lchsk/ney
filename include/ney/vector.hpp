@@ -18,8 +18,9 @@ class vector
         vector& reset();
 
         vector& operator<<(T x);
-        template <typename T>
-        friend std::ostream& operator<<(std::ostream& s, const vector<T>& v);
+
+        template <typename T2>
+        friend std::ostream& operator<<(std::ostream& s, const vector<T2>& v);
 
         T& operator[] (unsigned index);
         T operator[] (unsigned index) const;
@@ -41,7 +42,8 @@ class vector
     private:
         const new_vector config_;
 
-        template <typename T> friend class fill;
+        template <typename T2>
+        friend class fill;
 
         // for << operator
         unsigned incr;

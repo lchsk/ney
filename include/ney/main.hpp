@@ -30,6 +30,34 @@
 #define TRUE 1
 #define FALSE 0
 
+// Detect compiler
+
+#if defined(__clang__)
+    #define CC_CLANG TRUE
+    #define CC_NAME "clang"
+#elif defined(__ICC) || defined(__INTEL_COMPILER)
+    #define CC_INTEL TRUE
+    #define CC_NAME "intel"
+#elif defined(__GNUC__) || defined(__GNUG__)
+    #define CC_GNU TRUE
+    #define CC_NAME "gnu"
+#elif defined(__HP_cc) || defined(__HP_aCC)
+    #define CC_HP TRUE
+    #define CC_NAME "hp"
+#elif defined(__IBMC__) || defined(__IBMCPP__)
+    #define CC_IBM TRUE
+    #define CC_NAME "ibm"
+#elif defined(_MSC_VER)
+    #define CC_MS TRUE
+    #define CC_NAME "ms"
+#elif defined(__PGI)
+    #define CC_PORTLAND TRUE
+    #define CC_NAME "portland"
+#elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
+    #define CC_ORACLE TRUE
+    #define CC_NAME "oracle"
+#endif
+
 #ifdef __MIC__
 #define MIC 1
 #define VEC_LEN 64
@@ -47,7 +75,13 @@
 
 // -- Options
 
-#if USE_ALIGNMENT
+#if USE_ALIGNMENT && CC_INTEL
+    #define ALIGNMENT_OK TRUE
+#else
+    #define ALIGNMENT_OK FALSE
+#endif
+
+#if ALIGNMENT_OK
 #define MALLOC _mm_malloc
 #define FREE _mm_free
 #define ALIGN VEC_LEN
@@ -110,6 +144,7 @@ class config_t
         , mic_count_(0)
         , threads(1)
         , max_threads_(1)
+        , compiler_(CC_NAME)
         {
             #pragma omp parallel
             #pragma omp master
@@ -148,6 +183,11 @@ class config_t
             return running_on_mic_;
         }
 
+        std::string compiler() const
+        {
+            return compiler_;
+        }
+
         void print() const
         {
             int w = 1;
@@ -168,6 +208,7 @@ class config_t
             std::cout << std::setw(x) << "Number of MICs: " << std::setw(w) << mic_count_ << std::endl;
             std::cout << std::setw(x) << std::boolalpha     << std::setw(w) << "Use offloading: " << use_offloading << std::endl;
             std::cout << std::setw(x) << std::boolalpha     << std::setw(w) << "Running on MIC: " << running_on_mic_ << std::endl;
+            std::cout << std::setw(x) << "Compiler: "   << std::setw(w) << compiler_ << std::endl;
 
             std::cout << std::endl;
         }
@@ -180,6 +221,7 @@ class config_t
         unsigned max_threads_;
         unsigned mic_count_;
         bool running_on_mic_;
+        std::string compiler_;
 
 };
 config_t config;
