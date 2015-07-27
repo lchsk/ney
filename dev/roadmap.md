@@ -1,5 +1,3 @@
-#Road map
-
 |Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |---|---|---|---|---|---|
 |`vector`|yes|
@@ -7,7 +5,7 @@
 |`fill`|yes|
 |`config`|yes|
 |`time measurement`|yes|
-|`random`|
+|`random`|yes|
 |`replace`|
 |`reduce`|
 |`count`|
@@ -20,7 +18,10 @@
 |`group_by`|
 |`reduce_by`|
 
-Others:
-
+- vector (copy constructor, =, destructor)
 - file opening
 - matrix
+- compile with gcc
+- predicate functions
+- config as singleton
+- read number of phis from lspci

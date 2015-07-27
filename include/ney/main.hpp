@@ -41,7 +41,8 @@
 // Options
 
 #define USE_ALIGNMENT TRUE
-#define USE_MKL TRUE
+#define USE_MKL FALSE
+#define USE_MIC FALSE
 #define USE_OPENMP_TIME TRUE
 
 // -- Options
@@ -58,7 +59,7 @@
 #define ALIGN_CODE
 #endif
 
-#if USE_MKL == TRUE
+#if USE_MKL
 #include <mkl.h>
 #endif
 
@@ -117,11 +118,15 @@ class config_t
 
             #pragma omp barrier
 
-            #if MIC == 1
-                running_on_mic = true;
-            #else
-                #if USE_MKL == TRUE
-                    mic_count_ = mkl_mic_get_device_count();
+            #if USE_MIC
+                #if MIC
+                    running_on_mic = true;
+                #else
+                    #if USE_MKL
+                        mic_count_ = mkl_mic_get_device_count();
+                    #else
+                        mic_count_ = _Offload_number_of_devices();
+                    #endif
                 #endif
             #endif
 
