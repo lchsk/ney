@@ -8,9 +8,10 @@ os:
 
 before_install:
   - sudo pip install cpp-coveralls
+  - export GCOV_FLAGS='--coverage'
 
 script:
   - ./configure --enable-gcov && make && make tests
 
 after_success:
-  - coveralls -r .. --verbose --gcov-options '\-lp' -E ".*thirdparty.*" -E ".*dev.*" -E ".*test/.*" 
+  - coveralls -r .. --verbose --gcov-options '\-lp' -i include/ney/detail -E ".*thirdparty.*" -E ".*dev.*" -E ".*test/.*"
