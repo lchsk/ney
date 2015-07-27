@@ -1,7 +1,5 @@
 #include "../main.hpp"
 #include "../vector.hpp"
-#include <iostream>
-
 
 template <typename T>
 inline vector<T>::

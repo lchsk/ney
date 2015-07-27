@@ -6,9 +6,7 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 CXXFLAGS += -g -Wall -Wextra -pthread
 
-CPP_TEST_FLAGS = -pthread -mkl -openmp
-
-CXX = icpc
+CPP_TEST_FLAGS = -pthread -fopenmp
 
 TESTS = vector_unittest
 

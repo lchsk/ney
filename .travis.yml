@@ -1,9 +1,16 @@
 language: cpp
 
-script: make
-
 compiler:
   - g++
 
 os:
   - linux
+
+before_install:
+  - sudo pip install cpp-coveralls
+
+script:
+  - ./configure --enable-gcov && make
+
+after_success:
+  - coveralls --exclude thirdparty --gcov-options '\-lp'

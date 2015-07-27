@@ -1,3 +1,4 @@
+#include "../main.hpp"
 #include "../status.hpp"
 #include "../random.hpp"
 

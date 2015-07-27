@@ -1,3 +1,4 @@
+#include "../main.hpp"
 #include "../operation.hpp"
 
 template <class T, template <typename> class Derived>
