@@ -14,4 +14,4 @@ script:
   - ./configure --enable-gcov && make && make tests
 
 after_success:
-  - coveralls -r .. --verbose --gcov-options '\-lp' -i include/ney/detail -E ".*thirdparty.*" -E ".*dev.*" -E ".*test/.*"
+  - coveralls -r .. --verbose --gcov-options '\-lp' -x inl -E ".*thirdparty.*" -E ".*dev.*" -E ".*test/.*"
