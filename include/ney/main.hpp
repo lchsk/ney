@@ -6,6 +6,7 @@
 #include <omp.h>
 #include <iomanip>
 #include <unistd.h>
+#include <iostream>
 
 #ifndef LIB_NAME
 #define LIB_NAME ney
