@@ -8,6 +8,7 @@ class status
     public:
         template <typename T> status(const random<T>& obj);
         template <typename T> status(const fill<T>& obj);
+        template <typename T> status(const replace<T>& obj);
 
         // [ms]
         double time() const;

@@ -16,6 +16,8 @@ vector(const new_vector& config)
         data_ = (T*) MALLOC (sizeof (T*) * config.size_);
     #endif
 
+    std::cout << "\tConstructor " << std::endl;
+
 }
 
 template <typename T>
@@ -26,6 +28,7 @@ inline vector<T>::
     {
         FREE (data_);
         data_ = NULL;
+        std::cout << "\tDestructor" << std::endl;
     }
 }
 

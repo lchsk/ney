@@ -1,6 +1,7 @@
 #include "../main.hpp"
 #include "../status.hpp"
 #include "../random.hpp"
+#include "../replace.hpp"
 
 #if ! USE_OPENMP_TIME
     #include <sys/time.h>
@@ -60,6 +61,14 @@ status::status(const random<T>& obj)
 
 template <typename T>
 status::status(const fill<T>& obj)
+{
+    INIT_FUNCTION
+
+    RUN_FUNCTION
+}
+
+template <typename T>
+status::status(const replace<T>& obj)
 {
     INIT_FUNCTION
 

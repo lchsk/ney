@@ -11,7 +11,7 @@
 |`count`|
 |`apply`|
 |`compare`|
-|`slice`|
+|`slice`|yes|
 |`swap`|
 |`conditional_swap`|
 |`unique`|
