@@ -34,7 +34,7 @@ class status
         #endif
 };
 
-#include "detail/status.inl"
+#include "detail/status.cpp"
 
 NEY_NS_END
 

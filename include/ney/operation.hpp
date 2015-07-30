@@ -22,7 +22,7 @@ class operation
         bool time_;
 };
 
-#include "detail/operation.inl"
+#include "detail/operation.cpp"
 
 NEY_NS_END
 

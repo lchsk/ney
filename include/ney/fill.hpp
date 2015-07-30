@@ -21,7 +21,7 @@ class fill : public operation<T, fill>
         vector<T>& out;
 };
 
-#include "detail/fill.inl"
+#include "detail/fill.cpp"
 
 NEY_NS_END
 

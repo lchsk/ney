@@ -28,7 +28,7 @@ class replace : public operation<T, replace>
 
 };
 
-#include "detail/replace.inl"
+#include "detail/replace.cpp"
 
 NEY_NS_END
 

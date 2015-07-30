@@ -25,7 +25,7 @@ class random : public operation<T, random>
         vector<T>& out;
 };
 
-#include "detail/random.inl"
+#include "detail/random.cpp"
 
 NEY_NS_END
 

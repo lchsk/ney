@@ -55,7 +55,7 @@ class vector
 
 };
 
-#include "detail/vector.inl"
+#include "detail/vector.cpp"
 NEY_NS_END
 
 #endif

@@ -19,7 +19,7 @@ class new_vector
         size_t size_;
 };
 
-#include "detail/new_vector.inl"
+#include "detail/new_vector.cpp"
 NEY_NS_END
 
 #endif
