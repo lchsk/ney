@@ -6,7 +6,7 @@
 NEY_NS_BEGIN
 
 template <typename T>
-class fill : public operation<T, fill>
+class fill : public base_operation<T, fill>
 {
     public:
         fill(vector<T>& a);

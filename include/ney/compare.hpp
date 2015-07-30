@@ -6,7 +6,7 @@
 NEY_NS_BEGIN
 
 template <typename T>
-class compare : public operation<T, compare>
+class compare : public base_operation<T, compare>
 {
     public:
         compare();

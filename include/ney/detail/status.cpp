@@ -91,6 +91,14 @@ status::status(const compare<T>& obj)
     RUN_FUNCTION
 }
 
+template <typename T>
+status::status(const reduce<T>& obj)
+{
+    INIT_FUNCTION
+
+    RUN_FUNCTION
+}
+
 double inline status::time() const
 {
     return total_time_;

@@ -6,7 +6,7 @@
 NEY_NS_BEGIN
 
 template <typename T>
-class replace : public operation<T, replace>
+class replace : public base_operation<T, replace>
 {
     public:
         replace(T old_value);

@@ -133,6 +133,15 @@ static const std::string target_array[] =
     "GPU",
 };
 
+namespace operation
+{
+    enum operation_t
+    {
+        add, // addition
+        mul  // multiplication
+    };
+}
+
 class config_t
 {
     public:

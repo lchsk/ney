@@ -1,13 +1,13 @@
 #include "../main.hpp"
-#include "../operation.hpp"
+#include "../base_operation.hpp"
 
 template <class T, template <typename> class Derived>
 inline
-operation<T, Derived>::operation() : time_(false), is_integer_(true)
+base_operation<T, Derived>::base_operation() : time_(false), is_integer_(true)
 {}
 
 template <class T, template <typename> class Derived>
-inline Derived<T>& operation<T, Derived>::time()
+inline Derived<T>& base_operation<T, Derived>::time()
 {
     time_ = true;
 
@@ -15,7 +15,7 @@ inline Derived<T>& operation<T, Derived>::time()
 }
 
 template <class T, template <typename> class Derived>
-inline Derived<T>& operation<T, Derived>::precision(T precision)
+inline Derived<T>& base_operation<T, Derived>::precision(T precision)
 {
     precision_ = precision;
 
@@ -23,7 +23,7 @@ inline Derived<T>& operation<T, Derived>::precision(T precision)
 }
 
 template <class T, template <typename> class Derived>
-inline void operation<T, Derived>::detect_data_type()
+inline void base_operation<T, Derived>::detect_data_type()
 {
     if (2 == (T) 2.5)
         is_integer_ = true;

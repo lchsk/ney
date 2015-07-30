@@ -1,18 +1,18 @@
 #include "main.hpp"
 
-#ifndef NEY_OPERATION_HPP_
-#define NEY_OPERATION_HPP_
+#ifndef NEY_BASE_OPERATION_HPP_
+#define NEY_BASE_OPERATION_HPP_
 
 NEY_NS_BEGIN
 
 class status;
 
 template <class T, template <typename> class Derived>
-class operation
+class base_operation
 {
     public:
-        operation();
-        virtual ~operation(){};
+        base_operation();
+        virtual ~base_operation(){};
 
         virtual Derived<T>& time();
         virtual Derived<T>& precision(T precision);
@@ -31,7 +31,7 @@ class operation
         
 };
 
-#include "detail/operation.cpp"
+#include "detail/base_operation.cpp"
 
 NEY_NS_END
 

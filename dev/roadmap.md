@@ -7,7 +7,7 @@
 |`time measurement`|yes|
 |`random`|yes|
 |`replace`|yes|
-|`reduce`|
+|`reduce`|yes|
 |`count`|yes|
 |`apply`|
 |`compare`|yes|

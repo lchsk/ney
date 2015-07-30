@@ -6,7 +6,7 @@
 NEY_NS_BEGIN
 
 template <typename T>
-class count : public operation<T, count>
+class count : public base_operation<T, count>
 {
     public:
         count(T value);

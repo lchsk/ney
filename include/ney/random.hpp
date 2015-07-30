@@ -6,7 +6,7 @@
 NEY_NS_BEGIN
 
 template <typename T>
-class random : public operation<T, random>
+class random : public base_operation<T, random>
 {
     public:
         random(vector<T>& a);
