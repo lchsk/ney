@@ -6,6 +6,13 @@ template <typename T>
 inline replace<T>::
 replace(T old_value) : old_(old_value)
 {
+    if (2 == (T) 2.5)
+        is_integer_ = true;
+    else
+    {
+        is_integer_ = false;
+        precision_ = 0.00001;
+    }
 }
 
 template <typename T>
@@ -30,14 +37,34 @@ replace<T>& replace<T>::in(vector<T>& v)
 
 template <typename T>
 inline
+replace<T>& replace<T>::precision(T precision)
+{
+    precision_ = precision;
+
+    return *this;
+}
+
+template <typename T>
+inline
 void replace<T>::run() const
 {
     if (ney::config.target == Intel)
-    {
-        for (int i = v_->from(); i < v_->to(); i += v_->stride())
+    {   
+        if (is_integer_)
         {
-            if ((*v_)[i] == old_)
-                (*v_)[i] = new_;
+            for (int i = v_->from(); i < v_->to(); i += v_->stride())
+            {
+                if ((*v_)[i] == old_)
+                    (*v_)[i] = new_;
+            }
+        }
+        else
+        {
+            for (int i = v_->from(); i < v_->to(); i += v_->stride())
+            {
+                if ((*v_)[i] > (old_ - precision_) && (*v_)[i] < (old_ + precision_))
+                    (*v_)[i] = new_;
+            }
         }
     }
     else if (ney::config.target == GPU)

@@ -6,7 +6,7 @@
 |`config`|yes|
 |`time measurement`|yes|
 |`random`|yes|
-|`replace`|
+|`replace`|yes|
 |`reduce`|
 |`count`|
 |`apply`|
@@ -19,6 +19,7 @@
 |`reduce_by`|
 
 - vector (copy constructor, =, destructor)
+- status (-||-)
 - file opening
 - matrix
 - compile with gcc
