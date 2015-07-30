@@ -8,9 +8,9 @@
 |`random`|yes|
 |`replace`|yes|
 |`reduce`|
-|`count`|
+|`count`|yes|
 |`apply`|
-|`compare`|
+|`compare`|yes|
 |`slice`|yes|
 |`swap`|
 |`conditional_swap`|
@@ -20,6 +20,7 @@
 
 - vector (copy constructor, =, destructor)
 - status (-||-)
+- a separate class for timing
 - file opening
 - matrix
 - compile with gcc

@@ -7,12 +7,11 @@ os:
   - linux
 
 before_install:
-  - export GCOV_FLAGS='--coverage'
   - sudo apt-get install lcov rubygems
   - gem install lcoveralls
 
 script:
-  - ./configure --enable-gcov && make && make tests
+  - ./configure && make && make tests
 
 after_success:
   - lcoveralls --retry-count 5
