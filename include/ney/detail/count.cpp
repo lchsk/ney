@@ -1,26 +1,17 @@
 #include "../main.hpp"
-#include "../replace.hpp"
+#include "../count.hpp"
 #include "../vector.hpp"
 
 template <typename T>
-inline replace<T>::
-replace(T old_value) : old_(old_value)
+inline count<T>::
+count(T value) : value_(value)
 {
     this->detect_data_type();
 }
 
 template <typename T>
 inline
-replace<T>& replace<T>::with(T new_value)
-{
-    new_ = new_value;
-
-    return *this;
-}
-
-template <typename T>
-inline
-replace<T>& replace<T>::in(vector<T>& v)
+count<T>& count<T>::in(vector<T>& v)
 {
     v_ = &v;
 
@@ -29,7 +20,16 @@ replace<T>& replace<T>::in(vector<T>& v)
 
 template <typename T>
 inline
-void replace<T>::run() const
+count<T>& count<T>::output(T& output)
+{
+    count_ = &output;
+
+    return *this;
+}
+
+template <typename T>
+inline
+void count<T>::run() const
 {
     if (ney::config.target == Intel)
     {   
@@ -37,16 +37,16 @@ void replace<T>::run() const
         {
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
-                if ((*v_)[i] == old_)
-                    (*v_)[i] = new_;
+                if ((*v_)[i] == value_)
+                    (*count_)++;
             }
         }
         else
         {
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
-                if ((*v_)[i] > (old_ - this->precision_) && (*v_)[i] < (old_ + this->precision_))
-                    (*v_)[i] = new_;
+                if ((*v_)[i] > (value_ - this->precision_) && (*v_)[i] < (value_ + this->precision_))
+                    (*count_)++;
             }
         }
     }

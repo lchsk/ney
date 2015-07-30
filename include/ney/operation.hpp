@@ -15,11 +15,20 @@ class operation
         virtual ~operation(){};
 
         virtual Derived<T>& time();
+        virtual Derived<T>& precision(T precision);
+
+        void detect_data_type();
+
         virtual void run() const = 0;
+
+    protected:
+        bool is_integer_;
+        T precision_;
 
     private:
         friend class status;
         bool time_;
+        
 };
 
 #include "detail/operation.cpp"
