@@ -55,7 +55,8 @@ void compare<T>::run() const
         {
             for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
             {
-                if ((*v1_)[i] > ((*v2_)[i] - this->precision_) && (*v1_)[i] < ((*v2_)[i] + this->precision_))
+                // if ((*v1_)[i] > ((*v2_)[i] - this->precision_) && (*v1_)[i] < ((*v2_)[i] + this->precision_))
+                if (fabs((*v1_)[i] - (*v2_)[i]) < this->precision_)
                     (*output_)[i] = true;
             }
         }

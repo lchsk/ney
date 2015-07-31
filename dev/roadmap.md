@@ -31,5 +31,5 @@
 |config as singleton||
 |read number of phis|yes|
 |sequence||
-|fabs in comparisons||
+|fabs in comparisons|yes|
 |std::string as T||
