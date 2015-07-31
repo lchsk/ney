@@ -9,21 +9,27 @@
 |`replace`|yes|
 |`reduce`|yes|
 |`count`|yes|
-|`apply`|
+|`apply`|yes|
 |`compare`|yes|
 |`slice`|yes|
-|`swap`|
-|`conditional_swap`|
+|`swap + predicate function`|
 |`unique`|
 |`group_by`|
 |`reduce_by`|
 
-- vector (copy constructor, =, destructor)
-- status (-||-)
-- a separate class for timing
-- file opening
-- matrix
-- compile with gcc
-- predicate functions
-- config as singleton
-- read number of phis from lspci
+####Stuff:
+
+|||
+|---|---|
+|vector (copy constructor, =, destructor)||
+|status: copy, =, destructor||
+|a separate class for timing||
+|(parallel) file opening||
+|matrix||
+|compile with gcc|yes|
+|predicate functions||
+|config as singleton||
+|read number of phis|yes|
+|sequence||
+|fabs in comparisons||
+|std::string as T||

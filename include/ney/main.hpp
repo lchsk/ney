@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <unistd.h>
 #include <iostream>
+#include <cmath>
 
 #ifndef LIB_NAME
 #define LIB_NAME ney
@@ -136,9 +137,20 @@ static const std::string target_array[] =
 namespace operation
 {
     enum operation_t
-    {
+    {   
+        none,
         add, // addition
         mul  // multiplication
+    };
+}
+
+namespace function
+{
+    enum function_t
+    {
+        none,
+        sine,
+        cosine
     };
 }
 

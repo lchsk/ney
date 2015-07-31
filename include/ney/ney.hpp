@@ -4,6 +4,7 @@
 #include "replace.hpp"
 #include "compare.hpp"
 #include "count.hpp"
+#include "apply.hpp"
 #include "fill.hpp"
 #include "reduce.hpp"
 #include "random.hpp"
