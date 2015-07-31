@@ -31,7 +31,9 @@ void random<T>::run() const
     if (ney::config.target == Intel)
     {
         for (int i = out.from(); i < out.to(); i += out.stride())
-            out.data_[i] = min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_)));
+            out[i] = min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_)));
+
+            // out.data_[i] = min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_)));
     }
     else if (ney::config.target == GPU)
     {

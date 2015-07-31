@@ -11,6 +11,11 @@ class vector
 {
     public:
         vector(const new_vector& config);
+        vector(const vector& that);
+
+        void swap(vector& second);
+        vector& operator=(vector other);
+
         ~vector();
 
         size_t size() const;
@@ -34,24 +39,24 @@ class vector
         unsigned to () const;
         unsigned stride () const;
 
-        // should be private!!!
-        T* data_;
+        
 
 
 
     private:
-        const new_vector config_;
+        new_vector config_;
 
         template <typename T2>
         friend class fill;
 
         // for << operator
-        unsigned incr;
+        unsigned incr_;
 
         unsigned from_;
         unsigned to_;
         unsigned stride_;
 
+        T* data_;
 
 };
 

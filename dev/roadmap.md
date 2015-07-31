@@ -21,7 +21,7 @@
 
 |||
 |---|---|
-|vector (copy constructor, =, destructor)||
+|vector (copy constructor, =, destructor)|yes|
 |status: copy, =, destructor||
 |a separate class for timing||
 |(parallel) file opening||

@@ -12,6 +12,7 @@ class new_vector
 {
     public:
         new_vector();
+        new_vector(unsigned int size);
         new_vector& size(unsigned int size);
 
     private:

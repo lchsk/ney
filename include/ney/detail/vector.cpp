@@ -5,7 +5,7 @@ template <typename T>
 inline vector<T>::
 vector(const new_vector& config)
     : config_(config)
-    , incr(0)
+    , incr_(0)
     , from_(0)
     , to_(config.size_)
     , stride_(1)
@@ -16,8 +16,55 @@ vector(const new_vector& config)
         data_ = (T*) MALLOC (sizeof (T*) * config.size_);
     #endif
 
-    std::cout << "\tConstructor " << std::endl;
+}
 
+template <typename T>
+inline vector<T>::
+vector(const vector<T>& that)
+{
+    std::cout << "copy constructor\n";
+
+    config_ = that.config_;
+
+    #if ALIGNMENT_OK
+        data_ = (T*) MALLOC (sizeof (T*) * config_.size_, ALIGN);
+    #else
+        data_ = (T*) MALLOC (sizeof (T*) * config_.size_);
+    #endif
+
+    for (int i = 0; i < config_.size_; i++)
+    {
+        data_[i] = that[i];
+    }
+
+    this->reset();
+
+}
+
+template <typename T>
+inline
+void vector<T>::swap(vector<T>& second)
+{
+    using std::swap;
+
+    swap(this->data_, second.data_); 
+    swap(this->config_, second.config_);
+
+    swap(this->incr_, second.incr_);
+    swap(this->to_, second.to_);
+    swap(this->from_, second.from_);
+    swap(this->stride_, second.stride_);
+}
+
+template <typename T>
+inline
+vector<T>& vector<T>::operator=(vector<T> other) // (1)
+{
+    swap(other); // (2)
+
+    std::cout << "swapped\n";
+
+    return *this;
 }
 
 template <typename T>
@@ -44,7 +91,7 @@ inline size_t vector<T>::size() const
 template <typename T>
 inline vector<T>& vector<T>::reset()
 {
-    incr = 0;
+    incr_ = 0;
     from_ = 0;
     to_ = config_.size_;
     stride_ = 1;
@@ -55,7 +102,7 @@ inline vector<T>& vector<T>::reset()
 template <typename T>
 vector<T>& vector<T>::operator<<(T x)
 {
-    data_[incr++] = x;
+    data_[incr_++] = x;
     return *this;
 }
 
