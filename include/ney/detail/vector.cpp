@@ -109,13 +109,8 @@ vector<T>& vector<T>::operator<<(T x)
 template <typename T>
 std::ostream& operator<<(std::ostream& s, const vector<T>& v)
 {
-    // print a vector
-    #include <iostream>
-    // #include <iomanip>
-
     std::cout << "vector(";
 
-    // for (int i = 0; i < v.size(); i++)
     for (int i = v.from(); i < v.to(); i += v.stride())
     {
         std::cout << v[i];

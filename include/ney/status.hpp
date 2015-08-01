@@ -6,6 +6,7 @@ NEY_NS_BEGIN
 class status
 {
     public:
+        status(){};
         template <typename T> status(const random<T>& obj);
         template <typename T> status(const fill<T>& obj);
         template <typename T> status(const replace<T>& obj);
@@ -18,6 +19,9 @@ class status
         double time() const;
         bool success() const;
         std::string error() const;
+
+        // template <typename T2>
+        friend std::ostream& operator<<(std::ostream& s, const status& v);
 
     private:
 

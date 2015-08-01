@@ -51,7 +51,7 @@ status::status(const random<T>& obj)
     if (obj.min_ >= obj.max_)
     {
         success_ = false;
-        error_msg_ = "Min value must be smaller than max value.";
+        error_msg_ = "min value must be smaller than max value";
 
         return;
     }
@@ -120,4 +120,22 @@ bool inline status::success() const
 std::string inline status::error() const
 {
     return error_msg_;
+}
+
+std::ostream& operator<<(std::ostream& s, const status& v)
+{
+    if ( v.success_)
+    {
+        std::cout << "status(success, total time: " 
+            << std::setiosflags(std::ios::fixed)
+            << std::setprecision(2)
+            << v.total_time_ 
+            << ")";
+    }
+    else
+    {
+        std::cout << "status(error: " << v.error_msg_ << ")";
+    }
+
+    return s;
 }

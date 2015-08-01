@@ -1,4 +1,4 @@
-|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
+x`|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |---|---|---|---|---|---|
 |`vector`|yes|
 |`status`|yes|
@@ -22,7 +22,7 @@
 |||
 |---|---|
 |vector (copy constructor, =, destructor)|yes|
-|status: copy, =, destructor||
+|status default constructor, printing out|yes|
 |a separate class for timing||
 |(parallel) file opening||
 |matrix||
