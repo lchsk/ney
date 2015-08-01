@@ -6,7 +6,8 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 CXXFLAGS += -g -Wall -Wextra -pthread
 
-CPP_TEST_FLAGS = -pthread -fopenmp -fprofile-arcs -ftest-coverage -O0
+CPP_TEST_FLAGS = -pthread -fopenmp --coverage
+#  -fprofile-arcs -ftest-coverage -O0
 
 TESTS = vector_unittest
 
