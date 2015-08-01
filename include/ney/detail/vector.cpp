@@ -22,8 +22,6 @@ template <typename T>
 inline vector<T>::
 vector(const vector<T>& that)
 {
-    std::cout << "copy constructor\n";
-
     config_ = that.config_;
 
     #if ALIGNMENT_OK
@@ -38,7 +36,6 @@ vector(const vector<T>& that)
     }
 
     this->reset();
-
 }
 
 template <typename T>
@@ -58,11 +55,9 @@ void vector<T>::swap(vector<T>& second)
 
 template <typename T>
 inline
-vector<T>& vector<T>::operator=(vector<T> other) // (1)
+vector<T>& vector<T>::operator=(vector<T> other)
 {
-    swap(other); // (2)
-
-    std::cout << "swapped\n";
+    swap(other);
 
     return *this;
 }
@@ -75,7 +70,6 @@ inline vector<T>::
     {
         FREE (data_);
         data_ = NULL;
-        std::cout << "\tDestructor" << std::endl;
     }
 }
 
@@ -86,6 +80,12 @@ template <typename T>
 inline size_t vector<T>::size() const
 {
     return config_.size_;
+}
+
+template <typename T>
+inline size_t vector<T>::length() const
+{
+    return ceil((to_ - from_) / (float)stride_);
 }
 
 template <typename T>

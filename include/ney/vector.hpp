@@ -13,12 +13,13 @@ class vector
         vector(const new_vector& config);
         vector(const vector& that);
 
-        void swap(vector& second);
+        
         vector& operator=(vector other);
 
         ~vector();
 
         size_t size() const;
+        size_t length() const;
 
         vector& reset();
 
@@ -48,6 +49,8 @@ class vector
 
         template <typename T2>
         friend class fill;
+
+        void swap(vector& second);
 
         // for << operator
         unsigned incr_;
