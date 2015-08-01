@@ -11,7 +11,7 @@ before_install:
   - gem install lcoveralls
 
 script:
-  - ./configure && make && make tests
+  - ./configure && make && make tests && make coverage
 
 after_success:
-  - lcoveralls --retry-count 5
+  - lcoveralls -r ./ --retry-count 5

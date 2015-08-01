@@ -18,6 +18,14 @@ all:
 tests:
 	cd $(TEST_DIR) && ./vector_unittest
 
+coverage:
+	lcov --capture --directory ./test/unittest --output-file coverage.info
+	genhtml coverage.info --output-directory out
+
 clean:
+	rm -rf out
 	cd $(TEST_DIR) && $(MAKE) clean
+	
 	rm -rf $(INCLUDE_DIR)/*.gch
+	rm -rf test/unittest/*.gcda
+	rm -rf test/unittest/*.gcno
