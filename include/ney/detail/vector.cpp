@@ -73,9 +73,6 @@ inline vector<T>::
     }
 }
 
-/**
-    Size blablabal
-*/
 template <typename T>
 inline size_t vector<T>::size() const
 {
@@ -181,5 +178,6 @@ vector<T>& vector<T>::slice (unsigned from, unsigned to, unsigned stride)
     from_ = from;
     to_ = to;
     stride_ = stride;
+    
     return *this;
 }

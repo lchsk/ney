@@ -1,6 +1,6 @@
 |Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |---|---|---|---|---|---|
-|`vector`|yes||yes
+|`vector`|yes||yes|yes
 |`status`|yes|
 |`fill`|yes|
 |`config`|yes|

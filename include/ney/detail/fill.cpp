@@ -25,7 +25,7 @@ void fill<T>::run() const
     {
         // #pragma omp parallel for
         for (int i = out.from(); i < out.to(); i += out.stride())
-            out.data_[i] = value_;
+            out[i] = value_;
     }
     else if (ney::config.target == GPU)
     {
