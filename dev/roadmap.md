@@ -23,7 +23,8 @@
 |---|---|
 |vector (copy constructor, =, destructor)|yes|
 |status default constructor, printing out|yes|
-|a separate class for timing||
+|a separate class for timing|yes|
+|global timer (clock)|yes|
 |(parallel) file opening||
 |matrix||
 |compile with gcc|yes|

@@ -7,38 +7,37 @@
     #include <sys/time.h>
 #endif
 
-#define START_TIMING if (obj.time_) start_timing();
-#define END_TIMING if (obj.time_) end_timing();
+#define START_TIMING if (obj.time_) engine_.start();
+#define END_TIMING if (obj.time_) engine_.end();
 #define RUN_FUNCTION START_TIMING \
                         obj.run(); \
                         END_TIMING
 #define INIT_FUNCTION init();
 
-void status::start_timing()
-{
-    if (ney::config.target == Intel)
-        #if USE_OPENMP_TIME
-            start_time_ = omp_get_wtime();
-        #else
-            gettimeofday(&start, NULL);
-        #endif
-}
+// void status::start_timing()
+// {
+//     if (ney::config.target == Intel)
+//         #if USE_OPENMP_TIME
+//             start_time_ = omp_get_wtime();
+//         #else
+//             gettimeofday(&start, NULL);
+//         #endif
+// }
 
-void status::end_timing()
-{
-    if (ney::config.target == Intel)
-        #if USE_OPENMP_TIME
-            total_time_ = omp_get_wtime() - start_time_;
-        #else
-            gettimeofday(&end, NULL);
-            secs_used = (end.tv_sec - start.tv_sec);
-            total_time_ = secs_used + (end.tv_usec - start.tv_usec) / 1000000.0;
-        #endif
-}
+// void status::end_timing()
+// {
+//     if (ney::config.target == Intel)
+//         #if USE_OPENMP_TIME
+//             total_time_ = omp_get_wtime() - start_time_;
+//         #else
+//             gettimeofday(&end, NULL);
+//             secs_used = (end.tv_sec - start.tv_sec);
+//             total_time_ = secs_used + (end.tv_usec - start.tv_usec) / 1000000.0;
+//         #endif
+// }
 
 void status::init()
 {
-    total_time_ = 0.0;
     success_ = true;
     error_msg_ = "";
 }
@@ -109,7 +108,7 @@ status::status(const apply<T>& obj)
 
 double inline status::time() const
 {
-    return total_time_;
+    return engine_.time();
 }
 
 bool inline status::success() const
@@ -122,20 +121,27 @@ std::string inline status::error() const
     return error_msg_;
 }
 
-std::ostream& operator<<(std::ostream& s, const status& v)
+status& status::print()
 {
-    if ( v.success_)
+    if ( this->success_)
     {
         std::cout << "status(success, total time: " 
             << std::setiosflags(std::ios::fixed)
             << std::setprecision(2)
-            << v.total_time_ 
+            << this->engine_.time() 
             << ")";
     }
     else
     {
-        std::cout << "status(error: " << v.error_msg_ << ")";
+        std::cout << "status(error: " << this->error_msg_ << ")";
     }
+
+    return *this;
+}
+
+std::ostream& operator<<(std::ostream& s, status& v)
+{
+    v.print();
 
     return s;
 }

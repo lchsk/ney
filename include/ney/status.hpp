@@ -20,26 +20,29 @@ class status
         bool success() const;
         std::string error() const;
 
+        status& print();
+
         // template <typename T2>
         friend std::ostream& operator<<(std::ostream& s, const status& v);
 
     private:
 
         void init();
+        time_engine engine_;
 
-        double total_time_;
+        // double total_time_;
         bool success_;
         std::string error_msg_;
 
-        void start_timing();
-        void end_timing();
+        // void start_timing();
+        // void end_timing();
 
-        #if USE_OPENMP_TIME
-            double start_time_;
-        #else
-            struct timeval start, end;
-            double secs_used;
-        #endif
+        // #if USE_OPENMP_TIME
+        //     double start_time_;
+        // #else
+        //     struct timeval start, end;
+        //     double secs_used;
+        // #endif
 };
 
 #include "detail/status.cpp"

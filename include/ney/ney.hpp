@@ -1,5 +1,8 @@
 #include "base_operation.hpp"
+#include "time_engine.hpp"
 #include "vector.hpp"
+#include "timer.hpp"
+#include "clock.hpp"
 #include "new_vector.hpp"
 #include "replace.hpp"
 #include "compare.hpp"

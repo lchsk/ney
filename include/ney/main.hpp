@@ -74,6 +74,7 @@
 #define USE_MKL FALSE
 #define USE_MIC FALSE
 #define USE_OPENMP_TIME TRUE
+#define DEFAULT_DECIMAL_PLACES 2
 
 // -- Options
 
