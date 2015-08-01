@@ -105,21 +105,6 @@
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
 
-// namespace ney
-// {
-//     using std::size_t;
-// }
-
-/****************
-    Configuration
-    -------------
-    Currently configuration consists of two variables:
-        - target = { Intel, GPU } which sets architecture on which
-        the program will be running on
-        - use_offloading = { true, false }
-****************/
-
-
 NEY_NS_BEGIN
 
 enum target_enum
@@ -244,6 +229,7 @@ class config_t
         std::string compiler_;
 
 };
+
 config_t config;
 
 

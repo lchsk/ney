@@ -1,4 +1,4 @@
-x`|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
+|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |---|---|---|---|---|---|
 |`vector`|yes|
 |`status`|yes|
@@ -28,7 +28,6 @@ x`|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |matrix||
 |compile with gcc|yes|
 |predicate functions||
-|config as singleton||
 |read number of phis|yes|
 |sequence||
 |fabs in comparisons|yes|
