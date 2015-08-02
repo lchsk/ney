@@ -111,6 +111,22 @@ status::status(const reduce<T>& obj)
 {
     INIT_FUNCTION
 
+    if (obj.output_ == NULL)
+    {
+        success_ = false;
+        error_msg_ = "use output() to specify an output variable";
+
+        return;
+    }
+
+    if (obj.operation_ == operation::none)
+    {
+        success_ = false;
+        error_msg_ = "use use() to specify an operation";
+
+        return;
+    }
+
     RUN_FUNCTION
 }
 

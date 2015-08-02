@@ -9,7 +9,7 @@ CXXFLAGS += -g -Wall -Wextra -pthread
 CPP_TEST_FLAGS = -pthread -fopenmp --coverage
 #  -fprofile-arcs -ftest-coverage -O0
 
-TESTS = vector_unittest basic_unittest
+TESTS = vector_unittest basic_unittest advanced_unittest
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
@@ -42,3 +42,7 @@ vector_unittest :
 basic_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
 	basic_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o basic_unittest
+
+advanced_unittest :
+	$(CXX) -I $(GTEST_DIR)/include/ \
+	advanced_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o advanced_unittest

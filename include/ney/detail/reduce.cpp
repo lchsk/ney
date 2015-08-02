@@ -4,7 +4,7 @@
 
 template <typename T>
 inline reduce<T>::
-reduce(vector<T>& v) : v_(v), init_value_(0)
+reduce(vector<T>& v) : v_(v), init_value_(0), output_(NULL), operation_(operation::none)
 {
 }
 
@@ -57,8 +57,6 @@ void reduce<T>::run() const
                 *output_ *= v_[i];
             }
         }
-
-        
     }
     else if (ney::config.target == GPU)
     {
