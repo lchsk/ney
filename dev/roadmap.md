@@ -10,7 +10,7 @@
 |`reduce`|yes||yes|yes|
 |`count`|yes||yes|yes|
 |`apply`|yes|
-|`compare`|yes|
+|`compare`|yes||yes|yes|
 |`slice`|yes||yes|yes|
 |`swap + predicate function`|
 |`unique`|

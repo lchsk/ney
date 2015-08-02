@@ -4,7 +4,7 @@
 
 template <typename T>
 inline compare<T>::
-compare()
+compare() : v1_(NULL), v2_(NULL), output_(NULL)
 {
     this->detect_data_type();
 }
@@ -47,17 +47,14 @@ void compare<T>::run() const
         {
             for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
             {
-                if ((*v1_)[i] == (*v2_)[i])
-                    (*output_)[i] = true;
+                (*output_)[i] = ((*v1_)[i] == (*v2_)[i]) ? true : false;
             }
         }
         else
         {
             for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
             {
-                // if ((*v1_)[i] > ((*v2_)[i] - this->precision_) && (*v1_)[i] < ((*v2_)[i] + this->precision_))
-                if (fabs((*v1_)[i] - (*v2_)[i]) < this->precision_)
-                    (*output_)[i] = true;
+                (*output_)[i] = (fabs((*v1_)[i] - (*v2_)[i]) < this->precision_) ? true : false;
             }
         }
     }

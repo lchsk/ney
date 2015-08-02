@@ -68,7 +68,70 @@ TEST(AdvanedOperations, Reduce)
     EXPECT_EQ(result_i, 16);
 }
 
-int main (int argc, char** argv) {
+TEST(AdvanedOperations, Compare)
+{
+    // Set up everything
+
+    ney::status s;
+
+    ney::vector<int> v1 = ney::new_vector().size(5);
+    ney::vector<int> v2 = ney::new_vector().size(5);
+    ney::vector<double> v3 = ney::new_vector().size(5);
+    ney::vector<double> v4 = ney::new_vector().size(5);
+
+    ney::vector<bool> o = ney::new_vector().size(5);
+
+    v1 << 3 << 6 << 2 << 7 << 2;
+    v2 << 2 << 6 << 3 << 7 << 2;
+
+    v3 << 0.3 << 0.6 << 0.2 << 0.64 << 0.2;
+    v4 << 0.1 << 0.2 << 0.2 << 0.64 << 0.1;
+
+    // Check if validation works
+
+    s = ney::compare<int>().vector1(v1).vector2(v2);
+
+    EXPECT_FALSE(s.success());
+
+    // Integer comparison
+
+    s = ney::compare<int>().vector1(v1).vector2(v2).output(o);
+
+    EXPECT_TRUE(s.success());
+
+    EXPECT_FALSE(o[0]);
+    EXPECT_TRUE(o[1]);
+    EXPECT_FALSE(o[2]);
+    EXPECT_TRUE(o[3]);
+    EXPECT_TRUE(o[4]);
+
+    // Floating point numbers comparison
+
+    s = ney::compare<double>().vector1(v3).vector2(v4).output(o);
+
+    EXPECT_TRUE(s.success());
+
+    EXPECT_FALSE(o[0]);
+    EXPECT_FALSE(o[1]);
+    EXPECT_TRUE(o[2]);
+    EXPECT_TRUE(o[3]);
+    EXPECT_FALSE(o[4]);
+
+    // Floating point numbers comparison (with precision)
+
+    s = ney::compare<double>().vector1(v3).vector2(v4).output(o).precision(0.15);
+
+    EXPECT_TRUE(s.success());
+
+    EXPECT_FALSE(o[0]);
+    EXPECT_FALSE(o[1]);
+    EXPECT_TRUE(o[2]);
+    EXPECT_TRUE(o[3]);
+    EXPECT_TRUE(o[4]);
+}
+
+int main (int argc, char** argv) 
+{
     ::testing::InitGoogleTest(&argc, argv);
 
     int returnValue;

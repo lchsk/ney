@@ -19,7 +19,7 @@ TEST(BasicOperations, Fill)
     ney::status s;
 
     // Check default settings of a status object
-    EXPECT_TRUE(s.success());
+    EXPECT_FALSE(s.success());
     EXPECT_EQ(s.error(), "");
 
     // fill

@@ -16,7 +16,7 @@
 
 void status::init()
 {
-    success_ = true;
+    success_ = false;
     error_msg_ = "";
 }
 
@@ -32,11 +32,12 @@ status::status(const random<T>& obj)
 
     if (obj.min_ >= obj.max_)
     {
-        success_ = false;
         error_msg_ = "min value must be smaller than max value";
 
         return;
     }
+
+    success_ = true;
 
     RUN_FUNCTION
 }
@@ -45,6 +46,8 @@ template <typename T>
 status::status(const fill<T>& obj)
 {
     INIT_FUNCTION
+
+    success_ = true;
 
     RUN_FUNCTION
 }
@@ -56,7 +59,6 @@ status::status(const replace<T>& obj)
 
     if (obj.v_ == NULL)
     {
-        success_ = false;
         error_msg_ = "use in() to specify a vector";
 
         return;
@@ -71,6 +73,8 @@ status::status(const replace<T>& obj)
     //     return;
     // }
 
+    success_ = true;
+
     RUN_FUNCTION
 }
 
@@ -81,7 +85,6 @@ status::status(const count<T>& obj)
 
     if (obj.count_ == NULL)
     {
-        success_ = false;
         error_msg_ = "use output() to specify an output variable";
 
         return;
@@ -89,11 +92,12 @@ status::status(const count<T>& obj)
 
     if (obj.v_ == NULL)
     {
-        success_ = false;
         error_msg_ = "use in() to specify a vector";
 
         return;
     }
+
+    success_ = true;
 
     RUN_FUNCTION
 }
@@ -102,6 +106,29 @@ template <typename T>
 status::status(const compare<T>& obj)
 {
     INIT_FUNCTION
+
+    if (obj.output_ == NULL)
+    {
+        error_msg_ = "use output() to specify an output boolean vector";
+
+        return;
+    }
+
+    if (obj.v1_ == NULL)
+    {
+        error_msg_ = "use vector1() to specify first input vector";
+
+        return;
+    }
+
+    if (obj.v2_ == NULL)
+    {
+        error_msg_ = "use vector2() to specify second input vector";
+
+        return;
+    }
+
+    success_ = true;
 
     RUN_FUNCTION
 }
@@ -113,7 +140,6 @@ status::status(const reduce<T>& obj)
 
     if (obj.output_ == NULL)
     {
-        success_ = false;
         error_msg_ = "use output() to specify an output variable";
 
         return;
@@ -121,11 +147,12 @@ status::status(const reduce<T>& obj)
 
     if (obj.operation_ == operation::none)
     {
-        success_ = false;
         error_msg_ = "use use() to specify an operation";
 
         return;
     }
+
+    success_ = true;
 
     RUN_FUNCTION
 }
@@ -134,6 +161,8 @@ template <typename T>
 status::status(const apply<T>& obj)
 {
     INIT_FUNCTION
+
+    success_ = true;
 
     RUN_FUNCTION
 }
