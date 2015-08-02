@@ -1,10 +1,10 @@
 |Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |---|---|---|---|---|---|
-|`vector`|yes||yes|yes
-|`status`|yes||yes|yes
-|`fill`|yes||yes|yes
-|`config`|yes|
-|`time measurement`|yes|
+|`vector`|yes||yes|yes|
+|`status`|yes||yes|yes|
+|`fill`|yes||yes|yes|
+|`config`|yes||yes|yes|
+|`time measurement`|yes||yes|yes|
 |`random`|yes||yes|yes|
 |`replace`|yes||yes|yes|
 |`reduce`|yes||yes|yes|

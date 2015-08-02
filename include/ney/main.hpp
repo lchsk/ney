@@ -68,7 +68,8 @@
 #define VEC_LEN 64
 #endif
 
-// Options
+//! Options
+//! That part can be changed by anyone using library
 
 #define USE_ALIGNMENT TRUE
 #define USE_MKL FALSE
@@ -108,17 +109,23 @@
 
 NEY_NS_BEGIN
 
+//! Available targets. `Intel` covers Intel Xeon/Xeon Phi/desktop processors; `GPU` covers CUDA GPU cards
+
 enum target_enum
 {
     Intel,
     GPU
 };
 
+//! Names of the available targets. Must be compatible with `enum target_enum`
+
 static const std::string target_array[] =
 {
     "Intel",
     "GPU",
 };
+
+//! List of available `operation`s. Each operation is executed on two operands
 
 namespace operation
 {
@@ -130,6 +137,8 @@ namespace operation
     };
 }
 
+//! List of available `function`s. Each function is executed on a single argument
+
 namespace function
 {
     enum function_t
@@ -140,9 +149,14 @@ namespace function
     };
 }
 
+//! Config class. An instance of the config class is created automatically
+
 class config_t
 {
     public:
+
+        //! Constructor, sets default parameters
+
         config_t()
         : target(Intel)
         , use_offloading(true)
@@ -174,25 +188,35 @@ class config_t
             srand(time(NULL));
         }
 
+        //! Returns maximum number of threads available in the system
+
         unsigned max_threads() const
         {
             return max_threads_;
         }
+
+        //! Returns number of MICs available in the system
 
         unsigned mic_count() const
         {
             return mic_count_;
         }
 
+        //! Returns `true` if the program is being run natively on Intel Xeon Phi, `false` otherwise`
+
         bool running_on_mic() const
         {
             return running_on_mic_;
         }
 
+        //! Returns name of the compiler the program has been compiled with
+
         std::string compiler() const
         {
             return compiler_;
         }
+
+        //! Prints configuration parameters
 
         void print() const
         {
@@ -219,8 +243,16 @@ class config_t
             std::cout << std::endl;
         }
 
+        //! Number of threads that should be used
+
         unsigned threads;
+
+        //! Target architecture. Available are: Intel (covers Intel Xeon/Xeon/Phi/desktop processors) and GPU (covers CUDA GPU cards)
+
         target_enum target;
+
+        //! Set to `true` if program can use offloading (default is `true`)
+
         bool use_offloading;
 
     private:
@@ -228,8 +260,9 @@ class config_t
         unsigned mic_count_;
         bool running_on_mic_;
         std::string compiler_;
-
 };
+
+//! Configuration object used by the library
 
 config_t config;
 

@@ -43,7 +43,7 @@ class status
 
         template <typename T> status(const apply<T>& obj);
 
-        //! Returns how long a function took to finish. To work correctly, first `time()` needs to be called on the function itself
+        //! Returns how long a function took to finish (in seconds). To work correctly, first `time()` needs to be called on the function itself
 
         double time() const;
 

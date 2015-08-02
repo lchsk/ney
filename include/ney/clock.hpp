@@ -5,9 +5,14 @@
 
 NEY_NS_BEGIN
 
+//! Class used to time. Contrary to the `timer` class, there is only one clock in the entire application
+
 class clock
 {
     public:
+
+        //! Always call `get()` function to obtain the `clock` instance
+
         static clock& get()
         {
             static clock instance;
@@ -17,10 +22,23 @@ class clock
 
         ~clock(){};
 
+        //! Start timing
+
         clock& start();
+
+        //! End timing
+
         clock& end();
+
+        //! Set precision for printing
+
         clock& precision(unsigned p);
+        
+        //! Print clock value
+
         clock& print();
+
+        //! Return time between `start()` and `end()` calls (in seconds)
 
         double time() const;
 

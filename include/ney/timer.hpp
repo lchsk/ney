@@ -5,16 +5,35 @@
 
 NEY_NS_BEGIN
 
+//! Class used to time any part of the program. A user can create any number of `timer`s
+
 class timer
 {
     public:
+
+        //! Constructor takes no parameters
+
         timer();
+
         ~timer(){};
 
+        //! Start timing
+
         timer& start();
+
+        //! End timing
+
         timer& end();
+
+        //! Set number of decimal places used when printing
+
         timer& precision(unsigned p);
+
+        //! print to standard output
+
         timer& print();
+
+        //! Return time between `start()` and `end()` (in seconds)
 
         double time() const;
 

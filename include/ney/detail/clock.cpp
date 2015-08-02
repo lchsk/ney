@@ -32,7 +32,7 @@ clock& clock::print()
             << std::setiosflags(std::ios::fixed)
             << std::setprecision(this->decimal_places_)
             << engine_.time()
-            << ")" << std::endl;
+            << " s)" << std::endl;
 
     return *this;
 }

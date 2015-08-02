@@ -11,10 +11,6 @@
 
 TEST(BasicOperations, Fill)
 {
-    // Make sure default target is Intel
-
-    EXPECT_EQ(ney::config.target, ney::Intel);
-
     ney::vector<int> v = ney::new_vector().size(11);
     ney::status s;
 
