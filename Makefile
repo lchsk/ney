@@ -35,4 +35,4 @@ clean:
 
 	rm -rf doc/html
 
-	rm coverage.info
+	rm -f coverage.info
