@@ -9,7 +9,7 @@
 |`replace`|yes||yes|yes|
 |`reduce`|yes||yes|yes|
 |`count`|yes||yes|yes|
-|`apply`|yes|
+|`apply`|yes||yes|yes|
 |`compare`|yes||yes|yes|
 |`slice`|yes||yes|yes|
 |`swap + predicate function`|
@@ -33,4 +33,4 @@
 |sequence||
 |fabs in comparisons|yes|
 |std::string as T||
-|validation of parameters||
+|validation of parameters|yes|

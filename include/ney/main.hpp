@@ -124,9 +124,9 @@ namespace operation
 {
     enum operation_t
     {   
-        none,
-        add, // addition
-        mul  // multiplication
+        none = 1,
+        add = 2, // addition
+        mul = 3  // multiplication
     };
 }
 
@@ -134,9 +134,9 @@ namespace function
 {
     enum function_t
     {
-        none,
-        sine,
-        cosine
+        none = 100,
+        sine = 101,
+        cosine = 102
     };
 }
 

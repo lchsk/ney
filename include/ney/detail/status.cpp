@@ -162,7 +162,47 @@ status::status(const apply<T>& obj)
 {
     INIT_FUNCTION
 
-    success_ = true;
+    // Use cases:
+    // (1) apply(fun).vector1(vec1); -> output in vec1
+    // (2) apply(op).vector1(vec1).vector2(vec2); -> output in vec1
+    // (3) apply(op).vector1(vec1).vector2(vec2).value(scalar); -> output in vec1
+    // (4) apply(op).vector1(vec1).value(scalar); -> output in vec1
+
+    if (obj.f_ != function::none && obj.v1_ != NULL)
+    {
+        // use case 1
+
+        success_ = true;
+    }
+    else if (obj.op_ != operation::none && obj.v1_ != NULL)
+    {   
+        if (obj.v2_ != NULL)
+        {
+            // use case 2 or 3
+
+            success_ = true;
+        }
+        else if (obj.use_scalar_)
+        {
+            // use case 4
+            success_ = true;
+        }
+        else
+        {
+            success_ = false;
+            error_msg_ = "use value() to specify scalar value";
+        }
+    }
+    else
+    {
+        // Validation error - function will not be executed
+        // Prepare an error message
+
+        if (obj.v1_ == NULL)
+            error_msg_ = "use vector1() to specify first input vector";
+
+        return;
+    }
 
     RUN_FUNCTION
 }

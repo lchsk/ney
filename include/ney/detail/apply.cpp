@@ -74,8 +74,6 @@ void apply<T>::run() const
         if (output_ == NULL)
             output_ = v1_;
 
-
-
         // Use case 1
         // if (f_ != function::none)
         // {
@@ -94,7 +92,6 @@ void apply<T>::run() const
             }
         }
 
-        
         else if (v1_ != NULL && v2_ != NULL)
         {
             if (use_scalar_)
@@ -121,12 +118,12 @@ void apply<T>::run() const
                 if (op_ == operation::add)
                 {
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                        (*output_)[i] += (*v2_)[i];
+                        (*output_)[i] = (*v1_)[i] + (*v2_)[i];
                 }
                 else if (op_ == operation::mul)
                 {
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                        (*output_)[i] *= (*v2_)[i];
+                        (*output_)[i] = (*v1_)[i] * (*v2_)[i];
                 }
             }
         }
@@ -136,12 +133,12 @@ void apply<T>::run() const
             if (op_ == operation::add)
             {
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    (*output_)[i] += value_;
+                    (*output_)[i] = (*v1_)[i] + value_;
             }
             else if (op_ == operation::mul)
             {
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    (*output_)[i] *= value_;
+                    (*output_)[i] = (*v1_)[i] * value_;
             }
         }
         // }
