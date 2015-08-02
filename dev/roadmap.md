@@ -5,13 +5,13 @@
 |`fill`|yes||yes|yes
 |`config`|yes|
 |`time measurement`|yes|
-|`random`|yes||yes|yes
-|`replace`|yes|
+|`random`|yes||yes|yes|
+|`replace`|yes||yes|yes|
 |`reduce`|yes|
 |`count`|yes||yes|yes|
 |`apply`|yes|
 |`compare`|yes|
-|`slice`|yes|
+|`slice`|yes||yes|yes|
 |`swap + predicate function`|
 |`unique`|
 |`group_by`|

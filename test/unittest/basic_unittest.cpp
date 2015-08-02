@@ -154,6 +154,82 @@ TEST(BasicOperations, Count)
     EXPECT_FALSE(s.success());
 }
 
+TEST(BasicOperations, Replace)
+{
+    ney::status s;
+
+    ney::vector<int> v1 = ney::new_vector().size(5);
+    ney::vector<double> v2 = ney::new_vector().size(5);
+
+    v1[0] = 1;
+    v1[1] = 10;
+    v1[2] = 50;
+    v1[3] = 10;
+    v1[4] = 50;
+
+    v2[0] = 0.1;
+    v2[1] = 0.1;
+    v2[2] = 0.3;
+    v2[3] = 5.1;
+    v2[4] = 0.3;
+
+    // Expect errors in status object
+
+    s = ney::replace<double>(2.5);
+
+    EXPECT_FALSE(s.success());
+
+    // TODO: that should also cause an error
+    // s = ney::replace<double>(2.5).in(v2);
+
+    // EXPECT_FALSE(s.success());
+
+    s = ney::replace<double>(2.5).with(2.1);
+
+    EXPECT_FALSE(s.success());
+
+    // It should be correct, but no values will be replaced
+
+    s = ney::replace<double>(2.5).with(1.2).in(v2);
+
+    EXPECT_TRUE(s.success());
+
+    int count;
+    s = ney::count<double>(2.5).in(v2).output(count);
+
+    EXPECT_EQ(count, 0);
+
+    // That should work
+
+    s = ney::replace<double>(0.3).with(-0.3).in(v2);
+
+    EXPECT_TRUE(s.success());
+
+    s = ney::count<double>(-0.3).in(v2).output(count);
+
+    EXPECT_EQ(count, 2);
+
+    // Replacing integers
+
+    s = ney::replace<int>(10).with(100).in(v1);
+
+    EXPECT_TRUE(s.success());
+
+    s = ney::count<int>(100).in(v1).output(count);
+
+    EXPECT_EQ(count, 2);
+
+    // Replacing doubles with changed precision
+
+    s = ney::replace<double>(0.1).with(0.01).in(v2).precision(0.0001);
+
+    EXPECT_TRUE(s.success());
+
+    s = ney::count<double>(0.01).in(v2).output(count);
+
+    EXPECT_EQ(count, 2);
+}
+
 int main (int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

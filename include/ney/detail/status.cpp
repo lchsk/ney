@@ -54,6 +54,23 @@ status::status(const replace<T>& obj)
 {
     INIT_FUNCTION
 
+    if (obj.v_ == NULL)
+    {
+        success_ = false;
+        error_msg_ = "use in() to specify a vector";
+
+        return;
+    }
+
+    // TODO: validate new_
+    // if (obj.new_ == NULL)
+    // {
+    //     success_ = false;
+    //     error_msg_ = "use with() to specify a new value";
+
+    //     return;
+    // }
+
     RUN_FUNCTION
 }
 

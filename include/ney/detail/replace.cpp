@@ -4,7 +4,7 @@
 
 template <typename T>
 inline replace<T>::
-replace(T old_value) : old_(old_value)
+replace(T old_value) : old_(old_value), v_(NULL)
 {
     this->detect_data_type();
 }
