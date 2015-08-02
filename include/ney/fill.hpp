@@ -28,7 +28,7 @@ class fill : public base_operation<T, fill>
 
     private:
         friend class status;
-        T value_;
+        unsigned int value_;
         vector<T>& out;
 };
 

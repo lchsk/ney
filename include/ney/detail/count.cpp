@@ -4,7 +4,7 @@
 
 template <typename T>
 inline count<T>::
-count(T value) : value_(value)
+count(T value) : value_(value), count_(NULL), v_(NULL)
 {
     this->detect_data_type();
 }
@@ -20,9 +20,10 @@ count<T>& count<T>::in(vector<T>& v)
 
 template <typename T>
 inline
-count<T>& count<T>::output(T& output)
+count<T>& count<T>::output(int& output)
 {
     count_ = &output;
+    *count_ = 0;
 
     return *this;
 }

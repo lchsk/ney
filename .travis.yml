@@ -2,6 +2,7 @@ language: cpp
 
 compiler:
   - g++
+  - clang
 
 os:
   - linux

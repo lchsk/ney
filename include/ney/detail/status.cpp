@@ -62,6 +62,22 @@ status::status(const count<T>& obj)
 {
     INIT_FUNCTION
 
+    if (obj.count_ == NULL)
+    {
+        success_ = false;
+        error_msg_ = "use output() to specify an output variable";
+
+        return;
+    }
+
+    if (obj.v_ == NULL)
+    {
+        success_ = false;
+        error_msg_ = "use in() to specify a vector";
+
+        return;
+    }
+
     RUN_FUNCTION
 }
 

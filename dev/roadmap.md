@@ -5,10 +5,10 @@
 |`fill`|yes||yes|yes
 |`config`|yes|
 |`time measurement`|yes|
-|`random`|yes|
+|`random`|yes||yes|yes
 |`replace`|yes|
 |`reduce`|yes|
-|`count`|yes|
+|`count`|yes||yes|yes|
 |`apply`|yes|
 |`compare`|yes|
 |`slice`|yes|
