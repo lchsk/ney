@@ -16,7 +16,7 @@ all:
 	# $(CXX) ./experiments/test.cpp -fopenmp
 
 tests:
-	cd $(TEST_DIR) && ./vector_unittest
+	cd $(TEST_DIR) && ./run_tests.sh
 
 coverage:
 	lcov --capture --directory ./test/unittest --output-file coverage.info

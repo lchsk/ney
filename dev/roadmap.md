@@ -1,8 +1,8 @@
 |Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
 |---|---|---|---|---|---|
 |`vector`|yes||yes|yes
-|`status`|yes|
-|`fill`|yes|
+|`status`|yes||yes|yes
+|`fill`|yes||yes|yes
 |`config`|yes|
 |`time measurement`|yes|
 |`random`|yes|
@@ -33,3 +33,4 @@
 |sequence||
 |fabs in comparisons|yes|
 |std::string as T||
+|validation of parameters||
