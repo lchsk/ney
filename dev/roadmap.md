@@ -27,6 +27,10 @@
 |global timer (clock)|yes|
 |(parallel) file opening||
 |matrix||
+|map||
+|mergesort||
+|bitonic sort||
+|words count using library||
 |compile with gcc|yes|
 |predicate functions||
 |read number of phis|yes|
