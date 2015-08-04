@@ -12,7 +12,7 @@
 |`apply`|yes||yes|yes|
 |`compare`|yes||yes|yes|
 |`slice`|yes||yes|yes|
-|`swap + predicate function`|
+|`swap`|
 |`unique`|
 |`group_by`|
 |`reduce_by`|
@@ -38,3 +38,4 @@
 |fabs in comparisons|yes|
 |std::string as T||
 |validation of parameters|yes|
+|swap: bitonic sort + two vectors (w/ pred. function)|
