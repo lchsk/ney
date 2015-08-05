@@ -10,38 +10,42 @@ NEY_NS_BEGIN
 class status
 {
     public:
-        
+
         //! Constructor invoked when status created like this: `ney::status s;`
-        
+
         status();
 
         //! Invokes `ney::random()`
-        
+
         template <typename T> status(const random<T>& obj);
 
         //! Invokes `ney::fill()`
 
         template <typename T> status(const fill<T>& obj);
-        
+
         //! Invokes `ney::replace()`
 
         template <typename T> status(const replace<T>& obj);
-        
+
         //! Invokes `ney::count()`
 
         template <typename T> status(const count<T>& obj);
-        
+
         //! Invokes `ney::compare()`
 
         template <typename T> status(const compare<T>& obj);
-        
+
         //! Invokes `ney::reduce()`
 
         template <typename T> status(const reduce<T>& obj);
-        
+
         //! Invokes `ney::apply()`
 
         template <typename T> status(const apply<T>& obj);
+
+        //! Invokes `ney::swap()`
+
+        template <typename T> status(const swap<T>& obj);
 
         //! Returns how long a function took to finish (in seconds). To work correctly, first `time()` needs to be called on the function itself
 

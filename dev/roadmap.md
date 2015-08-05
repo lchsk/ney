@@ -1,4 +1,4 @@
-|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Examples|
+|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Wiki|
 |---|---|---|---|---|---|
 |`vector`|yes||yes|yes|
 |`status`|yes||yes|yes|
@@ -12,7 +12,7 @@
 |`apply`|yes||yes|yes|
 |`compare`|yes||yes|yes|
 |`slice`|yes||yes|yes|
-|`swap`|
+|`swap`|yes|||yes||
 |`unique`|
 |`group_by`|
 |`reduce_by`|
@@ -38,4 +38,12 @@
 |fabs in comparisons|yes|
 |std::string as T||
 |validation of parameters|yes|
-|swap: bitonic sort + two vectors (w/ pred. function)|
+|predicate function (at least in `swap`)||
+|redistribute||
+|offloading/parallelisation||
+
+#### Examples
+
+|Algorithm|Done|
+|---|---|
+|Word count||

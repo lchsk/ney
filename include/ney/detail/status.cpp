@@ -103,6 +103,24 @@ status::status(const count<T>& obj)
 }
 
 template <typename T>
+status::status(const swap<T>& obj)
+{
+    INIT_FUNCTION
+
+    if (obj.v1_ == NULL)
+    {
+        error_msg_ = "use vector1() to specify first input vector";
+
+        return;
+    }
+
+    success_ = true;
+
+    RUN_FUNCTION
+}
+
+
+template <typename T>
 status::status(const compare<T>& obj)
 {
     INIT_FUNCTION
@@ -175,7 +193,7 @@ status::status(const apply<T>& obj)
         success_ = true;
     }
     else if (obj.op_ != operation::none && obj.v1_ != NULL)
-    {   
+    {
         if (obj.v2_ != NULL)
         {
             // use case 2 or 3
@@ -226,10 +244,10 @@ status& status::print()
 {
     if ( this->success_)
     {
-        std::cout << "status(success, total time: " 
+        std::cout << "status(success, total time: "
             << std::setiosflags(std::ios::fixed)
             << std::setprecision(2)
-            << this->engine_.time() 
+            << this->engine_.time()
             << ")";
     }
     else
