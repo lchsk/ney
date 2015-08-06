@@ -40,7 +40,8 @@
 |validation of parameters|yes|
 |predicate function (at least in `swap`)||
 |redistribute||
-|offloading/parallelisation||
+|offloading||
+|parallelisation||
 
 #### Examples
 
