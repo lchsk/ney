@@ -44,7 +44,7 @@ void vector<T>::swap(vector<T>& second)
 {
     using std::swap;
 
-    swap(this->data_, second.data_); 
+    swap(this->data_, second.data_);
     swap(this->config_, second.config_);
 
     swap(this->incr_, second.incr_);
@@ -66,6 +66,7 @@ template <typename T>
 inline vector<T>::
 ~vector()
 {
+    std::cout << "Vect destructor\n";
     if (data_ != NULL)
     {
         FREE (data_);
@@ -178,6 +179,6 @@ vector<T>& vector<T>::slice (unsigned from, unsigned to, unsigned stride)
     from_ = from;
     to_ = to;
     stride_ = stride;
-    
+
     return *this;
 }

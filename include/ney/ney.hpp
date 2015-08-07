@@ -6,6 +6,8 @@
 #include "new_vector.hpp"
 #include "replace.hpp"
 #include "swap.hpp"
+#include "unique.hpp"
+#include "sort.hpp"
 #include "compare.hpp"
 #include "count.hpp"
 #include "apply.hpp"

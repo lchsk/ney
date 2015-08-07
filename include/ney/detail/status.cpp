@@ -119,6 +119,33 @@ status::status(const swap<T>& obj)
     RUN_FUNCTION
 }
 
+template <typename T>
+status::status(const unique<T>& obj)
+{
+    INIT_FUNCTION
+
+    if (obj.out_ == NULL)
+    {
+        error_msg_ = "use output() to specify the output vector";
+
+        return;
+    }
+
+    success_ = true;
+
+    RUN_FUNCTION
+}
+
+template <typename T>
+status::status(const sort<T>& obj)
+{
+    INIT_FUNCTION
+
+    success_ = true;
+
+    RUN_FUNCTION
+}
+
 
 template <typename T>
 status::status(const compare<T>& obj)

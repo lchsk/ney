@@ -28,7 +28,7 @@
 |(parallel) file opening||
 |matrix||
 |map||
-|mergesort||
+|mergesort|yes|
 |bitonic sort||
 |words count using library||
 |compile with gcc|yes|

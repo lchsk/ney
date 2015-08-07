@@ -47,6 +47,14 @@ class status
 
         template <typename T> status(const swap<T>& obj);
 
+        //! Invokes `ney::unique()`
+
+        template <typename T> status(const unique<T>& obj);
+
+        //! Invokes `ney::sort()`
+
+        template <typename T> status(const sort<T>& obj);
+
         //! Returns how long a function took to finish (in seconds). To work correctly, first `time()` needs to be called on the function itself
 
         double time() const;
