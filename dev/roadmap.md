@@ -1,18 +1,19 @@
-|Name|Xeon/XeonPhi|CUDA|Unit tests|Docs|Wiki|
+|Name|Xeon/XeonPhi|Intel - optimised|CUDA|Unit tests|Docs|Wiki|
 |---|---|---|---|---|---|
-|`vector`|yes||yes|yes|
-|`status`|yes||yes|yes|
-|`fill`|yes||yes|yes|
-|`config`|yes||yes|yes|
-|`time measurement`|yes||yes|yes|
-|`random`|yes||yes|yes|
-|`replace`|yes||yes|yes|
-|`reduce`|yes||yes|yes|
-|`count`|yes||yes|yes|
-|`apply`|yes||yes|yes|
-|`compare`|yes||yes|yes|
-|`slice`|yes||yes|yes|
-|`swap`|yes|||yes||
+|`vector`|yes|||yes|yes|
+|`status`|yes|||yes|yes|
+|`fill`|yes|||yes|yes|
+|`config`|yes|||yes|yes|
+|`time measurement`|yes|||yes|yes|
+|`random`|yes|||yes|yes|
+|`replace`|yes|||yes|yes|
+|`reduce`|yes|||yes|yes|
+|`count`|yes|||yes|yes|
+|`apply`|yes|||yes|yes|
+|`compare`|yes|||yes|yes|
+|`slice`|yes|||yes|yes|
+|`swap`|yes||||yes||
+|`sort`|yes||||yes||
 |`unique`|
 |`group_by`|
 |`reduce_by`|
