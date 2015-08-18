@@ -13,8 +13,8 @@
 |`compare`|yes|||yes|yes|
 |`slice`|yes|||yes|yes|
 |`swap`|yes||||yes||
-|`sort`|yes||||yes||
-|`unique`|
+|`sort`|yes|||yes|yes||
+|`unique`|yes|||yes|yes|
 |`group_by`|
 |`reduce_by`|
 

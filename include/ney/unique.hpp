@@ -18,9 +18,7 @@ class unique : public base_operation<T, unique>
 
         ~unique(){};
 
-        //! Output vector
-
-        unique& output(vector<T>& v);
+        // unique& output(vector<T>& v);
 
         //! Runs a function. Should be called by a status object. Alternatively, can be called openly if status object is not used
 

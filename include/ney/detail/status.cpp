@@ -124,12 +124,13 @@ status::status(const unique<T>& obj)
 {
     INIT_FUNCTION
 
-    if (obj.out_ == NULL)
-    {
-        error_msg_ = "use output() to specify the output vector";
-
-        return;
-    }
+    // currently no output vector can be specified
+    // if (obj.out_ == NULL)
+    // {
+    //     error_msg_ = "use output() to specify the output vector";
+    //
+    //     return;
+    // }
 
     success_ = true;
 

@@ -9,7 +9,7 @@
     Tests of basic operations.
 */
 
-TEST(AdvanedOperations, Reduce)
+TEST(AdvancedOperations, Reduce)
 {
     // Set up everything
 
@@ -68,7 +68,7 @@ TEST(AdvanedOperations, Reduce)
     EXPECT_EQ(result_i, 16);
 }
 
-TEST(AdvanedOperations, Compare)
+TEST(AdvancedOperations, Compare)
 {
     // Set up everything
 
@@ -130,7 +130,7 @@ TEST(AdvanedOperations, Compare)
     EXPECT_TRUE(o[4]);
 }
 
-int main (int argc, char** argv) 
+int main (int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
 

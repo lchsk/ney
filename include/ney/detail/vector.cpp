@@ -66,7 +66,6 @@ template <typename T>
 inline vector<T>::
 ~vector()
 {
-    std::cout << "Vect destructor\n";
     if (data_ != NULL)
     {
         FREE (data_);
