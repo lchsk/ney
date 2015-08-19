@@ -226,6 +226,96 @@ TEST(BasicOperations, Replace)
     EXPECT_EQ(count, 2);
 }
 
+TEST(BasicOperations, Swap)
+{
+    ney::status s;
+
+    ney::vector<double> v1 = ney::new_vector().size(5);
+    ney::vector<double> v2 = ney::new_vector().size(6);
+
+    v1 << 2.1 << 5.2 << 6.6 << -0.01 << 30.5;
+    v2 << 0.2 << 0.5 << 0.2 << 0.67 << 0.23 << 0.21;
+
+    // test swapping values inside a single vector
+
+    s = ney::swap<double>().vector1(v1);
+
+    EXPECT_TRUE(s.success());
+
+    EXPECT_DOUBLE_EQ(v1[0], 6.6);
+    EXPECT_DOUBLE_EQ(v1[1], -0.01);
+    EXPECT_DOUBLE_EQ(v1[2], 2.1);
+    EXPECT_DOUBLE_EQ(v1[3], 5.2);
+    EXPECT_DOUBLE_EQ(v1[4], 30.5);
+
+    s = ney::swap<double>().vector1(v2);
+
+    EXPECT_TRUE(s.success());
+
+    EXPECT_DOUBLE_EQ(v2[0], 0.67);
+    EXPECT_DOUBLE_EQ(v2[1], 0.23);
+    EXPECT_DOUBLE_EQ(v2[2], 0.21);
+    EXPECT_DOUBLE_EQ(v2[3], 0.2);
+    EXPECT_DOUBLE_EQ(v2[4], 0.5);
+    EXPECT_DOUBLE_EQ(v2[5], 0.2);
+
+    // test swapping two vectors
+
+    v1.reset();
+    v2.reset();
+
+    // change size of v1
+
+    v1 = ney::new_vector().size(6);
+
+    EXPECT_EQ(v1.size(), 6);
+    EXPECT_EQ(v1.length(), 6);
+
+    v1 << 0.1 << 0.2 << 0.3 << 0.4 << 0.5 << 0.6;
+    v2 << 1.1 << 1.2 << 1.3 << 1.4 << 1.5 << 1.6;
+
+    s = ney::swap<double>().vector1(v1).vector2(v2);
+
+    EXPECT_DOUBLE_EQ(v1[0], 1.1);
+    EXPECT_DOUBLE_EQ(v1[1], 1.2);
+    EXPECT_DOUBLE_EQ(v1[2], 1.3);
+    EXPECT_DOUBLE_EQ(v1[3], 1.4);
+    EXPECT_DOUBLE_EQ(v1[4], 1.5);
+    EXPECT_DOUBLE_EQ(v1[5], 1.6);
+
+    EXPECT_DOUBLE_EQ(v2[0], 0.1);
+    EXPECT_DOUBLE_EQ(v2[1], 0.2);
+    EXPECT_DOUBLE_EQ(v2[2], 0.3);
+    EXPECT_DOUBLE_EQ(v2[3], 0.4);
+    EXPECT_DOUBLE_EQ(v2[4], 0.5);
+    EXPECT_DOUBLE_EQ(v2[5], 0.6);
+
+    // check swapping with a slice
+
+    v1.reset();
+    v2.reset();
+
+    v1 << 0.1 << 0.2 << 0.3 << 0.4 << 0.5 << 0.6;
+    v2 << 1.1 << 1.2 << 1.3 << 1.4 << 1.5 << 1.6;
+
+    s = ney::swap<double>().vector1(v1.stride(2)).vector2(v2.stride(2));
+
+    EXPECT_DOUBLE_EQ(v1[0], 1.1);
+    EXPECT_DOUBLE_EQ(v1[1], 0.2);
+    EXPECT_DOUBLE_EQ(v1[2], 1.3);
+    EXPECT_DOUBLE_EQ(v1[3], 0.4);
+    EXPECT_DOUBLE_EQ(v1[4], 1.5);
+    EXPECT_DOUBLE_EQ(v1[5], 0.6);
+
+    EXPECT_DOUBLE_EQ(v2[0], 0.1);
+    EXPECT_DOUBLE_EQ(v2[1], 1.2);
+    EXPECT_DOUBLE_EQ(v2[2], 0.3);
+    EXPECT_DOUBLE_EQ(v2[3], 1.4);
+    EXPECT_DOUBLE_EQ(v2[4], 0.5);
+    EXPECT_DOUBLE_EQ(v2[5], 1.6);
+
+}
+
 int main (int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

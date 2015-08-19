@@ -1,5 +1,5 @@
 |Name|Xeon/XeonPhi|Intel - optimised|CUDA|Unit tests|Docs|Wiki|
-|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|
 |`vector`|yes|||yes|yes|
 |`status`|yes|||yes|yes|
 |`fill`|yes|||yes|yes|
@@ -12,7 +12,7 @@
 |`apply`|yes|||yes|yes|
 |`compare`|yes|||yes|yes|
 |`slice`|yes|||yes|yes|
-|`swap`|yes||||yes||
+|`swap`|yes|||yes|yes||
 |`sort`|yes|||yes|yes||
 |`unique`|yes|||yes|yes|
 |`group_by`|
