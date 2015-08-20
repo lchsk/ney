@@ -23,17 +23,25 @@ inline vector<T>::
 vector(const vector<T>& that)
 {
     config_ = that.config_;
+    config_.size_ = that.length();
 
     #if ALIGNMENT_OK
-        data_ = (T*) MALLOC (sizeof (T*) * config_.size_, ALIGN);
+        data_ = (T*) MALLOC (sizeof (T*) * that.length(), ALIGN);
     #else
-        data_ = (T*) MALLOC (sizeof (T*) * config_.size_);
+        data_ = (T*) MALLOC (sizeof (T*) * that.length());
     #endif
 
-    for (int i = 0; i < config_.size_; i++)
+    int j = 0;
+
+    for (int i = that.from(); i < that.to(); i += that.stride())
     {
-        data_[i] = that[i];
+        data_[j++] = that[i];
     }
+
+    // for (int i = 0; i < config_.size_; i++)
+    // {
+    //     data_[i] = that[i];
+    // }
 
     this->reset();
 }

@@ -21,7 +21,7 @@
 
 ####Stuff:
 
-|||
+|What|Done|
 |---|---|
 |vector (copy constructor, =, destructor)|yes|
 |status default constructor, printing out|yes|
@@ -31,7 +31,6 @@
 |matrix||
 |map||
 |mergesort|yes|
-|bitonic sort||
 |adding two vector|yes|
 |words count using library||
 |compile with gcc|yes|
@@ -41,7 +40,7 @@
 |fabs in comparisons|yes|
 |std::string as T||
 |validation of parameters|yes|
-|conditional `swap`)|yes|
+|conditional `swap`|yes|
 |redistribute||
 |offloading||
 |parallelisation||
@@ -52,3 +51,4 @@
 |---|---|
 |Character count|yes|
 |Word count||
+|Bitonic sort|yes|

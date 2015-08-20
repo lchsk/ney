@@ -1,7 +1,7 @@
 #include <iostream>
 #include "../../include/ney/ney.hpp"
 
-// A simple program that opens a text file, changes text to lowercase and counts occurences of each letter
+//! A simple program that opens a text file, changes text to lowercase and counts occurences of each letter
 
 int main (int argc, char** argv)
 {

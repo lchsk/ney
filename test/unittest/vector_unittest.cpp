@@ -69,13 +69,13 @@ TEST(VectorTests, Advanced)
     // Invoke copy-constructor
     // Data from v2 should be in v3
 
-    ney::vector<int> v3(v2);
+    ney::vector<int> v3(v2.reset());
+
     EXPECT_EQ(v3[0], 500);
     EXPECT_EQ(v3[1], 400);
     EXPECT_EQ(v3[2], 300);
 
-    // Copy-constructor does not copy slice information, but instead
-    // resets it to default values.
+    // Copy-constructor does copy slice information
 
     EXPECT_EQ(v2.reset().length(), v3.length());
 
