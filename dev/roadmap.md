@@ -49,4 +49,5 @@
 
 |Algorithm|Done|
 |---|---|
+|Character count|yes|
 |Word count||

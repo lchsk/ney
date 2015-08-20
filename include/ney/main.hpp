@@ -130,7 +130,7 @@ static const std::string target_array[] =
 namespace operation
 {
     enum operation_t
-    {   
+    {
         none = 1,
         add = 2, // addition
         mul = 3  // multiplication
@@ -145,7 +145,15 @@ namespace function
     {
         none = 100,
         sine = 101,
-        cosine = 102
+        cosine = 102,
+
+        // changes chars to lowercase
+
+        lower = 103,
+
+        // changes chars to uppercase
+
+        upper = 104
     };
 }
 

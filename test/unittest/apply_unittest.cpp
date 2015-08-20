@@ -9,7 +9,7 @@
     Tests of basic operations.
 */
 
-TEST(AdvanedOperations, ApplyInt)
+TEST(Apply, ApplyInt)
 {
     // Set up everything
 
@@ -183,7 +183,44 @@ TEST(AdvanedOperations, ApplyInt)
     EXPECT_EQ(oi[4], 18);
 }
 
-TEST(AdvanedOperations, ApplyDouble)
+TEST(Apply, ApplyOnText)
+{
+    ney::status s;
+
+    ney::vector<char> text = ney::new_vector().size(6);
+
+    text << 'a' << 'B' << 'z' << 'X' << 'y' << 'F';
+
+    s = ney::apply<char>(ney::function::lower).vector1(text);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(text[0], 'a');
+    EXPECT_EQ(text[1], 'b');
+    EXPECT_EQ(text[2], 'z');
+    EXPECT_EQ(text[3], 'x');
+    EXPECT_EQ(text[4], 'y');
+    EXPECT_EQ(text[5], 'f');
+
+    text.reset();
+
+    text << 'a' << 'B' << 'z' << 'X' << 'y' << 'F';
+
+    s = ney::apply<char>(ney::function::upper).vector1(text);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(text[0], 'A');
+    EXPECT_EQ(text[1], 'B');
+    EXPECT_EQ(text[2], 'Z');
+    EXPECT_EQ(text[3], 'X');
+    EXPECT_EQ(text[4], 'Y');
+    EXPECT_EQ(text[5], 'F');
+}
+
+TEST(Apply, ApplyDouble)
 {
     // Set up everything
 
@@ -360,7 +397,7 @@ TEST(AdvanedOperations, ApplyDouble)
     EXPECT_NEAR(oi[4], 10.84, ERROR);
 }
 
-int main (int argc, char** argv) 
+int main (int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
 

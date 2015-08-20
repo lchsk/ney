@@ -4,8 +4,8 @@
 
 template <typename T>
 inline apply<T>::
-apply(operation::operation_t op) : 
-    op_(op), 
+apply(operation::operation_t op) :
+    op_(op),
     f_(function::none),
     output_(NULL),
     v1_(NULL),
@@ -16,8 +16,8 @@ apply(operation::operation_t op) :
 
 template <typename T>
 inline apply<T>::
-apply(function::function_t f) : 
-    f_(f), 
+apply(function::function_t f) :
+    f_(f),
     op_(operation::none),
     output_(NULL),
     v1_(NULL),
@@ -70,7 +70,7 @@ inline
 void apply<T>::run() const
 {
     if (ney::config.target == Intel)
-    {   
+    {
         if (output_ == NULL)
             output_ = v1_;
 
@@ -89,6 +89,22 @@ void apply<T>::run() const
             for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
             {
                 (*output_)[i] = cos((*v1_)[i]);
+            }
+        }
+        else if (f_ == function::lower)
+        {
+            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+            {
+                if ((*v1_)[i] >= 'A' && (*v1_)[i] <= 'Z')
+                    (*output_)[i] = (*v1_)[i] + 32;
+            }
+        }
+        else if (f_ == function::upper)
+        {
+            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+            {
+                if ((*v1_)[i] >= 'a' && (*v1_)[i] <= 'z')
+                    (*output_)[i] = (*v1_)[i] - 32;
             }
         }
 
@@ -129,7 +145,7 @@ void apply<T>::run() const
         }
         // Use case 4
         else if (use_scalar_ && v1_ != NULL)
-        {   
+        {
             if (op_ == operation::add)
             {
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
