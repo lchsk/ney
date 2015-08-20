@@ -35,13 +35,13 @@
 |adding two vector|yes|
 |words count using library||
 |compile with gcc|yes|
-|predicate functions||
+|`condition` in `base_operation`|yes|
 |read number of phis|yes|
 |sequence||
 |fabs in comparisons|yes|
 |std::string as T||
 |validation of parameters|yes|
-|predicate function (at least in `swap`)||
+|conditional `swap`)|yes|
 |redistribute||
 |offloading||
 |parallelisation||

@@ -16,6 +16,7 @@ class base_operation
 
         virtual Derived<T>& time();
         virtual Derived<T>& precision(T precision);
+        virtual Derived<T>& condition(bool (*cond)(const T*, const T*));
 
         void detect_data_type();
 
@@ -24,11 +25,11 @@ class base_operation
     protected:
         bool is_integer_;
         T precision_;
+        bool (*cond_)(const T*, const T*);
 
     private:
         friend class status;
         bool time_;
-        
 };
 
 #include "detail/base_operation.cpp"

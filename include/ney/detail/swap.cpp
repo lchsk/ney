@@ -38,15 +38,33 @@ void swap<T>::run() const
 
             int d = floor((v1_->to() - v1_->from()) / 2.0);
 
-            for (int i = v1_->from(); i < d; i += v1_->stride())
-                std::swap((*v1_)[i + d], (*v1_)[i]);
+            if (this->cond_ == NULL)
+            {
+                for (int i = v1_->from(); i < d; i += v1_->stride())
+                    std::swap((*v1_)[i + d], (*v1_)[i]);
+            }
+            else
+            {
+                for (int i = v1_->from(); i < d; i += v1_->stride())
+                    if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
+                        std::swap((*v1_)[i + d], (*v1_)[i]);
+            }
         }
         else
         {
             // swap elements in two vectors
 
-            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                std::swap((*v1_)[i], (*v2_)[i]);
+            if (this->cond_ == NULL)
+            {
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    std::swap((*v1_)[i], (*v2_)[i]);
+            }
+            else
+            {
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    if (this->cond_(&(*v1_)[i], &(*v2_)[i]))
+                        std::swap((*v1_)[i], (*v2_)[i]);
+            }
         }
     }
     else if (ney::config.target == GPU)

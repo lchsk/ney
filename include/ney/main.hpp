@@ -125,6 +125,29 @@ static const std::string target_array[] =
     "GPU",
 };
 
+//! List of available `condition`s. They can be added to functions (eg. swap) to control the behaviour
+
+namespace condition
+{
+    template <typename T>
+    inline bool gt(const T* a, const T* b)
+    {
+        if (*a > *b)
+            return true;
+        else
+            return false;
+    }
+
+    template <typename T>
+    inline bool lt(const T* a, const T* b)
+    {
+        if (*a < *b)
+            return true;
+        else
+            return false;
+    }
+}
+
 //! List of available `operation`s. Each operation is executed on two operands
 
 namespace operation

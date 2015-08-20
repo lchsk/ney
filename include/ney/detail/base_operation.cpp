@@ -3,7 +3,7 @@
 
 template <class T, template <typename> class Derived>
 inline
-base_operation<T, Derived>::base_operation() : time_(false), is_integer_(true)
+base_operation<T, Derived>::base_operation() : time_(false), is_integer_(true), cond_(NULL)
 {}
 
 template <class T, template <typename> class Derived>
@@ -32,4 +32,12 @@ inline void base_operation<T, Derived>::detect_data_type()
         is_integer_ = false;
         precision_ = 0.00001;
     }
+}
+
+template <class T, template <typename> class Derived>
+inline Derived<T>& base_operation<T, Derived>::condition(bool (*cond)(const T*, const T*))
+{
+    cond_ = cond;
+
+    return static_cast<Derived<T> &>(*this);
 }
