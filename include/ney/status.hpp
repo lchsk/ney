@@ -55,6 +55,10 @@ class status
 
         template <typename T> status(const sort<T>& obj);
 
+        //! Invokes `ney::open()`
+
+        template <typename T> status(const open<T>& obj);
+
         //! Returns how long a function took to finish (in seconds). To work correctly, first `time()` needs to be called on the function itself
 
         double time() const;

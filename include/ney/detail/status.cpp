@@ -7,6 +7,8 @@
     #include <sys/time.h>
 #endif
 
+#include <sys/stat.h>
+
 #define START_TIMING if (obj.time_) engine_.start();
 #define END_TIMING if (obj.time_) engine_.end();
 #define RUN_FUNCTION START_TIMING \
@@ -147,6 +149,30 @@ status::status(const sort<T>& obj)
     RUN_FUNCTION
 }
 
+template <typename T>
+status::status(const open<T>& obj)
+{
+    INIT_FUNCTION
+
+    struct stat buffer;
+    if (stat (obj.path_.c_str(), &buffer) != 0)
+    {
+        error_msg_ = "file " + obj.path_ + " does not exist";
+
+        return;
+    }
+
+    if (obj.v_ == NULL)
+    {
+        error_msg_ = "use vector() to specify the output vector";
+
+        return;
+    }
+
+    success_ = true;
+
+    RUN_FUNCTION
+}
 
 template <typename T>
 status::status(const compare<T>& obj)

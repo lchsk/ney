@@ -13,5 +13,6 @@
 #include "apply.hpp"
 #include "fill.hpp"
 #include "reduce.hpp"
+#include "open.hpp"
 #include "random.hpp"
 #include "status.hpp"

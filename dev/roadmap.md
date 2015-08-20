@@ -15,6 +15,7 @@
 |`swap`|yes|||yes|yes||
 |`sort`|yes|||yes|yes||
 |`unique`|yes|||yes|yes|
+|`open`|yes|||yes|yes|
 |`group_by`|
 |`reduce_by`|
 
@@ -26,7 +27,7 @@
 |status default constructor, printing out|yes|
 |a separate class for timing|yes|
 |global timer (clock)|yes|
-|(parallel) file opening||
+|parallel file opening||
 |matrix||
 |map||
 |mergesort|yes|

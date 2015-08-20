@@ -39,6 +39,20 @@ vector(const vector<T>& that)
 }
 
 template <typename T>
+inline vector<T>::
+vector()
+    :
+    // config_(NULL)
+    // ,
+    incr_(0)
+    , from_(0)
+    , to_(0)
+    , stride_(1)
+{
+    data_ = NULL;
+}
+
+template <typename T>
 inline
 void vector<T>::swap(vector<T>& second)
 {

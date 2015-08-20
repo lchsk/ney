@@ -4,3 +4,4 @@
 ./apply_unittest
 ./other_unittest
 ./sort_unittest
+./io_unittest
