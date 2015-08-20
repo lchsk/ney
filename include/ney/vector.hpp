@@ -67,6 +67,8 @@ class vector
 
         T operator[] (unsigned index) const;
 
+        vector operator+(const vector& v) const;
+
         //! Sets a starting point for a slice
 
         vector& from (unsigned x);

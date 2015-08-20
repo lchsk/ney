@@ -32,6 +32,7 @@
 |map||
 |mergesort|yes|
 |bitonic sort||
+|adding two vector|yes|
 |words count using library||
 |compile with gcc|yes|
 |predicate functions||

@@ -148,6 +148,25 @@ inline T vector<T>::operator[] (unsigned index) const
 }
 
 template <typename T>
+inline vector<T> vector<T>::operator+(const vector<T>& v) const
+{
+    vector<T> out_ = new_vector().size(this->length() + v.length());
+    int j = 0;
+
+    for (int i = from_; i < to_; i += stride_)
+    {
+        out_[j++] = data_[i];
+    }
+
+    for (int i = v.from(); i < v.to(); i += v.stride())
+    {
+        out_[j++] = v.data_[i];
+    }
+
+    return out_;
+}
+
+template <typename T>
 inline vector<T>& vector<T>::from (unsigned x)
 {
     from_ = x;

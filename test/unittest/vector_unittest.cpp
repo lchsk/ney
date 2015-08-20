@@ -76,7 +76,7 @@ TEST(VectorTests, Advanced)
 
     // Copy-constructor does not copy slice information, but instead
     // resets it to default values.
-    
+
     EXPECT_EQ(v2.reset().length(), v3.length());
 
     v2.stride(2);
@@ -89,6 +89,36 @@ TEST(VectorTests, Advanced)
     EXPECT_EQ(v2.size(), v3.size());
     EXPECT_EQ(v2[0], 1000);
     EXPECT_EQ(v3[0], 1000);
+
+    // Checks if concatenating two vectors works correctly
+
+    ney::vector<int> v_add1 = ney::new_vector().size(5);
+    ney::vector<int> v_add2 = ney::new_vector().size(6);
+
+    ney::vector<int> v_out;
+
+    v_add1 << 1 << 2 << 3 << 4 << 5;
+    v_add2 << 6  << 7 << 8 << 9 << 10 << 11;
+
+    v_out = v_add1 + v_add2;
+
+    EXPECT_EQ(v_add1.length(), 5);
+    EXPECT_EQ(v_add2.length(), 6);
+    EXPECT_EQ(v_out.length(), 11);
+
+    for (int i = 1; i <= 11; i++)
+        EXPECT_EQ(v_out[i - 1], i);
+
+    // two vectors added with slicing
+
+    v_out = v_add1.stride(2) + v_add2.from(1).to(4);
+
+    EXPECT_EQ(v_out[0], 1);
+    EXPECT_EQ(v_out[1], 3);
+    EXPECT_EQ(v_out[2], 5);
+    EXPECT_EQ(v_out[3], 7);
+    EXPECT_EQ(v_out[4], 8);
+    EXPECT_EQ(v_out[5], 9);
 }
 
 int main (int argc, char** argv) {
