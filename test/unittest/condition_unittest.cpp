@@ -183,6 +183,62 @@ TEST(Condition, UsersFunction)
     EXPECT_EQ(v2[4], 44);
 }
 
+TEST(Condition, CompareCondition)
+{
+    ney::status s;
+
+    ney::vector<int> v1 = ney::new_vector().size(5);
+    ney::vector<int> v2 = ney::new_vector().size(5);
+    ney::vector<bool> o = ney::new_vector().size(5);
+
+    v1 << 7 << 2 << 7 << 2 << 44;
+    v2 << 9 << 2 << 6 << 8 << 24;
+
+    // check simple GT comparison
+
+    s = ney::compare<int>().vector1(v1).vector2(v2).output(o).condition(ney::condition::gt);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(o[0], false);
+    EXPECT_EQ(o[1], false);
+    EXPECT_EQ(o[2], true);
+    EXPECT_EQ(o[3], false);
+    EXPECT_EQ(o[4], true);
+
+    s = ney::compare<int>().vector1(v1).vector2(v2).output(o).condition(ney::condition::lt);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(o[0], true);
+    EXPECT_EQ(o[1], false);
+    EXPECT_EQ(o[2], false);
+    EXPECT_EQ(o[3], true);
+    EXPECT_EQ(o[4], false);
+
+    // check compare function with text and condition
+
+    ney::vector<char> t1 = ney::new_vector().size(5);
+    ney::vector<char> t2 = ney::new_vector().size(5);
+
+    t1 << 'a' << ' ' << 'b' << 'z' << ' ';
+    t2 << ' ' << 'i' << 'b' << '\n' << 'b';
+
+    s = ney::compare<char>().vector1(t1).vector2(t2).output(o).condition(ney::condition::letter_space);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(o[0], true);
+    EXPECT_EQ(o[1], false);
+    EXPECT_EQ(o[2], false);
+    EXPECT_EQ(o[3], true);
+    EXPECT_EQ(o[4], false);
+}
+
+
 int main (int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);

@@ -29,14 +29,14 @@ class compare : public base_operation<T, compare>
         //! Output vector of boolean values
 
         compare& output(vector<bool>& output);
-        
+
         //! Runs a function. It should be called from a status object
         void run() const;
 
     private:
         friend class status;
         vector<T>* v1_;
-        vector<T>* v2_;
+        mutable vector<T>* v2_;
         vector<bool>* output_;
 };
 

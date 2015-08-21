@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../include/ney/ney.hpp"
+#include "../include/ney/ney.hpp"
 
 //! A simple program that opens a text file, changes text to lowercase and counts occurences of each letter
 
@@ -18,7 +18,7 @@ int main (int argc, char** argv)
 
     // open file
 
-    s = ney::open<char>("../data/file1.txt").output(text);
+    s = ney::open<char>("./data/file1.txt").output(text);
 
     // to lowercase
 

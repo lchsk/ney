@@ -50,5 +50,6 @@
 |Algorithm|Done|
 |---|---|
 |Character count|yes|
-|Word count||
+|Word count|yes|
 |Bitonic sort|yes|
+|Word occurences||

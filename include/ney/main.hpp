@@ -129,6 +129,8 @@ static const std::string target_array[] =
 
 namespace condition
 {
+    //! Returns true if a is greater than b
+
     template <typename T>
     inline bool gt(const T* a, const T* b)
     {
@@ -138,10 +140,34 @@ namespace condition
             return false;
     }
 
+    //! Returns true if a is less than b
+
     template <typename T>
     inline bool lt(const T* a, const T* b)
     {
         if (*a < *b)
+            return true;
+        else
+            return false;
+    }
+
+    //! Returns true if the argument is a letter
+
+    template <typename T>
+    inline bool letter(const T* a)
+    {
+        if ((*a >= 'a' && *a <= 'z') || (*a >= 'A' && *a <= 'Z'))
+            return true;
+        else
+            return false;
+    }
+
+    //! Returns true if the first argument is a letter and second is not
+
+    template <typename T>
+    inline bool letter_space(const T* a, const T* b)
+    {
+        if (letter(a) && ! letter(b))
             return true;
         else
             return false;

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../../include/ney/ney.hpp"
+#include "../include/ney/ney.hpp"
 
 //! Bitonic sort implementation
 

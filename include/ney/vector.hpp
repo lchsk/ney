@@ -17,6 +17,8 @@ class vector
 {
     template <typename T1>
     friend class open;
+    template <typename T1>
+    friend class compare;
 
     public:
 
