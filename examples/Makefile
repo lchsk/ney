@@ -1,6 +1,6 @@
 CXXFLAGS = -fopenmp
 
-EXAMPLES = bitonic_sort charcount_vector wordcount saxpy
+EXAMPLES = bitonic_sort charcount_vector wordcount saxpy weld_triangles
 
 all : $(EXAMPLES)
 
@@ -18,3 +18,6 @@ wordcount :
 
 saxpy :
 	$(CXX) saxpy.cpp $(CXXFLAGS) -o saxpy
+
+weld_triangles :
+	$(CXX) weld_triangles.cpp $(CXXFLAGS) -o weld_triangles
