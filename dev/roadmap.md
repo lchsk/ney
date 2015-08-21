@@ -53,3 +53,4 @@
 |Word count|yes|
 |Bitonic sort|yes|
 |Word occurences||
+|saxpy|yes|

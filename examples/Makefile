@@ -1,6 +1,6 @@
 CXXFLAGS = -fopenmp
 
-EXAMPLES = bitonic_sort charcount_vector wordcount
+EXAMPLES = bitonic_sort charcount_vector wordcount saxpy
 
 all : $(EXAMPLES)
 
@@ -15,3 +15,6 @@ charcount_vector :
 
 wordcount :
 	$(CXX) wordcount.cpp $(CXXFLAGS) -o wordcount
+
+saxpy :
+	$(CXX) saxpy.cpp $(CXXFLAGS) -o saxpy
