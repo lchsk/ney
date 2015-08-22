@@ -10,13 +10,19 @@ CPP_TEST_FLAGS = -pthread -fopenmp
 
 COVERAGE =
 REPORT =
+# DEBUG = FALSE
+#DBG = $(DEBUG)
 
 ifeq ($(CXX), g++)
-        COVERAGE = --coverage
+    COVERAGE = --coverage
 endif
 
-ifeq ($(CXX), icpc)
-        REPORT = -vec-report6
+# ifeq ($(CXX), icpc)
+# 	REPORT = -vec-report6
+# endif
+
+ifdef DEBUG
+	REPORT = -vec-report6
 endif
 
 TESTS = vector_unittest basic_unittest advanced_unittest apply_unittest other_unittest sort_unittest io_unittest condition_unittest

@@ -1,21 +1,21 @@
 |Name|Xeon/XeonPhi|vectorisation|parallel|offloading|CUDA|Unit tests|Docs|Wiki|
-|---|---|---|---|---|---|---|
-|`vector`|yes|no||yes|yes|
-|`status`|yes|-||yes|yes|
-|`fill`|yes|yes||yes|yes|
-|`config`|yes|-||yes|yes|
-|`time measurement`|yes|-||yes|yes|
-|`random`|yes|yes||yes|yes|
-|`replace`|yes|yes||yes|yes|
-|`reduce`|yes|no||yes|yes|
-|`count`|yes|no||yes|yes|
-|`apply`|yes|yes||yes|yes|
-|`compare`|yes|yes||yes|yes|
-|`slice`|yes|-||yes|yes|
-|`swap`|yes|yes||yes|yes||
-|`sort`|yes|yes||yes|yes||
-|`unique`|yes|no||yes|yes|
-|`open`|yes|no||yes|yes|
+|---|---|---|---|---|---|---|---|---|
+|`vector`|yes|no||||yes|yes|
+|`status`|yes|-||||yes|yes|
+|`fill`|yes|yes||||yes|yes|
+|`config`|yes|-||||yes|yes|
+|`time measurement`|yes|-||||yes|yes|
+|`random`|yes|yes||||yes|yes|
+|`replace`|yes|yes||||yes|yes|
+|`reduce`|yes|no||||yes|yes|
+|`count`|yes|no||||yes|yes|
+|`apply`|yes|yes||||yes|yes|
+|`compare`|yes|yes||||yes|yes|
+|`slice`|yes|-||||yes|yes|
+|`swap`|yes|yes||||yes|yes||
+|`sort`|yes|yes||||yes|yes||
+|`unique`|yes|no||||yes|yes|
+|`open`|yes|no||||yes|yes|
 |`group_by`|
 |`reduce_by`|
 
