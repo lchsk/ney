@@ -13,7 +13,7 @@ class fill : public base_operation<T, fill>
     public:
 
         //! Constructor takes a vector as an argument
-        
+
         fill(vector<T>& a);
 
         ~fill(){};

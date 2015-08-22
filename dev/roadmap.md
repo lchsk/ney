@@ -1,18 +1,18 @@
-|Name|Xeon/XeonPhi|Intel - optimised|CUDA|Unit tests|Docs|Wiki|
+|Name|Xeon/XeonPhi|vectorisation|parallel|offloading|CUDA|Unit tests|Docs|Wiki|
 |---|---|---|---|---|---|---|
 |`vector`|yes|||yes|yes|
 |`status`|yes|||yes|yes|
-|`fill`|yes|||yes|yes|
+|`fill`|yes|yes||yes|yes|
 |`config`|yes|||yes|yes|
 |`time measurement`|yes|||yes|yes|
-|`random`|yes|||yes|yes|
-|`replace`|yes|||yes|yes|
+|`random`|yes|yes||yes|yes|
+|`replace`|yes|yes||yes|yes|
 |`reduce`|yes|||yes|yes|
-|`count`|yes|||yes|yes|
+|`count`|yes|yes*||yes|yes|
 |`apply`|yes|||yes|yes|
 |`compare`|yes|||yes|yes|
 |`slice`|yes|||yes|yes|
-|`swap`|yes|||yes|yes||
+|`swap`|yes|yes||yes|yes||
 |`sort`|yes|||yes|yes||
 |`unique`|yes|||yes|yes|
 |`open`|yes|||yes|yes|
@@ -50,7 +50,7 @@
 |Tool|Done|
 |---|---|
 |vectorisation reports (automatic generation)|yes|
-|python validator||
+|python validator|yes|
 
 #### Examples
 

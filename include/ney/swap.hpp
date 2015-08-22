@@ -23,7 +23,7 @@ class swap : public base_operation<T, swap>
         swap& vector1(vector<T>& v);
 
         //! Second input vector
-        
+
         swap& vector2(vector<T>& v);
 
         //! Runs a function. Should be called by a status object. Alternatively, can be called openly if status object is not used

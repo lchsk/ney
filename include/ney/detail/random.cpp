@@ -30,6 +30,7 @@ void random<T>::run() const
 {
     if (ney::config.target == Intel)
     {
+        #pragma simd
         for (int i = out.from(); i < out.to(); i += out.stride())
             out[i] = min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_)));
 

@@ -32,9 +32,10 @@ inline
 void replace<T>::run() const
 {
     if (ney::config.target == Intel)
-    {   
+    {
         if (this->is_integer_)
         {
+            #pragma simd
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
                 if ((*v_)[i] == old_)
@@ -43,9 +44,9 @@ void replace<T>::run() const
         }
         else
         {
+            #pragma simd
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
-                // if ((*v_)[i] > (old_ - this->precision_) && (*v_)[i] < (old_ + this->precision_))
                 if (fabs((*v_)[i] - old_) < this->precision_)
                     (*v_)[i] = new_;
             }

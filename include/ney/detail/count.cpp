@@ -36,7 +36,8 @@ void count<T>::run() const
     {
         if (this->is_integer_)
         {
-            #pragma simd
+            // cannot vectorise it
+
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
                 if ((*v_)[i] == value_)
@@ -45,9 +46,10 @@ void count<T>::run() const
         }
         else
         {
+            // cannot vectorise it
+            
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
-                // if ((*v_)[i] > (value_ - this->precision_) && (*v_)[i] < (value_ + this->precision_))
                 if (fabs((*v_)[i] - value_) < this->precision_)
                     (*count_)++;
             }

@@ -6,6 +6,7 @@ class Parser(object):
         self.loader = loader
         self.error_c = 0
         self.success_c = 0
+        self.issue_c = 0
 
         self.parse_all_()
         self.print_stats_()
@@ -20,7 +21,7 @@ class Parser(object):
 
     def get_filename_(self, line):
         # path only: [a-z\\/\._]+\.cpp
-        m = re.findall(r'[a-z\\/\._]+\.cpp\([0-9,]+\)', line)
+        m = re.findall(r'[a-z\\/\._]+\.[a-z]{3}\([0-9,]+\)', line)
 
         if m:
             return m[0]
@@ -29,15 +30,21 @@ class Parser(object):
 
     def parse_loop_vec_(self, line):
 
-        show, positive, text = False, False, ''
+        show, positive, text = False, 0, ''
 
-        if 'loop was not vectorized' in line.lower():
+        line_ = line.lower()
+
+        if 'vectorization possible but seems inefficient' in line_:
             show = True
-            positive = False
+            positive = 1
             text = line
-        elif 'was vectorized' in line.lower():
+        elif 'loop was not vectorized' in line_:
             show = True
-            positive = True
+            positive = 0
+            text = line
+        elif 'was vectorized' in line_:
+            show = True
+            positive = 1
             text = line
 
         return show, positive, text
@@ -54,15 +61,23 @@ class Parser(object):
             if result:
                 source_path = result
 
+                if '_unittest' in source_path:
+                    source_path = -1
+
             show, positive, text = self.parse_loop_vec_(line)
 
-            if show:
-                if positive:
+            if show and source_path != -1:
+                if positive == 1:
                     self.success_c += 1
                     printc('SUCCESS ' + str(self.success_c) + ' in ' + str(source_path) + ':', COLORS.GREEN)
                     printc(text.strip(), COLORS.GREEN)
                     print '\n'
-                elif source_path:
+                elif positive == -1:
+                    self.issue_c += 1
+                    printc('ISSUE ' + str(self.issue_c) + ' in ' + str(source_path) + ':', COLORS.YELLOW)
+                    printc(text.strip(), COLORS.YELLOW)
+                    print '\n'
+                elif positive == 0:
                     self.error_c += 1
                     printc('ERROR ' + str(self.error_c) + ' in ' + str(source_path) + ':', COLORS.YELLOW)
                     printc(text.strip(), COLORS.RED)

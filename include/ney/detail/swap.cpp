@@ -40,11 +40,13 @@ void swap<T>::run() const
 
             if (this->cond_ == NULL)
             {
+                #pragma ivdep
                 for (int i = v1_->from(); i < d; i += v1_->stride())
                     std::swap((*v1_)[i + d], (*v1_)[i]);
             }
             else
             {
+                #pragma simd
                 for (int i = v1_->from(); i < d; i += v1_->stride())
                     if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
                         std::swap((*v1_)[i + d], (*v1_)[i]);
@@ -56,11 +58,14 @@ void swap<T>::run() const
 
             if (this->cond_ == NULL)
             {
+                #pragma ivdep
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                     std::swap((*v1_)[i], (*v2_)[i]);
             }
             else
             {
+                #pragma simd
+                #pragma ivdep
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                     if (this->cond_(&(*v1_)[i], &(*v2_)[i]))
                         std::swap((*v1_)[i], (*v2_)[i]);
