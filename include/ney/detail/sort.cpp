@@ -63,6 +63,7 @@ void sort<T>::merge(int low, int mid, int high) const
 
     if(h > mid)
     {
+        #pragma simd
         for(k = j; k <= high; k++)
         {
             (b_)[i] = a_[k];
@@ -71,6 +72,7 @@ void sort<T>::merge(int low, int mid, int high) const
     }
     else
     {
+        #pragma simd
         for(k = h; k <= mid; k++)
         {
             (b_)[i] = a_[k];
@@ -78,6 +80,7 @@ void sort<T>::merge(int low, int mid, int high) const
         }
     }
 
+    #pragma simd
     for(k = low; k <= high; k++)
         a_[k] = (b_)[k];
 }

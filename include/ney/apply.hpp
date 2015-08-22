@@ -13,7 +13,7 @@ NEY_NS_BEGIN
 // };
 
 //! `apply` function can be used in several modes. Can apply a function to the whole vector or apply an operation on two vectors and/or scalar
-/** 
+/**
     Use cases:
 
 (1) apply(sin).vector1(vec1); -> output in vec1
@@ -30,11 +30,11 @@ class apply : public base_operation<T, apply>
 {
     public:
         //! Constructor for use cases 2, 3, 4 (takes an operation constant as an argument)
-        
+
         apply(operation::operation_t op);
 
         //! Constructor fror use case 1 (takes a function constant as an argument)
-        
+
         apply(function::function_t f);
 
         ~apply(){};
@@ -42,20 +42,20 @@ class apply : public base_operation<T, apply>
         //! First input vector
 
         apply& vector1(vector<T>& v);
-        
+
         //! Second input vector
 
         apply& vector2(vector<T>& v);
-        
+
         //! Scalar value that can be used in use cases 3 and 4
 
         apply& value(T value);
-        
+
         //! Redirect output to another vector
         apply& output(vector<T>& v);
 
         //! Runs the function. It should be called from a status object
-        
+
         void run() const;
 
     private:

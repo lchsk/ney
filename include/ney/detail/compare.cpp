@@ -49,6 +49,7 @@ void compare<T>::run() const
         {
             if (this->is_integer_)
             {
+                #pragma simd
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     (*output_)[i] = ((*v1_)[i] == v2_i[i]) ? true : false;
@@ -56,6 +57,7 @@ void compare<T>::run() const
             }
             else
             {
+                #pragma simd
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     (*output_)[i] = (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false;
@@ -64,6 +66,7 @@ void compare<T>::run() const
         }
         else
         {
+            #pragma simd
             for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
             {
                 (*output_)[i] = this->cond_(&(*v1_)[i], &(v2_i[i]));

@@ -12,7 +12,7 @@ template <typename T>
 inline
 reduce<T>& reduce<T>::use(operation::operation_t t)
 {
-    operation_ = t; 
+    operation_ = t;
 
     return *this;
 }
