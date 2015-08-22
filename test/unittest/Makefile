@@ -6,8 +6,18 @@ CPPFLAGS += -isystem $(GTEST_DIR)/include
 
 CXXFLAGS += -g -Wall -Wextra -pthread
 
-CPP_TEST_FLAGS = -pthread -fopenmp --coverage
-#  -fprofile-arcs -ftest-coverage -O0
+CPP_TEST_FLAGS = -pthread -fopenmp
+
+COVERAGE =
+REPORT =
+
+ifeq ($(CXX), g++)
+        COVERAGE = --coverage
+endif
+
+ifeq ($(CXX), icpc)
+        REPORT = -vec-report6
+endif
 
 TESTS = vector_unittest basic_unittest advanced_unittest apply_unittest other_unittest sort_unittest io_unittest condition_unittest
 
@@ -18,6 +28,9 @@ all : gtest.a $(TESTS)
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o
+	rm -f *_report
+	rm -f *.optrpt
+	rm -f *.gcno
 
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 
@@ -37,32 +50,32 @@ gtest_main.a : gtest-all.o gtest_main.o
 
 vector_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	vector_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o vector_unittest
+	vector_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o vector_unittest 2> vector_unittest_report
 
 basic_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	basic_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o basic_unittest
+	basic_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o basic_unittest 2> basic_unittest_report
 
 advanced_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	advanced_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o advanced_unittest
+	advanced_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o advanced_unittest 2> advanced_unittest_report
 
 apply_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	apply_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o apply_unittest
+	apply_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o apply_unittest 2> apply_unittest_report
 
 other_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	other_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o other_unittest
+	other_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o other_unittest 2> other_unittest_report
 
 sort_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	sort_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o sort_unittest
+	sort_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o sort_unittest 2> sort_unittest_report
 
 io_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	io_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o io_unittest
+	io_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o io_unittest 2> io_unittest_report
 
 condition_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
-	condition_unittest.cpp gtest.a $(CPP_TEST_FLAGS) -o condition_unittest
+	condition_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o condition_unittest 2> condition_unittest_report

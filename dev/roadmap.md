@@ -45,6 +45,13 @@
 |offloading||
 |parallelisation||
 
+#### Tools
+
+|Tool|Done|
+|---|---|
+|vectorisation reports (automatic generation)|yes|
+|python validator||
+
 #### Examples
 
 |Algorithm|Done|
@@ -54,3 +61,5 @@
 |Bitonic sort|yes|
 |Word occurences||
 |saxpy|yes|
+|weld triangles|yes|
+|run length encoding||

@@ -1,2 +1,2 @@
-/experiments
+*.pyc
 thirdparty/googletest

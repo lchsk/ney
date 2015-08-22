@@ -33,9 +33,10 @@ inline
 void count<T>::run() const
 {
     if (ney::config.target == Intel)
-    {   
+    {
         if (this->is_integer_)
         {
+            #pragma simd
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
                 if ((*v_)[i] == value_)
