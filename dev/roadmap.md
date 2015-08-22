@@ -51,6 +51,7 @@
 |---|---|
 |vectorisation reports (automatic generation)|yes|
 |python validator|yes|
+|aligned access|yes|
 
 #### Examples
 

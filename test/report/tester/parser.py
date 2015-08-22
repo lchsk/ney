@@ -17,7 +17,8 @@ class Parser(object):
 
     def print_stats_(self):
         print str(len(self.loader.reports)) + ' reports analysed'
-        print str(self.success_c) + ' / ' + str(self.success_c + self.error_c) + ' (' + str(round(float(self.success_c) / float(self.success_c + self.error_c) * 100)) + ' %)'
+        if self.success_c + self.error_c > 0:
+            print str(self.success_c) + ' / ' + str(self.success_c + self.error_c) + ' (' + str(round(float(self.success_c) / float(self.success_c + self.error_c) * 100)) + ' %)'
 
     def get_filename_(self, line):
         # path only: [a-z\\/\._]+\.cpp
@@ -29,6 +30,7 @@ class Parser(object):
             return False
 
     def parse_loop_vec_(self, line):
+        '''Checks for comments regarding loop vectorisation'''
 
         show, positive, text = False, 0, ''
 
@@ -43,6 +45,24 @@ class Parser(object):
             positive = 0
             text = line
         elif 'was vectorized' in line_:
+            show = True
+            positive = 1
+            text = line
+
+        return show, positive, text
+
+    def parse_aligned_access_(self, line):
+        '''Checks for comments regarding aligned access to variables'''
+
+        show, positive, text = False, 0, ''
+
+        line_ = line.lower()
+
+        if 'has unaligned access' in line_:
+            show = True
+            positive = 0
+            text = line
+        elif 'has aligned access' in line_:
             show = True
             positive = 1
             text = line
@@ -65,6 +85,9 @@ class Parser(object):
                     source_path = -1
 
             show, positive, text = self.parse_loop_vec_(line)
+            a_show, a_positive, a_text = self.parse_aligned_access_(line)
+
+            # Loop vectorisation
 
             if show and source_path != -1:
                 if positive == 1:
@@ -83,6 +106,18 @@ class Parser(object):
                     printc(text.strip(), COLORS.RED)
                     print '\n'
 
+            # Aligned access
 
+            if a_show:
+                if a_positive == 1:
+                    self.success_c += 1
+                    printc('SUCCESS ' + str(self.success_c) + ' in ' + str(source_path) + ':', COLORS.GREEN)
+                    printc(a_text.strip(), COLORS.GREEN)
+                    print '\n'
+                elif a_positive == 0:
+                    self.error_c += 1
+                    printc('ERROR ' + str(self.error_c) + ' in ' + str(source_path) + ':', COLORS.YELLOW)
+                    printc(a_text.strip(), COLORS.RED)
+                    print '\n'
 
         f.close()
