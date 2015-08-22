@@ -63,4 +63,5 @@
 |Word occurences||
 |saxpy|yes|
 |weld triangles|yes|
-|run length encoding||
+|run length encoding|yes|
+|pi estimation||
