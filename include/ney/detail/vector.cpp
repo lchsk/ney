@@ -156,6 +156,12 @@ inline T vector<T>::operator[] (unsigned index) const
 }
 
 template <typename T>
+inline T* vector<T>::raw() const
+{
+    return data_;
+}
+
+template <typename T>
 inline vector<T> vector<T>::operator+(const vector<T>& v) const
 {
     vector<T> out_ = new_vector().size(this->length() + v.length());

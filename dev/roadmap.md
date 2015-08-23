@@ -65,3 +65,4 @@
 |weld triangles|yes|
 |run length encoding|yes|
 |pi estimation|yes|
+|image effects|yes|

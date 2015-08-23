@@ -50,6 +50,11 @@ class apply : public base_operation<T, apply>
         //! Scalar value that can be used in use cases 3 and 4
 
         apply& value(T value);
+        apply& d_value(double value);
+
+
+        // template <typename T>
+        // apply& value(double v);
 
         //! Redirect output to another vector
         apply& output(vector<T>& v);
@@ -62,7 +67,14 @@ class apply : public base_operation<T, apply>
         friend class status;
 
         bool use_scalar_;
+        // bool use_value_class_;
+
         T value_;
+        bool use_d_value;
+        double d_value_;
+        // template <typename T1>
+        // double val_;
+
 
         vector<T>* v1_;
         vector<T>* v2_;

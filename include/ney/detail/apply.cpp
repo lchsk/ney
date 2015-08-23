@@ -10,7 +10,8 @@ apply(operation::operation_t op) :
     output_(NULL),
     v1_(NULL),
     v2_(NULL),
-    use_scalar_(false)
+    use_scalar_(false),
+    use_d_value(false)
 {
 }
 
@@ -22,7 +23,8 @@ apply(function::function_t f) :
     output_(NULL),
     v1_(NULL),
     v2_(NULL),
-    use_scalar_(false)
+    use_scalar_(false),
+    use_d_value(false)
 {
 }
 
@@ -54,7 +56,6 @@ apply<T>& apply<T>::output(vector<T>& v)
     return *this;
 }
 
-
 template <typename T>
 inline
 apply<T>& apply<T>::value(T value)
@@ -62,8 +63,40 @@ apply<T>& apply<T>::value(T value)
     value_ = value;
     use_scalar_ = true;
 
+    // if (value != (int)value)
+    // {
+    //     use_d_value = true;
+    //     d_value_ = value;
+    //
+    //     std::cout << "set value: " << d_value_ << "\n";
+    // }
+
     return *this;
 }
+
+template <typename T>
+inline
+apply<T>& apply<T>::d_value(double value)
+{
+    use_d_value = true;
+    d_value_ = value;
+
+    return *this;
+}
+
+// template <typename T>
+// // template <typename T1>
+// inline
+// apply<T>& apply<T>::value(double v)
+// {
+//     // value_ = value;
+//     // use_scalar_ = true;
+//     use_value_class_ = true;
+//     // val_ = (void*)&v;
+//     val_ = v;
+//
+//     return *this;
+// }
 
 template <typename T>
 inline
@@ -169,7 +202,22 @@ void apply<T>::run() const
                     (*output_)[i] = (*v1_)[i] * value_;
             }
         }
-        // }
+        // use ney::value<T1>
+        else if (use_d_value && v1_ != NULL)
+        {
+            if (op_ == operation::add)
+            {
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    (*output_)[i] = (*v1_)[i] + d_value_;
+            }
+            else if (op_ == operation::mul)
+            {
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    (*output_)[i] = (*v1_)[i] * d_value_;
+            }
+        }
 
     }
     else if (ney::config.target == GPU)

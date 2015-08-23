@@ -125,6 +125,19 @@ static const std::string target_array[] =
     "GPU",
 };
 
+template <typename T>
+class value
+{
+
+public:
+    value(T v)
+    {
+        val = v;
+    }
+    T val;
+
+};
+
 //! List of available `condition`s. They can be added to functions (eg. swap) to control the behaviour
 
 namespace condition

@@ -99,6 +99,8 @@ class vector
 
         unsigned stride () const;
 
+        T* raw() const;
+
     private:
 
         //! Stores internal configuration data of a vector

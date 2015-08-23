@@ -1,11 +1,12 @@
 CXXFLAGS = -fopenmp
 
-EXAMPLES = bitonic_sort charcount_vector wordcount saxpy weld_triangles run_length_encoding pi_estimation
+EXAMPLES = bitonic_sort charcount_vector wordcount saxpy weld_triangles run_length_encoding pi_estimation image_effects
 
 all : $(EXAMPLES)
 
 clean :
 	rm -f $(EXAMPLES) *.o *.out
+	rm -f data/cat_*bmp
 
 bitonic_sort :
 	$(CXX) bitonic.cpp $(CXXFLAGS) -o bitonic_sort
@@ -27,3 +28,6 @@ run_length_encoding :
 
 pi_estimation :
 	$(CXX) pi_estimation.cpp $(CXXFLAGS) -o pi_estimation
+
+image_effects :
+	$(CXX) image_effects.cpp $(CXXFLAGS) -o image_effects
