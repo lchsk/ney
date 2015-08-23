@@ -24,9 +24,6 @@ void unique<T>::run() const
 {
     if (ney::config.target == Intel)
     {
-        // if (out_ == NULL)
-        //     out_ = &v_;
-
         ney::status s = ney::sort<T>(v_);
 
         int j = 0;

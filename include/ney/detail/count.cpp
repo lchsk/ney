@@ -38,19 +38,23 @@ void count<T>::run() const
         {
             // cannot vectorise it
 
+            #pragma omp parallel for schedule(static)
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
                 if ((*v_)[i] == value_)
+                    #pragma omp atomic
                     (*count_)++;
             }
         }
         else
         {
             // cannot vectorise it
-            
+
+            #pragma omp parallel for schedule(static)
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
                 if (fabs((*v_)[i] - value_) < this->precision_)
+                    #pragma omp atomic
                     (*count_)++;
             }
         }

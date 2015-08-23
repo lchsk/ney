@@ -49,6 +49,7 @@ void compare<T>::run() const
         {
             if (this->is_integer_)
             {
+                #pragma omp parallel for schedule(static)
                 #pragma simd
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
@@ -57,6 +58,7 @@ void compare<T>::run() const
             }
             else
             {
+                #pragma omp parallel for schedule(static)
                 #pragma simd
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
@@ -66,6 +68,7 @@ void compare<T>::run() const
         }
         else
         {
+            #pragma omp parallel for schedule(static)
             #pragma simd
             for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
             {

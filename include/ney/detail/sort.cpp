@@ -32,8 +32,16 @@ void sort<T>::merge_sort(int low, int high) const
     if(low < high)
     {
         mid = low + (high - low) / 2;
-        merge_sort(low, mid);
-        merge_sort(mid + 1, high);
+
+        // #pragma omp parallel sections
+        {
+            // #pragma omp section
+            merge_sort(low, mid);
+
+            // #pragma omp section
+            merge_sort(mid + 1, high);
+        }
+
         merge(low, mid, high);
     }
 }

@@ -133,6 +133,18 @@ TEST(Sort, MergeSort)
 
     for (int i = 0; i < 5; i++)
         EXPECT_LE(v4[i], v4[i + 1]);
+
+
+    // large examples
+
+    // ney::vector<int> p1 = ney::new_vector().size(10000000);
+    //
+    // s = ney::random<int>(p1).min(0).max(10000);
+    //
+    // ney::clock::get().start();
+    // s = ney::sort<int>(p1);
+    // ney::clock::get().end().print();
+
 }
 
 TEST(Sort, Unique)

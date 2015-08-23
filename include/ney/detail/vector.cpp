@@ -38,11 +38,6 @@ vector(const vector<T>& that)
         data_[j++] = that[i];
     }
 
-    // for (int i = 0; i < config_.size_; i++)
-    // {
-    //     data_[i] = that[i];
-    // }
-
     this->reset();
 }
 

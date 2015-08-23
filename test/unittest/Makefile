@@ -10,7 +10,6 @@ CPP_TEST_FLAGS = -pthread -fopenmp
 
 COVERAGE =
 REPORT =
-DEBUG = 0
 
 ifeq ($(CXX), g++)
     COVERAGE = --coverage

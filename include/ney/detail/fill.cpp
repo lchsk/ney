@@ -23,7 +23,7 @@ void fill<T>::run() const
 {
     if (ney::config.target == Intel)
     {
-        // #pragma omp parallel for
+        #pragma omp parallel for schedule(static)
         #pragma simd
         for (int i = out.from(); i < out.to(); i += out.stride())
             out[i] = value_;

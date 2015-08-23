@@ -41,22 +41,28 @@ void reduce<T>::run() const
 {
     *output_ = init_value_;
 
+    T r = *output_;
+
     if (ney::config.target == Intel)
     {
         if (operation_ == operation::add)
         {
+            #pragma omp parallel for schedule(static) reduction(+:r)
             for (int i = v_.from(); i < v_.to(); i += v_.stride())
             {
-                *output_ += v_[i];
+                r += v_[i];
             }
         }
         else if (operation_ == operation::mul)
         {
+            #pragma omp parallel for schedule(static) reduction(*:r)
             for (int i = v_.from(); i < v_.to(); i += v_.stride())
             {
-                *output_ *= v_[i];
+                r *= v_[i];
             }
         }
+
+        *output_ = r;
     }
     else if (ney::config.target == GPU)
     {

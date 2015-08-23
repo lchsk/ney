@@ -40,6 +40,7 @@ void swap<T>::run() const
 
             if (this->cond_ == NULL)
             {
+                #pragma omp parallel for schedule(static)
                 #pragma simd
                 #pragma ivdep
                 for (int i = v1_->from(); i < d; i += v1_->stride())
@@ -47,6 +48,7 @@ void swap<T>::run() const
             }
             else
             {
+                #pragma omp parallel for schedule(static)
                 #pragma simd
                 for (int i = v1_->from(); i < d; i += v1_->stride())
                     if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
@@ -59,6 +61,7 @@ void swap<T>::run() const
 
             if (this->cond_ == NULL)
             {
+                #pragma omp parallel for schedule(static)
                 #pragma simd
                 #pragma ivdep
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -66,6 +69,7 @@ void swap<T>::run() const
             }
             else
             {
+                #pragma omp parallel for schedule(static)
                 #pragma simd
                 #pragma ivdep
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
