@@ -1,6 +1,6 @@
 CXXFLAGS = -fopenmp
 
-EXAMPLES = bitonic_sort charcount_vector wordcount saxpy weld_triangles run_length_encoding
+EXAMPLES = bitonic_sort charcount_vector wordcount saxpy weld_triangles run_length_encoding pi_estimation
 
 all : $(EXAMPLES)
 
@@ -24,3 +24,6 @@ weld_triangles :
 
 run_length_encoding :
 	$(CXX) run_length_encoding.cpp $(CXXFLAGS) -o run_length_encoding
+
+pi_estimation :
+	$(CXX) pi_estimation.cpp $(CXXFLAGS) -o pi_estimation

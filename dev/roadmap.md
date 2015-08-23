@@ -64,4 +64,4 @@
 |saxpy|yes|
 |weld triangles|yes|
 |run length encoding|yes|
-|pi estimation||
+|pi estimation|yes|
