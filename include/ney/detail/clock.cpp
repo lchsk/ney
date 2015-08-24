@@ -21,6 +21,11 @@ clock& clock::precision(unsigned p)
     return *this;
 }
 
+unsigned clock::precision() const
+{
+    return decimal_places_;
+}
+
 double inline clock::time() const
 {
     return engine_.time();
@@ -28,11 +33,7 @@ double inline clock::time() const
 
 clock& clock::print()
 {
-    std::cout << "clock(total time: " 
-            << std::setiosflags(std::ios::fixed)
-            << std::setprecision(this->decimal_places_)
-            << engine_.time()
-            << " s)" << std::endl;
+    std::cout << "clock(total time: " << std::setiosflags(std::ios::fixed) << std::setprecision(this->decimal_places_) << engine_.time() << " s)" << std::endl;
 
     return *this;
 }

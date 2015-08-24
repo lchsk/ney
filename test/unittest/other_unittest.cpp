@@ -52,6 +52,11 @@ TEST(Other, TimerAndClock)
     ney::clock::get().start();
     usleep(5 * ONE_MS);
     EXPECT_GT(ney::clock::get().end().time(), 4 * ONE_MS / ONE_SECOND);
+
+    // precision
+
+    ney::clock::get().precision(5);
+    EXPECT_EQ(ney::clock::get().precision(), 5);
 }
 
 TEST(Other, StatusTimer)

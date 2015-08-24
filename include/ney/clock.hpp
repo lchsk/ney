@@ -33,7 +33,11 @@ class clock
         //! Set precision for printing
 
         clock& precision(unsigned p);
-        
+
+        //! Return current precision
+
+        unsigned precision() const;
+
         //! Print clock value
 
         clock& print();
