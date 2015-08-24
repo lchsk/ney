@@ -10,8 +10,8 @@ tests:
 	cd $(TEST_DIR) && ./run_tests.sh
 
 coverage:
-	lcov -v
-	lcov --capture --no-external --directory ./test/unittest --output-file coverage.info
+	sudo apt-cache madison lcov
+	lcov --capture --directory ./test/unittest --output-file coverage.info
 	genhtml coverage.info --output-directory out
 
 example:
