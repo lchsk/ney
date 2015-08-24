@@ -1,5 +1,6 @@
 INCLUDE_DIR = ./include/ney
 TEST_DIR = ./test/unittest
+REPORT_DIR = ./test/report
 EXAMPLES_DIR = ./examples
 
 all:
@@ -15,6 +16,12 @@ coverage:
 example:
 	cd $(EXAMPLES_DIR) && $(MAKE)
 
+build_reports:
+	cd $(REPORT_DIR) && ./build.sh
+
+run_reports:
+	cd  $(REPORT_DIR) && python tester.py
+
 docs:
 	doxygen doc/conf
 
@@ -24,8 +31,6 @@ clean:
 	cd $(EXAMPLES_DIR) && $(MAKE) clean
 
 	rm -rf $(INCLUDE_DIR)/*.gch
-	rm -rf test/unittest/*.gcda
-	rm -rf test/unittest/*.gcno
 
 	rm -rf doc/html
 

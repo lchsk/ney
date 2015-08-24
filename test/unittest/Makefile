@@ -33,6 +33,7 @@ clean :
 	rm -f *_report
 	rm -f *.optrpt
 	rm -f *.gcno
+	rm -f *.gcda
 
 GTEST_SRCS_ = $(GTEST_DIR)/src/*.cc $(GTEST_DIR)/src/*.h $(GTEST_HEADERS)
 

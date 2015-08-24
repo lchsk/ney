@@ -55,11 +55,12 @@
 |Algorithm|Done|
 |---|---|
 |Character count|yes|
-|Word count|yes|
+|Words count|yes|
 |Word occurences||
 |Bitonic sort|yes|
-|saxpy|yes|
-|weld triangles|yes|
-|run length encoding|yes|
-|pi estimation|yes|
-|image effects|yes|
+|SAXPY|yes|
+|Weld triangles|yes|
+|Run-length encoding|yes|
+|PI estimation|yes|
+|Image effects|yes|
+|Physics simulation||
