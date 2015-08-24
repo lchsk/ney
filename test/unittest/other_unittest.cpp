@@ -57,6 +57,10 @@ TEST(Other, TimerAndClock)
 
     ney::clock::get().precision(5);
     EXPECT_EQ(ney::clock::get().precision(), 5);
+
+    t1.precision(10);
+    EXPECT_EQ(t1.precision(), 10);
+
 }
 
 TEST(Other, StatusTimer)

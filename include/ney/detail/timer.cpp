@@ -25,6 +25,11 @@ timer& timer::precision(unsigned p)
     return *this;
 }
 
+unsigned timer::precision() const
+{
+    return decimal_places_;
+}
+
 double inline timer::time() const
 {
     return engine_.time();
@@ -32,7 +37,7 @@ double inline timer::time() const
 
 timer& timer::print()
 {
-    std::cout << "timer(total time: " 
+    std::cout << "timer(total time: "
             << std::setiosflags(std::ios::fixed)
             << std::setprecision(this->decimal_places_)
             << engine_.time()

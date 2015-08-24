@@ -10,7 +10,7 @@ tests:
 	cd $(TEST_DIR) && ./run_tests.sh
 
 coverage:
-	lcov --capture --directory ./test/unittest --output-file coverage.info
+	lcov --capture --no-external --directory ./test/unittest --output-file coverage.info
 	genhtml coverage.info --output-directory out
 
 example:

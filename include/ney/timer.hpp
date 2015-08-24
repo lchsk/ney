@@ -29,6 +29,10 @@ class timer
 
         timer& precision(unsigned p);
 
+        //! Returns current timer precision
+
+        unsigned precision() const;
+
         //! print to standard output
 
         timer& print();
