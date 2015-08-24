@@ -395,6 +395,34 @@ TEST(Apply, ApplyDouble)
     EXPECT_NEAR(oi[2], 5.12, ERROR);
     EXPECT_NEAR(oi[3], 5.6, ERROR);
     EXPECT_NEAR(oi[4], 10.84, ERROR);
+
+    // using d_value()
+
+    ney::vector<int> v_int = ney::new_vector().size(5);
+    v_int << 3 << 5 << 1 << 2 << 7;
+
+    s = ney::apply<int>(ney::operation::mul).vector1(v_int).d_value(1.5);
+
+    EXPECT_TRUE(s.success());
+
+    EXPECT_GE(v_int[0], 3);
+    EXPECT_GE(v_int[1], 5);
+    EXPECT_GE(v_int[2], 1);
+    EXPECT_GE(v_int[3], 2);
+    EXPECT_GE(v_int[4], 7);
+
+    v_int.reset();
+    v_int << 3 << 5 << 1 << 2 << 7;
+
+    s = ney::apply<int>(ney::operation::add).vector1(v_int).d_value(1.3);
+
+    EXPECT_TRUE(s.success());
+
+    EXPECT_EQ(v_int[0], 4);
+    EXPECT_EQ(v_int[1], 6);
+    EXPECT_EQ(v_int[2], 2);
+    EXPECT_EQ(v_int[3], 3);
+    EXPECT_EQ(v_int[4], 8);
 }
 
 int main (int argc, char** argv)

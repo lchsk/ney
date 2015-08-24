@@ -72,8 +72,4 @@ void open<T>::run() const
             f.close();
         }
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }

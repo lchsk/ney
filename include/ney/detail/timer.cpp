@@ -37,11 +37,7 @@ double inline timer::time() const
 
 timer& timer::print()
 {
-    std::cout << "timer(total time: "
-            << std::setiosflags(std::ios::fixed)
-            << std::setprecision(this->decimal_places_)
-            << engine_.time()
-            << " s)" << std::endl;
+    std::cout << "timer(total time: " << std::setiosflags(std::ios::fixed) << std::setprecision(this->decimal_places_) << engine_.time() << " s)" << std::endl;
 
     return *this;
 }

@@ -56,8 +56,4 @@ void unique<T>::run() const
             v_.to(j + 1);
         }
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }

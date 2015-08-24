@@ -101,8 +101,4 @@ void sort<T>::run() const
     {
         merge_sort(0, a_.size() - 1);
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }

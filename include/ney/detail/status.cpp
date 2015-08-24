@@ -254,7 +254,7 @@ status::status(const apply<T>& obj)
 
             success_ = true;
         }
-        else if (obj.use_scalar_)
+        else if (obj.use_scalar_ || obj.use_d_value)
         {
             // use case 4
             success_ = true;
@@ -298,11 +298,7 @@ status& status::print()
 {
     if ( this->success_)
     {
-        std::cout << "status(success, total time: "
-            << std::setiosflags(std::ios::fixed)
-            << std::setprecision(2)
-            << this->engine_.time()
-            << ")";
+        std::cout << "status(success, total time: " << std::setiosflags(std::ios::fixed) << std::setprecision(2) << this->engine_.time() << ")";
     }
     else
     {

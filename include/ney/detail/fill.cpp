@@ -28,8 +28,4 @@ void fill<T>::run() const
         for (int i = out.from(); i < out.to(); i += out.stride())
             out[i] = value_;
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }

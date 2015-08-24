@@ -54,8 +54,4 @@ void replace<T>::run() const
             }
         }
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }

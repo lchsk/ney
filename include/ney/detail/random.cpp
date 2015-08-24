@@ -36,8 +36,4 @@ void random<T>::run() const
         for (int i = out.from(); i < out.to(); i += out.stride())
             out[i] = min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_)));
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }

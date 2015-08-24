@@ -210,8 +210,4 @@ void apply<T>::run() const
         }
 
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }

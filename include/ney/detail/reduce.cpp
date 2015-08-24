@@ -64,8 +64,4 @@ void reduce<T>::run() const
 
         *output_ = r;
     }
-    else if (ney::config.target == GPU)
-    {
-
-    }
 }
