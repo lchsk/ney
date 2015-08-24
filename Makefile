@@ -10,8 +10,9 @@ tests:
 	cd $(TEST_DIR) && ./run_tests.sh
 
 coverage:
-	sudo apt-cache madison lcov
 	lcov --capture --directory ./test/unittest --output-file coverage.info
+	lcov --remove coverage.info "gtest*" -o coverage.info
+	lcov --remove coverage.info "/usr/include/*" -o coverage.info
 	genhtml coverage.info --output-directory out
 
 example:
