@@ -13,7 +13,7 @@ void b_compare(ney::vector<int>& v, bool asc)
         s = ney::swap<int>().vector1(v).condition(ney::condition::lt);
 }
 
-ney::vector<int> merge(ney::vector<int>& v, bool asc)
+ney::vector<int> merge(ney::vector<int> v, bool asc)
 {
     int len = v.length();
 
@@ -23,11 +23,11 @@ ney::vector<int> merge(ney::vector<int>& v, bool asc)
     {
         b_compare(v, asc);
 
-        ney::vector<int> first_(v.reset().to(len / 2));
-        ney::vector<int> second_(v.reset().from(len / 2));
+        ney::vector<int> first_ = v.reset().to(len / 2);
+        ney::vector<int> second_ = v.reset().from(len / 2);
 
-        ney::vector<int> first(merge(first_, asc));
-        ney::vector<int> second(merge(second_, asc));
+        ney::vector<int> first = merge(first_, asc);
+        ney::vector<int> second = merge(second_, asc);
 
         return first + second;
     }
@@ -41,15 +41,13 @@ ney::vector<int> b_sort(ney::vector<int>& v, bool asc)
         return v;
     else
     {
-        ney::vector<int> first_(v.reset().to(len / 2));
-        ney::vector<int> second_(v.reset().from(len / 2));
+        ney::vector<int> first_ = v.reset().to(len / 2);
+        ney::vector<int> second_ = v.reset().from(len / 2);
 
-        ney::vector<int> first(b_sort(first_, true));
-        ney::vector<int> second(b_sort(second_, false));
+        ney::vector<int> first = b_sort(first_, true);
+        ney::vector<int> second = b_sort(second_, false);
 
-        ney::vector<int> fs = first + second;
-
-        return merge(fs, asc);
+        return merge(first + second, asc);
     }
 }
 
