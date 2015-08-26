@@ -57,7 +57,7 @@ vector()
 
 template <typename T>
 inline
-void vector<T>::swap(vector<T>& second)
+void vector<T>::swap_(vector<T>& second)
 {
     using std::swap;
 
@@ -74,7 +74,7 @@ template <typename T>
 inline
 vector<T>& vector<T>::operator=(vector<T> other)
 {
-    swap(other);
+    swap_(other);
 
     return *this;
 }

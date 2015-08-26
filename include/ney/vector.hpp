@@ -109,7 +109,7 @@ class vector
 
         //! Used in assignment operator implementation
 
-        void swap(vector& second);
+        void swap_(vector& second);
 
         //! Used for << implementation
 
