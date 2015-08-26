@@ -59,15 +59,15 @@ template <typename T>
 inline
 void vector<T>::swap_(vector<T>& second)
 {
-    using std::swap;
+    // using std::swap;
 
-    swap(this->data_, second.data_);
-    swap(this->config_, second.config_);
+    std::swap(this->data_, second.data_);
+    std::swap(this->config_, second.config_);
 
-    swap(this->incr_, second.incr_);
-    swap(this->to_, second.to_);
-    swap(this->from_, second.from_);
-    swap(this->stride_, second.stride_);
+    std::swap(this->incr_, second.incr_);
+    std::swap(this->to_, second.to_);
+    std::swap(this->from_, second.from_);
+    std::swap(this->stride_, second.stride_);
 }
 
 template <typename T>
