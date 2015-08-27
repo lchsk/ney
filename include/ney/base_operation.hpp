@@ -33,7 +33,7 @@ class base_operation
 
         virtual Derived<T>& condition(bool (*cond)(const T*, const T*));
 
-        //! Force offloading (regardless of data size)
+        //! Force offloading (on G++ only)
 
         virtual Derived<T>& force_offloading();
 

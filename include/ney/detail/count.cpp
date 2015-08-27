@@ -34,7 +34,8 @@ void count<T>::run() const
 {
     if (ney::config.target == Intel)
     {
-        if (this->force_offloading_)
+        #if USE_MIC
+        if (OFFLOAD_FORCE || (OFFLOAD_OK && this->v_->size() > 2000))
         {
             this->offloaded_ = true;
             this->set_worksharing(v_);
@@ -77,24 +78,49 @@ void count<T>::run() const
                         }
                     }
                 }
-                std::cout << "c1: " << c1 << " c2 " << c2 << "\n";
+
                 *count_ = c1 + c2;
             }
             else
             {
-                // cannot vectorise it
-
-                #pragma omp parallel for schedule(static)
-                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                #pragma omp parallel sections
                 {
-                    if (fabs((*v_)[i] - value_) < this->precision_)
-                        #pragma omp atomic
-                        (*count_)++;
+                    #pragma omp section
+                    {
+                        T* raw = v_->raw();
+
+                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                    	{
+                            #pragma omp parallel for schedule(static)
+                            for (int i = from1; i < to1; i += stride)
+                            {
+                                if (fabs(raw[i] - value_) < this->precision_)
+                                    #pragma omp atomic
+                                    c1++;
+                            }
+                    	}
+                    }
+                    #pragma omp section
+                    {
+                        // running on the host
+
+                        #pragma omp parallel for schedule(static)
+                        for (int i = this->from2; i < this->to2; i += stride)
+                        {
+                            if (fabs((*v_)[i] - value_) < this->precision_)
+                                #pragma omp atomic
+                                c2++;
+                        }
+                    }
                 }
+
+                *count_ = c1 + c2;
             }
         }
-        else
+        #else
         {
+            // No MIC features
+
             if (this->is_integer_)
             {
                 // cannot vectorise it
@@ -120,5 +146,6 @@ void count<T>::run() const
                 }
             }
         }
+        #endif
     }
 }

@@ -32,30 +32,49 @@
 #define TRUE 1
 #define FALSE 0
 
+// Reset compilers
+
+#define CC_CLANG FALSE
+#define CC_INTEL FALSE
+#define CC_GNU FALSE
+#define CC_HP FALSE
+#define CC_IBM FALSE
+#define CC_MS FALSE
+#define CC_PORTLAND FALSE
+#define CC_ORACLE FALSE
+
 // Detect compiler
 
 #if defined(__clang__)
+    #undef CC_CLANG
     #define CC_CLANG TRUE
     #define CC_NAME "clang"
 #elif defined(__ICC) || defined(__INTEL_COMPILER)
+    #undef CC_INTEL
     #define CC_INTEL TRUE
     #define CC_NAME "intel"
 #elif defined(__GNUC__) || defined(__GNUG__)
+    #undef CC_GNU
     #define CC_GNU TRUE
     #define CC_NAME "gnu"
 #elif defined(__HP_cc) || defined(__HP_aCC)
+    #undef CC_HP
     #define CC_HP TRUE
     #define CC_NAME "hp"
 #elif defined(__IBMC__) || defined(__IBMCPP__)
+    #undef CC_IBM
     #define CC_IBM TRUE
     #define CC_NAME "ibm"
 #elif defined(_MSC_VER)
+    #undef CC_MS
     #define CC_MS TRUE
     #define CC_NAME "ms"
 #elif defined(__PGI)
+    #undef CC_PORTLAND
     #define CC_PORTLAND TRUE
     #define CC_NAME "portland"
 #elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
+    #undef CC_ORACLE
     #define CC_ORACLE TRUE
     #define CC_NAME "oracle"
 #endif
@@ -73,7 +92,7 @@
 
 #define USE_ALIGNMENT TRUE
 #define USE_MKL FALSE
-#define USE_MIC FALSE
+// #define USE_MIC TRUE
 #define USE_OPENMP_TIME TRUE
 #define DEFAULT_DECIMAL_PLACES 2
 
@@ -101,11 +120,23 @@
 #include <mkl.h>
 #endif
 
+#ifndef USE_MIC
+    #if CC_GNU
+        #define USE_MIC TRUE
+    #elif CC_INTEL
+        #define USE_MIC TRUE
+    #endif
+#endif
+
+
 /****************
     Macros
 ****************/
 #define MIN(a,b) (((a) < (b)) ? (a) : (b))
 #define MAX(a,b) (((a) > (b)) ? (a) : (b))
+
+#define OFFLOAD_OK (ney::config.mic_count() > 0 && ! ney::config.running_on_mic())
+#define OFFLOAD_FORCE (this->force_offloading_ && CC_GNU == TRUE)
 
 NEY_NS_BEGIN
 
@@ -243,7 +274,7 @@ class config_t
 
             #pragma omp barrier
 
-            #if USE_MIC
+            #if USE_MIC && ! CC_GNU
                 #if MIC
                     running_on_mic = true;
                 #else

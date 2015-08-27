@@ -1,10 +1,40 @@
 #include "../main.hpp"
 #include "../base_operation.hpp"
 
+//! (1 / DEVICE) is executed on the device
+
+#define DEVICE 5.0
+
 template <class T, template <typename> class Derived>
 inline
 base_operation<T, Derived>::base_operation() : time_(false), is_integer_(true), cond_(NULL), force_offloading_(false), offloaded_(false)
-{}
+{
+    // #ifndef OFFLOADING
+    // {
+    //     // IF statement here must allow for testing with g++
+    //
+    //     // if (USE_MIC && CC_INTEL && ney::config.mic_count() > 0 && ! ney::config.running_on_mic() && ney::config.use_offloading)
+    //     if (
+    //         USE_MIC && ney::config.use_offloading &&
+    //         ((
+    //             CC_INTEL == FALSE &&
+    //             ney::config.mic_count() > 0 &&
+    //             ! ney::config.running_on_mic())
+    //         )
+    //         // || (CC_GNU == TRUE)
+    //         )
+    //     {
+    //         #undef OFFLOADING
+    //         #define OFFLOADING TRUE
+    //     }
+    //     else
+    //     {
+    //         #undef OFFLOADING
+    //         #define OFFLOADING FALSE
+    //     }
+    // }
+    // #endif
+}
 
 template <class T, template <typename> class Derived>
 inline Derived<T>& base_operation<T, Derived>::time()
@@ -47,34 +77,17 @@ inline void base_operation<T, Derived>::set_worksharing(const vector<T>* v) cons
 {
     // Part 1 is executed on the device
 
-    // 1 / DEVICE is executed on the device
-
-    float DEVICE = 5.0;
-
-    int len = v->length();
-    int f = floor(len / DEVICE);
-
     from1 = v->from();
-    to1 = f * v->stride() + v->stride();
-    int el1 = ceil((to1 - from1) / float(v->stride()));
-    // to1 = floor(v->to() / 3.0);
+    to1 = floor(v->length() / DEVICE) * v->stride() + v->stride();
+
+    // Number of elements executed on the device
+
+    int elements = ceil((to1 - from1) / float(v->stride()));
 
     // Part 2 is executed on the host
 
-    // if (v->length() > to1)
-    {
-        // from2 = to1 - 1 + v->stride();
-        // from2 = to1;
-        from2 = from1 + el1 * v->stride();
-        to2 = v->to();
-    }
-    // else
-    // {
-    //     from2 = to2 = 0;
-    // }
-
-    std::cout << "el: " << el1 << "\n";
-    std::cout << "d: " << from1 << " -> " << to1 << " h: " << from2 << " -> " << to2 << "\n";
+    from2 = from1 + elements * v->stride();
+    to2 = v->to();
 }
 
 template <class T, template <typename> class Derived>
