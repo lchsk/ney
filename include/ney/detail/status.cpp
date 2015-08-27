@@ -13,7 +13,8 @@
 #define END_TIMING if (obj.time_) engine_.end();
 #define RUN_FUNCTION START_TIMING \
                         obj.run(); \
-                        END_TIMING
+                        END_TIMING \
+                        offloaded_ = obj.offloaded_;
 #define INIT_FUNCTION init();
 
 void status::init()
@@ -292,6 +293,11 @@ bool inline status::success() const
 std::string inline status::error() const
 {
     return error_msg_;
+}
+
+bool inline status::offloaded() const
+{
+    return offloaded_;
 }
 
 status& status::print()

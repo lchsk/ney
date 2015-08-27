@@ -21,7 +21,7 @@ ifeq ($(DEBUG), 1)
 	endif
 endif
 
-TESTS = vector_unittest basic_unittest advanced_unittest apply_unittest other_unittest sort_unittest io_unittest condition_unittest
+TESTS = vector_unittest basic_unittest advanced_unittest apply_unittest other_unittest sort_unittest io_unittest condition_unittest offloading_unittest
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
@@ -82,3 +82,7 @@ io_unittest :
 condition_unittest :
 	$(CXX) -I $(GTEST_DIR)/include/ \
 	condition_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o condition_unittest 2> condition_unittest_report
+
+offloading_unittest :
+	$(CXX) -I $(GTEST_DIR)/include/ \
+	offloading_unittest.cpp gtest.a $(CPP_TEST_FLAGS) $(COVERAGE) $(REPORT) -o offloading_unittest 2> offloading_unittest_report

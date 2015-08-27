@@ -34,28 +34,90 @@ void count<T>::run() const
 {
     if (ney::config.target == Intel)
     {
-        if (this->is_integer_)
+        if (this->force_offloading_)
         {
-            // cannot vectorise it
+            this->offloaded_ = true;
+            this->set_worksharing(v_);
 
-            #pragma omp parallel for schedule(static)
-            for (int i = v_->from(); i < v_->to(); i += v_->stride())
+            T c1, c2;
+            c1 = c2 = 0;
+            int from1 = this->from1;
+            int to1 = this->to1;
+            int stride = v_->stride();
+
+            if (this->is_integer_)
             {
-                if ((*v_)[i] == value_)
-                    #pragma omp atomic
-                    (*count_)++;
+                #pragma omp parallel sections
+                {
+                    #pragma omp section
+                    {
+                        T* raw = v_->raw();
+
+                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                    	{
+                            #pragma omp parallel for schedule(static)
+                            for (int i = from1; i < to1; i += stride)
+                            {
+                                if (raw[i] == value_)
+                                    #pragma omp atomic
+                                    c1++;
+                            }
+                    	}
+                    }
+                    #pragma omp section
+                    {
+                        // running on the host
+
+                        #pragma omp parallel for schedule(static)
+                        for (int i = this->from2; i < this->to2; i += stride)
+                        {
+                            if ((*v_)[i] == value_)
+                                #pragma omp atomic
+                                c2++;
+                        }
+                    }
+                }
+                std::cout << "c1: " << c1 << " c2 " << c2 << "\n";
+                *count_ = c1 + c2;
+            }
+            else
+            {
+                // cannot vectorise it
+
+                #pragma omp parallel for schedule(static)
+                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                {
+                    if (fabs((*v_)[i] - value_) < this->precision_)
+                        #pragma omp atomic
+                        (*count_)++;
+                }
             }
         }
         else
         {
-            // cannot vectorise it
-
-            #pragma omp parallel for schedule(static)
-            for (int i = v_->from(); i < v_->to(); i += v_->stride())
+            if (this->is_integer_)
             {
-                if (fabs((*v_)[i] - value_) < this->precision_)
-                    #pragma omp atomic
-                    (*count_)++;
+                // cannot vectorise it
+
+                #pragma omp parallel for schedule(static)
+                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                {
+                    if ((*v_)[i] == value_)
+                        #pragma omp atomic
+                        (*count_)++;
+                }
+            }
+            else
+            {
+                // cannot vectorise it
+
+                #pragma omp parallel for schedule(static)
+                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                {
+                    if (fabs((*v_)[i] - value_) < this->precision_)
+                        #pragma omp atomic
+                        (*count_)++;
+                }
             }
         }
     }

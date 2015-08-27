@@ -6,3 +6,4 @@
 ./sort_unittest
 ./io_unittest
 ./condition_unittest
+./offloading_unittest

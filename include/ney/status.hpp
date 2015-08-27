@@ -67,6 +67,8 @@ class status
 
         bool success() const;
 
+        bool offloaded() const;
+
         //! If `success()` if `false`, then `error()` gives an error message. Should be empty otherwise
 
         std::string error() const;
@@ -85,6 +87,8 @@ class status
 
         bool success_;
         std::string error_msg_;
+
+        bool offloaded_;
 };
 
 #include "detail/status.cpp"
