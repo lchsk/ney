@@ -116,6 +116,55 @@ TEST(Offloading, CountDouble)
     EXPECT_EQ(c, 2);
 }
 
+TEST(Offloading, Reduce)
+{
+    // Check defaults
+
+    ney::status s;
+    ney::vector<int> v1 = ney::new_vector().size(7);
+    v1 << 2 << 3 << 7 << 0 << 2 << 1 << 2;
+
+    int r = 0;
+
+    s = ney::reduce<int>(v1).use(ney::operation::add).output(r).force_offloading();
+
+    EXPECT_TRUE(s.offloaded());
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+    EXPECT_EQ(r, 17);
+
+    s = ney::reduce<int>(v1.from(1).stride(2)).use(ney::operation::add).output(r).force_offloading();
+
+    EXPECT_TRUE(s.offloaded());
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+    EXPECT_EQ(r, 4);
+
+    s = ney::reduce<int>(v1.reset().to(5).stride(2)).use(ney::operation::add).init(5).output(r).force_offloading();
+
+    EXPECT_TRUE(s.offloaded());
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+    EXPECT_EQ(r, 16);
+
+    s = ney::reduce<int>(v1.reset().to(3)).use(ney::operation::mul).init(1).output(r).force_offloading();
+
+    EXPECT_TRUE(s.offloaded());
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+    EXPECT_EQ(r, 42);
+
+    v1.reset();
+    v1 << 1 << 2 << 3 << 4 << 5 << 6 << 7;
+
+    s = ney::reduce<int>(v1.reset().stride(3)).use(ney::operation::mul).init(1).output(r).force_offloading();
+
+    EXPECT_TRUE(s.offloaded());
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+    EXPECT_EQ(r, 28);
+}
+
 int main (int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
 

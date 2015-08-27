@@ -45,6 +45,87 @@ void reduce<T>::run() const
 
     if (ney::config.target == Intel)
     {
+        #if USE_MIC
+
+        if (OFFLOAD_FORCE || (OFFLOAD_OK && this->v_.size() > 2000))
+        {
+            this->offloaded_ = true;
+            this->set_worksharing(&v_);
+
+            T r1, r2;
+            r1 = r2 = 0;
+            int from1 = this->from1;
+            int to1 = this->to1;
+            int stride = v_.stride();
+
+            if (operation_ == operation::add)
+            {
+                #pragma omp parallel sections
+                {
+                    #pragma omp section
+                    {
+                        T* raw = v_.raw();
+
+                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                    	{
+                            #pragma omp parallel for schedule(static) reduction(+:r)
+                            for (int i =from1; i < to1; i += stride)
+                            {
+                                r1 += raw[i];
+                            }
+                    	}
+                    }
+                    #pragma omp section
+                    {
+                        // running on the host
+
+                        #pragma omp parallel for schedule(static) reduction(+:r)
+                        for (int i = this->from2; i < this->to2; i += stride)
+                        {
+                            r2 += v_[i];
+                        }
+                    }
+                }
+
+                r = r + r1 + r2;
+            }
+            else if (operation_ == operation::mul)
+            {
+                r1 = r2 = init_value_;
+
+                #pragma omp parallel sections
+                {
+                    #pragma omp section
+                    {
+                        T* raw = v_.raw();
+
+                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                    	{
+                            #pragma omp parallel for schedule(static) reduction(*:r)
+                            for (int i =from1; i < to1; i += stride)
+                            {
+                                r1 *= raw[i];
+                            }
+                    	}
+                    }
+                    #pragma omp section
+                    {
+                        // running on the host
+
+                        #pragma omp parallel for schedule(static) reduction(*:r)
+                        for (int i = this->from2; i < this->to2; i += stride)
+                        {
+                            r2 *= v_[i];
+                        }
+                    }
+                }
+
+                r = r1 * r2;
+            }
+        }
+
+        #else
+
         if (operation_ == operation::add)
         {
             #pragma omp parallel for schedule(static) reduction(+:r)
@@ -61,6 +142,8 @@ void reduce<T>::run() const
                 r *= v_[i];
             }
         }
+
+        #endif
 
         *output_ = r;
     }

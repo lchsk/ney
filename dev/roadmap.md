@@ -7,11 +7,11 @@
 |`time measurement`|yes|-|-|-||yes|yes|
 |`random`|yes|yes|yes|||yes|yes|
 |`replace`|yes|yes|yes|||yes|yes|
-|`reduce`|yes|no|yes|||yes|yes|
+|`reduce`|yes|no|yes|yes||yes|yes|
 |`count`|yes|no|yes|yes||yes|yes|
 |`apply`|yes|yes|yes|||yes|yes|
 |`compare`|yes|yes|yes|||yes|yes|
-|`slice`|yes|-|-|||yes|yes|
+|`slicing`|yes|-|-|yes||yes|yes|
 |`swap`|yes|yes|yes|||yes|yes||
 |`sort`|yes|yes|no*|||yes|yes||
 |`unique`|yes|no|no|||yes|yes|

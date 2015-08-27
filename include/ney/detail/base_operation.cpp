@@ -9,31 +9,6 @@ template <class T, template <typename> class Derived>
 inline
 base_operation<T, Derived>::base_operation() : time_(false), is_integer_(true), cond_(NULL), force_offloading_(false), offloaded_(false)
 {
-    // #ifndef OFFLOADING
-    // {
-    //     // IF statement here must allow for testing with g++
-    //
-    //     // if (USE_MIC && CC_INTEL && ney::config.mic_count() > 0 && ! ney::config.running_on_mic() && ney::config.use_offloading)
-    //     if (
-    //         USE_MIC && ney::config.use_offloading &&
-    //         ((
-    //             CC_INTEL == FALSE &&
-    //             ney::config.mic_count() > 0 &&
-    //             ! ney::config.running_on_mic())
-    //         )
-    //         // || (CC_GNU == TRUE)
-    //         )
-    //     {
-    //         #undef OFFLOADING
-    //         #define OFFLOADING TRUE
-    //     }
-    //     else
-    //     {
-    //         #undef OFFLOADING
-    //         #define OFFLOADING FALSE
-    //     }
-    // }
-    // #endif
 }
 
 template <class T, template <typename> class Derived>
