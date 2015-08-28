@@ -117,7 +117,9 @@ void count<T>::run() const
                 *count_ = c1 + c2;
             }
         }
-        #else
+        #endif
+
+        if ( ! this->offloaded_)
         {
             // No MIC features
 
@@ -146,6 +148,6 @@ void count<T>::run() const
                 }
             }
         }
-        #endif
+
     }
 }
