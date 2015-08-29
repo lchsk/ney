@@ -18,7 +18,7 @@ int main (int argc, char** argv)
 
     // open file
 
-    s = ney::open<char>("./data/file1.txt").output(text);
+    s = ney::open<char>("./data/file1.txt").output(text).as_text();
 
     if (s.success())
     {

@@ -117,8 +117,8 @@ int main (int argc, char** argv)
     img.data.reset();
     img.data.stride(3);
 
-    s = ney::apply<dtype>(ney::function::sine).vector1(img.data.from(0));
-    s = ney::apply<dtype>(ney::function::sine).vector1(img.data.from(1));
+    s = ney::apply<dtype>(ney::operation::mul).vector1(img.data.from(0)).d_value(0.2);
+    s = ney::apply<dtype>(ney::operation::mul).vector1(img.data.from(1)).d_value(0.2);
 
     saveBMP(out_color, img);
     std::cout << "Saved file: " << out_color << std::endl;
