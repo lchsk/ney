@@ -41,6 +41,7 @@
 |validation of parameters|yes|
 |conditional `swap`|yes|
 |performance comparison?||
+|better bitonic sort implementation||
 
 #### Tools
 
