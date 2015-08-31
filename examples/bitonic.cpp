@@ -58,9 +58,6 @@ ney::vector<dtype> b_sort(ney::vector<dtype>& v, bool asc)
             second = b_sort(second_, false);
         }
 
-        // ney::vector<dtype> first = b_sort(first_, true);
-        // ney::vector<dtype> second = b_sort(second_, false);
-
         return merge(first + second, asc);
     }
 }
@@ -77,27 +74,24 @@ int main (int argc, char** argv)
 
     // init vector
 
-    int size = 1 << 20;
+    int size = 1 << 3;
     std::cout << "size: " << size << "\n";
 
     ney::vector<dtype> v = ney::new_vector().size(size);
-    // v << 5 << 8 << 2 << 6 << 0 << -5 << 2 << 1;
+    v << 5 << 8 << 2 << 6 << 0 << -5 << 2 << 1;
 
     ney::status s;
-    s = ney::random<dtype>(v).min(0).max(10);
+    // s = ney::random<dtype>(v).min(0).max(10);
 
     ney::vector<dtype> sorted;
 
-    // s = ney::sort<dtype>(v);
-    // s = ney::sort<dtype>(v);
-
     sorted = b_sort(v.reset(), true);
 
-    // std::cout << "ascending: " << sorted << "\n";
+    std::cout << "ascending: " << sorted << "\n";
 
     sorted = b_sort(v.reset(), false);
 
-    // std::cout << "descending: " << sorted << "\n";
+    std::cout << "descending: " << sorted << "\n";
 
     // print time
 

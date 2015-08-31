@@ -64,4 +64,4 @@
 |Run-length encoding|yes|
 |PI estimation|yes|
 |Image effects|yes|
-|Physics simulation||
+|Particles simulation|yes|
