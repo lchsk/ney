@@ -40,8 +40,12 @@
 |std::string as T||
 |validation of parameters|yes|
 |conditional `swap`|yes|
-|performance comparison?||
-|better bitonic sort implementation||
+|single vector bitonic sort||
+|GPU vector||
+|at least one function on GPU||
+|bitonic sort performance measurement||
+|GPU/Xeon/Xeon Phi measurements||
+
 
 #### Tools
 
