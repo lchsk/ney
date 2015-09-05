@@ -42,6 +42,7 @@
 #define CC_MS FALSE
 #define CC_PORTLAND FALSE
 #define CC_ORACLE FALSE
+#define CC_CUDA FALSE
 
 // Detect compiler
 
@@ -49,6 +50,10 @@
     #undef CC_CLANG
     #define CC_CLANG TRUE
     #define CC_NAME "clang"
+#elif defined(__CUDACC__)
+    #undef CC_CUDA
+    #define CC_CUDA TRUE
+    #define CC_NAME "cuda"
 #elif defined(__ICC) || defined(__INTEL_COMPILER)
     #undef CC_INTEL
     #define CC_INTEL TRUE

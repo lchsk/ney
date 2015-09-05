@@ -1,6 +1,7 @@
 #include "../main.hpp"
 #include "../unique.hpp"
-#include "../vector.hpp"
+
+// #include "../vector.hpp"
 
 template <typename T>
 inline unique<T>::
@@ -9,22 +10,15 @@ unique(vector<T>& v) : out_(NULL), v_(v)
     this->detect_data_type();
 }
 
-// template <typename T>
-// inline
-// unique<T>& unique<T>::output(vector<T>& v)
-// {
-//     out_ = &v;
-//
-//     return *this;
-// }
-
 template <typename T>
 inline
 void unique<T>::run() const
 {
     if (ney::config.target == Intel)
     {
-        ney::status s = ney::sort<T>(v_);
+        // a little hack: status class is unknown at this point (by some compilers...)
+        
+        ney::sort<T>(v_).run();
 
         int j = 0;
         v_[0] = v_[v_.from()];
