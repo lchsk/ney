@@ -2,7 +2,10 @@
 #define NEY_REDUCE_HPP_
 
 #include "vector.hpp"
+
+#if CC_CUDA
 #include "cuda/reduce.cuh"
+#endif 
 
 NEY_NS_BEGIN
 

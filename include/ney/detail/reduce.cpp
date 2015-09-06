@@ -2,12 +2,6 @@
 #include "../reduce.hpp"
 #include "../vector.hpp"
 
-// CUDA stuff
-
-
-
-// ---
-
 template <typename T>
 inline reduce<T>::
 reduce(vector<T>& v) : v_(v), init_value_(0), output_(NULL), operation_(operation::none)
@@ -154,6 +148,7 @@ void reduce<T>::run() const
 
         *output_ = r;
     }
+    #if CC_CUDA
     else if (ney::config.target == GPU)
     {
         // void reduce(T* data, int from, int to, int stride, int length, int init, int operation);
@@ -162,6 +157,8 @@ void reduce<T>::run() const
         // using namespace ney::ney_cuda::reduce;
         // ney::gpu::reduce<int>(4);
         // ney::gpu::reduce(4);
+
         creduce<T>(v_.raw(), v_.from(), v_.to(), v_.stride(), v_.length(), init_value_, operation_);
     }
+    #endif
 }
