@@ -2,6 +2,7 @@
 #define NEY_REDUCE_HPP_
 
 #include "vector.hpp"
+#include "cuda/reduce.cuh"
 
 NEY_NS_BEGIN
 
@@ -21,13 +22,13 @@ class reduce : public base_operation<T, reduce>
         //! Specify operation that should be used (addition, multiplication)
 
         reduce& use(operation::operation_t t);
-        
+
         //! Initalise output value, by default it takes 0
-        
+
         reduce& init(T init_value);
 
         //! Output variable
-        
+
         reduce& output(T& output);
 
         //! Runs the function. It should be called from the status object

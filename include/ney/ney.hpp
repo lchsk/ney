@@ -1,3 +1,6 @@
+#ifndef NEY_NEY_HPP_
+#define NEY_NEY_HPP_
+
 #include "base_operation.hpp"
 #include "time_engine.hpp"
 #include "vector.hpp"
@@ -16,3 +19,5 @@
 #include "open.hpp"
 #include "random.hpp"
 #include "status.hpp"
+
+#endif
