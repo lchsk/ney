@@ -158,7 +158,8 @@ void reduce<T>::run() const
         // ney::gpu::reduce<int>(4);
         // ney::gpu::reduce(4);
 
-        creduce<T>(v_.raw(), v_.from(), v_.to(), v_.stride(), v_.length(), init_value_, operation_);
+        // ney::gpu::reduce<T>(v_.raw(), v_.from(), v_.to(), v_.stride(), v_.length(), init_value_, operation_);
+        *output_ = ney::gpu::reduce<T>(v_, init_value_, operation_);
     }
     #endif
 }

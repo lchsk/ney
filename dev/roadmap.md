@@ -1,23 +1,40 @@
-|Name|Xeon/XeonPhi|vectorisation|parallel|offloading|CUDA|Unit tests|Docs|Wiki|
+|Name|Xeon/XeonPhi|vectorisation|parallel|offloading|Unit tests|Docs|
 |---|---|---|---|---|---|---|---|---|
-|`vector`|yes|no|no|-||yes|yes|
-|`status`|yes|-|-|-||yes|yes|
-|`fill`|yes|yes|yes|||yes|yes|
-|`config`|yes|-|-|-||yes|yes|
-|`time measurement`|yes|-|-|-||yes|yes|
-|`random`|yes|yes|yes|||yes|yes|
-|`replace`|yes|yes|yes|||yes|yes|
-|`reduce`|yes|no|yes|yes||yes|yes|
-|`count`|yes|no|yes|yes||yes|yes|
-|`apply`|yes|yes|yes|||yes|yes|
-|`compare`|yes|yes|yes|||yes|yes|
-|`slicing`|yes|-|-|yes||yes|yes|
-|`swap`|yes|yes|yes|||yes|yes||
-|`sort`|yes|yes|no*|||yes|yes||
-|`unique`|yes|no|no|||yes|yes|
-|`open`|yes|no|-|-||yes|yes|
-|`group_by`|
-|`reduce_by`|
+|`vector`|yes|no|no|-|yes|yes|
+|`status`|yes|-|-|-|yes|yes|
+|`fill`|yes|yes|yes||yes|yes|
+|`config`|yes|-|-|-|yes|yes|
+|`time measurement`|yes|-|-|-|yes|yes|
+|`random`|yes|yes|yes||yes|yes|
+|`replace`|yes|yes|yes||yes|yes|
+|`reduce`|yes|no|yes|yes|yes|yes|
+|`count`|yes|no|yes|yes|yes|yes|
+|`apply`|yes|yes|yes||yes|yes|
+|`compare`|yes|yes|yes||yes|yes|
+|`slicing`|yes|-|-|yes|yes|yes|
+|`swap`|yes|yes|yes||yes|yes|
+|`sort`|yes|yes|no*||yes|yes|
+|`unique`|yes|no|no||yes|yes|
+|`open`|yes|no|-|-|yes|yes|
+
+|Name|CUDA|Unit tests|
+|---|---|---|---|---|---|---|---|---|
+|`vector`|||
+|`status`|||
+|`fill`|||
+|`config`|||
+|`time measurement`|||
+|`random`|||
+|`replace`|||
+|`reduce`|yes (mul*)|yes|
+|`count`|||
+|`apply`|
+|`compare`|
+|`slicing`|
+|`swap`|
+|`sort`|
+|`unique`|
+|`open`|
 
 ####Stuff:
 
