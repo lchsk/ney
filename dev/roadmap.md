@@ -20,10 +20,10 @@
 |Name|CUDA|Unit tests|
 |---|---|---|---|---|---|---|---|---|
 |`vector`|yes||
-|`status`|||
+|`status`|yes||
 |`fill`|||
-|`config`|||
-|`time measurement`|||
+|`config`|yes||
+|`time measurement`|yes||
 |`random`|||
 |`replace`|||
 |`reduce`|yes|yes|

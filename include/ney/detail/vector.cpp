@@ -115,6 +115,8 @@ inline vector<T>::
     }
 }
 
+#if CC_CUDA
+
 template <typename T>
 inline void vector<T>::copy_to_gpu()
 {
@@ -127,6 +129,8 @@ inline bool vector<T>::host_active() const
 {
     return host_active_;
 }
+
+#endif
 
 template <typename T>
 inline size_t vector<T>::size() const
