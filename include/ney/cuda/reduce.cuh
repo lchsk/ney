@@ -18,12 +18,15 @@ T reduce(ney::vector<T>& v, T init, ney::operation::operation_t t)
 {
     T result;
 
+    if (v.host_active())
+        v.copy_to_gpu();
+
+    typedef typename thrust::device_vector<T>::iterator Iterator;
+
+    strided_range< Iterator > slice(v.device().begin() + v.from(), v.device().begin() + v.to(), v.stride());
+
     if (t == ney::operation::add)
     {
-        typedef typename thrust::device_vector<T>::iterator Iterator;
-
-        strided_range< Iterator > slice(v.device().begin() + v.from(), v.device().begin() + v.to(), v.stride());
-
         result = thrust::reduce(slice.begin(), slice.end(), init, thrust::plus<T>());
     }
     else if (t == ney::operation::mul)
@@ -33,7 +36,7 @@ T reduce(ney::vector<T>& v, T init, ney::operation::operation_t t)
         //
         // cudaMemcpy(dev, v.raw(), v.length() * sizeof(T), cudaMemcpyHostToDevice);
 
-        result = thrust::reduce(v.device().begin(), v.device().end(), init, thrust::multiplies<T>());
+        result = thrust::reduce(slice.begin(), slice.end(), init, thrust::multiplies<T>());
     }
 
     return result;

@@ -1,5 +1,6 @@
 INCLUDE_DIR = ./include/ney
 TEST_DIR = ./test/unittest
+GPUTEST_DIR = ./test/gputest
 REPORT_DIR = ./test/report
 EXAMPLES_DIR = ./examples
 
@@ -30,6 +31,7 @@ docs:
 clean:
 	rm -rf out
 	cd $(TEST_DIR) && $(MAKE) clean
+	cd $(GPUTEST_DIR) && $(MAKE) clean
 	cd $(EXAMPLES_DIR) && $(MAKE) clean
 
 	rm -rf $(INCLUDE_DIR)/*.gch

@@ -58,7 +58,7 @@
 |validation of parameters|yes|
 |conditional `swap`|yes|
 |single vector bitonic sort||
-|GPU vector||
+|GPU vector|yes|
 |at least one function on GPU||
 |bitonic sort performance measurement||
 |GPU/Xeon/Xeon Phi measurements||

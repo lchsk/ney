@@ -6,6 +6,7 @@
 
 #if CC_CUDA
 #include <thrust/device_vector.h>
+#include <thrust/host_vector.h>
 #endif
 
 NEY_NS_BEGIN
@@ -111,6 +112,8 @@ class vector
 
         #if CC_CUDA
             thrust::device_vector<T>& device();
+            void copy_to_gpu();
+            bool host_active() const;
         #endif
 
     private:
@@ -131,12 +134,15 @@ class vector
         unsigned to_;
         unsigned stride_;
 
+
         //! Vector data
 
         T* data_;
 
         #if CC_CUDA
+            bool host_active_;
             thrust::device_vector<T> dv_;
+            thrust::host_vector<T> hv_;
         #endif
 };
 

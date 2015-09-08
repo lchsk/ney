@@ -12,7 +12,8 @@ vector(const new_vector& config)
     , data_(NULL)
 {
     #if CC_CUDA
-        dv_.resize(config.size_);
+        hv_.resize(config.size_);
+        host_active_ = true;
     #else
 
         #if ALIGNMENT_OK
@@ -33,10 +34,10 @@ vector(const vector<T>& that)
     config_.size_ = that.length();
 
     #if CC_CUDA
-        dv_.resize(that.length());
+        hv_.resize(that.length());
 
         for (int i = that.from(); i < that.to(); i += that.stride())
-            dv_.push_back(that[i]);
+            hv_.push_back(that[i]);
 
     #else
 
@@ -70,6 +71,9 @@ vector()
     , stride_(1)
     , data_(NULL)
 {
+    #if CC_CUDA
+        host_active_ = true;
+    #endif
 }
 
 template <typename T>
@@ -78,6 +82,8 @@ void vector<T>::swap_(vector<T>& second)
 {
     #if CC_CUDA
         std::swap(this->dv_, second.dv_);
+        std::swap(this->hv_, second.hv_);
+        std::swap(this->host_active_, second.host_active_);
     #endif
 
     std::swap(this->data_, second.data_);
@@ -110,6 +116,19 @@ inline vector<T>::
 }
 
 template <typename T>
+inline void vector<T>::copy_to_gpu()
+{
+    dv_ = hv_;
+    host_active_ = false;
+}
+
+template <typename T>
+inline bool vector<T>::host_active() const
+{
+    return host_active_;
+}
+
+template <typename T>
 inline size_t vector<T>::size() const
 {
     return config_.size_;
@@ -136,7 +155,7 @@ template <typename T>
 vector<T>& vector<T>::operator<<(T x)
 {
     #if CC_CUDA
-        dv_[incr_++] = x;
+        hv_[incr_++] = x;
     #else
         data_[incr_++] = x;
     #endif
@@ -166,7 +185,7 @@ template <typename T>
 void vector<T>::set(unsigned index, T value)
 {
     #if CC_CUDA
-        dv_[index] = value;
+        hv_[index] = value;
     #else
         data_[index] = value;
     #endif
@@ -193,7 +212,7 @@ template <typename T>
 inline T vector<T>::operator[] (unsigned index) const
 {
     #if CC_CUDA
-        return dv_[index];
+        return hv_[index];
     #else
         return data_[index];
     #endif
