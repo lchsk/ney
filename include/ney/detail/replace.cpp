@@ -54,4 +54,10 @@ void replace<T>::run() const
             }
         }
     }
+    #if CC_CUDA
+    else if (ney::config.target == GPU)
+    {
+        ney::gpu::replace<T>(*v_, old_, new_);
+    }
+    #endif
 }

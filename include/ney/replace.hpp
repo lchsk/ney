@@ -3,6 +3,10 @@
 
 #include "vector.hpp"
 
+#if CC_CUDA
+#include "cuda/replace.cuh"
+#endif
+
 NEY_NS_BEGIN
 
 //! Replace all specified elements in a vector with another value
@@ -23,7 +27,7 @@ class replace : public base_operation<T, replace>
         //! Vector in which changes will be made
 
         replace& in(vector<T>& v);
-        
+
         //! Runs a function, it should be called from a status object
         void run() const;
 
