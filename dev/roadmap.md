@@ -21,7 +21,7 @@
 |---|---|---|---|---|---|---|---|---|
 |`vector`|yes||
 |`status`|yes||
-|`fill`|||
+|`fill`|yes|yes|
 |`config`|yes||
 |`time measurement`|yes||
 |`random`|||

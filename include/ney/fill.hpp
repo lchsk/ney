@@ -3,9 +3,9 @@
 #ifndef NEY_FILL_HPP_
 #define NEY_FILL_HPP_
 
-// #if CC_CUDA
-// #include "cuda/fill.cuh"
-// #endif
+#if CC_CUDA
+#include "cuda/fill.cuh"
+#endif
 
 NEY_NS_BEGIN
 

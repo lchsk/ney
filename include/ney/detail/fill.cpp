@@ -31,7 +31,7 @@ void fill<T>::run() const
     #if CC_CUDA
     else if (ney::config.target == GPU)
     {
-        // *output_ = ney::gpu::fill<T>(out, value_);
+        ney::gpu::fill<T>(out, value_);
     }
     #endif
 }

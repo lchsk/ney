@@ -1,3 +1,6 @@
+#ifndef NEY_CUDA_STRIDED_RANGE_HPP_
+#define NEY_CUDA_STRIDED_RANGE_HPP_
+
 #include <thrust/iterator/counting_iterator.h>
 #include <thrust/iterator/transform_iterator.h>
 #include <thrust/iterator/permutation_iterator.h>
@@ -53,3 +56,5 @@ class strided_range
     Iterator last;
     difference_type stride;
 };
+
+#endif

@@ -216,7 +216,10 @@ template <typename T>
 inline T vector<T>::operator[] (unsigned index) const
 {
     #if CC_CUDA
-        return hv_[index];
+        if (host_active_)
+            return hv_[index];
+        else
+            return dv_[index];
     #else
         return data_[index];
     #endif
