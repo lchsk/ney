@@ -14,7 +14,7 @@ COVERAGE =
 REPORT =
 REPORT_CODE =
 
-TESTS = advanced_unittest basic_unittest
+TESTS = advanced_unittest basic_unittest sort_unittest
 
 GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
                 $(GTEST_DIR)/include/gtest/internal/*.h
@@ -51,3 +51,7 @@ advanced_unittest :
 basic_unittest :
 	$(CC_CUDA) -I $(GTEST_DIR)/include/ \
 	basic_unittest.cu gtest.a -Xcompiler "$(CPP_TEST_FLAGS)" $(COVERAGE) $(REPORT) $(REPORT_CODE) -o basic_unittest 2> basic_unittest_report
+
+sort_unittest :
+	$(CC_CUDA) -I $(GTEST_DIR)/include/ \
+	sort_unittest.cu gtest.a -Xcompiler "$(CPP_TEST_FLAGS)" $(COVERAGE) $(REPORT) $(REPORT_CODE) -o sort_unittest 2> sort_unittest_report

@@ -53,6 +53,8 @@ TEST(BasicOperations, Fill)
 
 TEST(BasicOperations, Random)
 {
+    ney::config.target = ney::GPU;
+
     ney::vector<int> v = ney::new_vector().size(5);
     ney::status s;
 
@@ -78,6 +80,8 @@ TEST(BasicOperations, Random)
 
 TEST(BasicOperations, Count)
 {
+    ney::config.target = ney::GPU;
+
     ney::vector<int> v = ney::new_vector().size(7);
     ney::status s;
 
@@ -154,6 +158,8 @@ TEST(BasicOperations, Count)
 //
 TEST(BasicOperations, Replace)
 {
+    ney::config.target = ney::GPU;
+
     ney::status s;
 
     ney::vector<int> v1 = ney::new_vector().size(5);

@@ -101,4 +101,10 @@ void sort<T>::run() const
     {
         merge_sort(0, a_.size() - 1);
     }
+    #if CC_CUDA
+    else if (ney::config.target == GPU)
+    {
+        ney::gpu::sort<T>(a_);
+    }
+    #endif
 }

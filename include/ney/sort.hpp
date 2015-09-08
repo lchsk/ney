@@ -3,6 +3,10 @@
 
 #include "vector.hpp"
 
+#if CC_CUDA
+#include "cuda/sort.cuh"
+#endif
+
 NEY_NS_BEGIN
 
 //! Merge sort
@@ -17,7 +21,7 @@ class sort : public base_operation<T, sort>
         sort(vector<T>& v);
 
         ~sort();
-        
+
         //! Runs a function. It should be called from a status object
 
         void run() const;

@@ -32,7 +32,7 @@
 |`compare`|
 |`slicing`|
 |`swap`|
-|`sort`|
+|`sort`|yes|yes|
 |`unique`|
 |`open`|
 
