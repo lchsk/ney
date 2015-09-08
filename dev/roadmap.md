@@ -33,7 +33,7 @@
 |`slicing`|
 |`swap`|
 |`sort`|yes|yes|
-|`unique`|
+|`unique`|yes|yes|
 |`open`|
 
 ####Stuff:

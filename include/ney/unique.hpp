@@ -3,6 +3,10 @@
 #ifndef NEY_UNIQUE_HPP_
 #define NEY_UNIQUE_HPP_
 
+#if CC_CUDA
+#include "cuda/unique.cuh"
+#endif
+
 NEY_NS_BEGIN
 
 //! Takes a vector as an argument and creates a set (vector with unique elemenets)

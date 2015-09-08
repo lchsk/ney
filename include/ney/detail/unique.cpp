@@ -50,4 +50,11 @@ void unique<T>::run() const
             v_.to(j + 1);
         }
     }
+    #if CC_CUDA
+    else if (ney::config.target == GPU)
+    {
+        int size = ney::gpu::unique<T>(v_);
+        v_.to(size);
+    }
+    #endif
 }
