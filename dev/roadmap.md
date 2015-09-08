@@ -34,7 +34,7 @@
 |`swap`|
 |`sort`|yes|yes|
 |`unique`|yes|yes|
-|`open`|
+|`open`|yes|yes|
 
 ####Stuff:
 

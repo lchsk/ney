@@ -35,7 +35,7 @@ template <typename T>
 inline
 void open<T>::run() const
 {
-    if (ney::config.target == Intel)
+    // if (ney::config.target == Intel)
     {
         if (as_text_ && ! parallel_)
         {
@@ -45,9 +45,23 @@ void open<T>::run() const
             long size = ftell(f);
             fseek(f, 0, SEEK_SET);
 
-            *v_ = new_vector().size(size);
+            #if CC_CUDA
+                if (ney::config.target == GPU)
+                {
+                    *v_ = new_vector().size(size);
+                    char* tmp = new char[size];
+                    fread(tmp, size, 1, f);
 
-            fread(v_->data_, size, 1, f);
+                    for (int i = 0; i < size; i++)
+                    {
+                        *v_ << tmp[i];
+                    }
+                }
+            #else
+                if (ney::config.target == Intel)
+                    fread(v_->data_, size, 1, f);
+
+            #endif
 
             fclose(f);
         }
