@@ -151,14 +151,6 @@ void reduce<T>::run() const
     #if CC_CUDA
     else if (ney::config.target == GPU)
     {
-        // void reduce(T* data, int from, int to, int stride, int length, int init, int operation);
-        // ney_cuda::reduce<T>(v_.raw(), v_.from(), v_.to(), v_.stride(), v_.length(), init_value_, operation_);
-        // ney_cuda::reduce<T>(v_.raw());
-        // using namespace ney::ney_cuda::reduce;
-        // ney::gpu::reduce<int>(4);
-        // ney::gpu::reduce(4);
-
-        // ney::gpu::reduce<T>(v_.raw(), v_.from(), v_.to(), v_.stride(), v_.length(), init_value_, operation_);
         *output_ = ney::gpu::reduce<T>(v_, init_value_, operation_);
     }
     #endif

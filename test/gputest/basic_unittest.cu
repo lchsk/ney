@@ -124,11 +124,11 @@ TEST(BasicOperations, Count)
 
     ney::vector<double> v2 = ney::new_vector().size(5);
 
-    v2[0] = 2.5;
-    v2[1] = -923.55;
-    v2[2] = 2.5;
-    v2[3] = 0.1244;
-    v2[4] = -923.55;
+    v2.set(0, 2.5);
+    v2.set(1, -923.55);
+    v2.set(2, 2.5);
+    v2.set(3, 0.1244);
+    v2.set(4, -923.55);
 
     s = ney::count<double>(2.5).in(v2).output(count);
 
@@ -159,17 +159,17 @@ TEST(BasicOperations, Replace)
     ney::vector<int> v1 = ney::new_vector().size(5);
     ney::vector<double> v2 = ney::new_vector().size(5);
 
-    v1[0] = 1;
-    v1[1] = 10;
-    v1[2] = 50;
-    v1[3] = 10;
-    v1[4] = 50;
+    v1.set(0, 1);
+    v1.set(1, 10);
+    v1.set(2, 50);
+    v1.set(3, 10);
+    v1.set(4, 50);
 
-    v2[0] = 0.1;
-    v2[1] = 0.1;
-    v2[2] = 0.3;
-    v2[3] = 5.1;
-    v2[4] = 0.3;
+    v2.set(0, 0.1);
+    v2.set(1, 0.1);
+    v2.set(2, 0.3);
+    v2.set(3, 5.1);
+    v2.set(4, 0.3);
 
     // Expect errors in status object
 

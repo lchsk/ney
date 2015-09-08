@@ -60,7 +60,7 @@ TEST(AdvancedOperations, Reduce)
 
     s = ney::reduce<double>(v2).init(1).output(result_d).use(ney::operation::mul);
 
-    EXPECT_NEAR(result_d, 0.0005040, ERROR);
+    EXPECT_DOUBLE_EQ(result_d, 0.000504);
 
     // use vector slice
 

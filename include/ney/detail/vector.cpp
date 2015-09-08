@@ -12,9 +12,7 @@ vector(const new_vector& config)
     , data_(NULL)
 {
     #if CC_CUDA
-        std::cout << "setting size: " << config.size_ << "\n";
         dv_.resize(config.size_);
-        std::cout << "hej : " << dv_.size() << "\n";
     #else
 
         #if ALIGNMENT_OK
