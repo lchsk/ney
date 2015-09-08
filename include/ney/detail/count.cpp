@@ -150,4 +150,10 @@ void count<T>::run() const
         }
 
     }
+    #if CC_CUDA
+    else if (ney::config.target == GPU)
+    {
+        *count_ = ney::gpu::count<T>(*v_, value_);
+    }
+    #endif
 }

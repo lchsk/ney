@@ -27,7 +27,7 @@
 |`random`|yes|yes|
 |`replace`|||
 |`reduce`|yes|yes|
-|`count`|||
+|`count`|yes|yes|
 |`apply`|
 |`compare`|
 |`slicing`|

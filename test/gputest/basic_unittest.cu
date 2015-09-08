@@ -76,81 +76,81 @@ TEST(BasicOperations, Random)
     }
 }
 
-// TEST(BasicOperations, Count)
-// {
-//     ney::vector<int> v = ney::new_vector().size(7);
-//     ney::status s;
-//
-//     // Expect an error
-//
-//     s = ney::fill<int>(v).value(5);
-//
-//     // Check if vector is initialised correctly
-//
-//     for (int i = 0; i < 7; i++)
-//         EXPECT_EQ(v[i], 5);
-//
-//     // Expect it to work ok
-//
-//     int count;
-//     s = ney::count<int>(5).in(v).output(count);
-//
-//     EXPECT_TRUE(s.success());
-//     EXPECT_EQ(s.error(), "");
-//
-//     EXPECT_EQ(count, 7);
-//
-//     s = ney::count<int>(5).in(v).output(count);
-//
-//     // Expect 0 as a result
-//
-//     s = ney::count<int>(6).in(v).output(count);
-//
-//     EXPECT_TRUE(s.success());
-//     EXPECT_EQ(s.error(), "");
-//
-//     EXPECT_EQ(count, 0);
-//
-//     // Count values in a vector slice
-//
-//     s = ney::count<int>(5).in(v.stride(2).from(1)).output(count);
-//
-//     EXPECT_TRUE(s.success());
-//     EXPECT_EQ(s.error(), "");
-//
-//     EXPECT_EQ(count, 3);
-//
-//     // Count floating point values
-//
-//     ney::vector<double> v2 = ney::new_vector().size(5);
-//
-//     v2.set(0, 2.5);
-//     v2.set(1, -923.55);
-//     v2.set(2, 2.5);
-//     v2.set(3, 0.1244);
-//     v2.set(4, -923.55);
-//
-//     s = ney::count<double>(2.5).in(v2).output(count);
-//
-//     EXPECT_TRUE(s.success());
-//     EXPECT_EQ(s.error(), "");
-//
-//     EXPECT_EQ(count, 2);
-//
-//     // Expect errors in status object
-//
-//     s = ney::count<double>(2.5).output(count);
-//
-//     EXPECT_FALSE(s.success());
-//
-//     s = ney::count<double>(2.5);
-//
-//     EXPECT_FALSE(s.success());
-//
-//     s = ney::count<double>(2.5).in(v2);
-//
-//     EXPECT_FALSE(s.success());
-// }
+TEST(BasicOperations, Count)
+{
+    ney::vector<int> v = ney::new_vector().size(7);
+    ney::status s;
+
+    // Expect an error
+
+    s = ney::fill<int>(v).value(5);
+
+    // Check if vector is initialised correctly
+
+    for (int i = 0; i < 7; i++)
+        EXPECT_EQ(v[i], 5);
+
+    // Expect it to work ok
+
+    int count;
+    s = ney::count<int>(5).in(v).output(count);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(count, 7);
+
+    s = ney::count<int>(5).in(v).output(count);
+
+    // Expect 0 as a result
+
+    s = ney::count<int>(6).in(v).output(count);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(count, 0);
+
+    // Count values in a vector slice
+
+    s = ney::count<int>(5).in(v.stride(2).from(1)).output(count);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(count, 3);
+
+    // Count floating point values
+
+    ney::vector<double> v2 = ney::new_vector().size(5);
+
+    v2.set(0, 2.5);
+    v2.set(1, -923.55);
+    v2.set(2, 2.5);
+    v2.set(3, 0.1244);
+    v2.set(4, -923.55);
+
+    s = ney::count<double>(2.5).in(v2).output(count);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    EXPECT_EQ(count, 2);
+
+    // Expect errors in status object
+
+    s = ney::count<double>(2.5).output(count);
+
+    EXPECT_FALSE(s.success());
+
+    s = ney::count<double>(2.5);
+
+    EXPECT_FALSE(s.success());
+
+    s = ney::count<double>(2.5).in(v2);
+
+    EXPECT_FALSE(s.success());
+}
 //
 // TEST(BasicOperations, Replace)
 // {
