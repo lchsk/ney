@@ -26,6 +26,12 @@ void fill<T>::run() const
         #pragma omp parallel for schedule(static)
         #pragma simd
         for (int i = out.from(); i < out.to(); i += out.stride())
-            out[i] = value_;
+            out.set(i, value_);
     }
+    #if CC_CUDA
+    else if (ney::config.target == GPU)
+    {
+        // *output_ = ney::gpu::fill<T>(out, value_);
+    }
+    #endif
 }

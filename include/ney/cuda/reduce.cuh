@@ -33,15 +33,15 @@ namespace gpu{
     //      c[tid] = a[tid] + b[tid];
     //  }
 
-    struct saxpy_functor
-    {
-        const float a;
-        saxpy_functor ( float _a) : a(_a) {}
-        __host__ __device__ float operator() (const float & x, const float &y) const
-        {
-            return a * x + y;
-        }
-    };
+    // struct saxpy_functor
+    // {
+    //     const float a;
+    //     saxpy_functor ( float _a) : a(_a) {}
+    //     __host__ __device__ float operator() (const float & x, const float &y) const
+    //     {
+    //         return a * x + y;
+    //     }
+    // };
 
 template <typename T>
 // void reduce(T* data, int from, int to, int stride, int length, int init, int operation)
@@ -49,16 +49,16 @@ template <typename T>
 T reduce(ney::vector<T>& v, T init, ney::operation::operation_t t)
 {
     T result;
-    thrust::device_vector<T> vec(v.length());
+    // thrust::device_vector<T> vec(v.length());
 
-    for (int i = v.from(); i < v.to(); i += v.stride())
+    // for (int i = v.from(); i < v.to(); i += v.stride())
     {
-        vec.push_back(v[i]);
+        // vec.push_back(v[i]);
     }
 
     if (t == ney::operation::add)
     {
-        result = thrust::reduce(vec.begin(), vec.end(), init, thrust::plus<T>());
+        result = thrust::reduce(v.device().begin(), v.device().end(), init, thrust::plus<T>());
     }
     else if (t == ney::operation::mul)
     {
@@ -72,7 +72,7 @@ T reduce(ney::vector<T>& v, T init, ney::operation::operation_t t)
         // std::cout << "mul\n";
         // std::cout << init << "\n";
         // result = thrust::inner_product(vec.begin(), vec.end(), vec.begin(), 1   );
-        // result = thrust::reduce(vec.begin(), vec.end(), 10, thrust::multiplies<int>());
+        result = thrust::reduce(v.device().begin(), v.device().end(), init, thrust::multiplies<int>());
     }
 
     return result;

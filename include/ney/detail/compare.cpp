@@ -53,7 +53,7 @@ void compare<T>::run() const
                 #pragma simd
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
-                    (*output_)[i] = ((*v1_)[i] == v2_i[i]) ? true : false;
+                    (*output_).set(i, ((*v1_)[i] == v2_i[i]) ? true : false);
                 }
             }
             else
@@ -62,7 +62,7 @@ void compare<T>::run() const
                 #pragma simd
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
-                    (*output_)[i] = (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false;
+                    (*output_).set(i, (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false);
                 }
             }
         }
@@ -72,7 +72,9 @@ void compare<T>::run() const
             #pragma simd
             for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
             {
-                (*output_)[i] = this->cond_(&(*v1_)[i], &(v2_i[i]));
+                T a = (*v1_)[i];
+                T b = (v2_i[i]);
+                (*output_).set(i, this->cond_(&a, &b));
             }
         }
     }

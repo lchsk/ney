@@ -90,7 +90,7 @@ void sort<T>::merge(int low, int mid, int high) const
 
     #pragma simd
     for(k = low; k <= high; k++)
-        a_[k] = (b_)[k];
+        a_.set(k, (b_)[k]);
 }
 
 template <typename T>

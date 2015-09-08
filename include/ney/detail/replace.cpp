@@ -40,7 +40,7 @@ void replace<T>::run() const
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
                 if ((*v_)[i] == old_)
-                    (*v_)[i] = new_;
+                    (*v_).set(i, new_);
             }
         }
         else
@@ -50,7 +50,7 @@ void replace<T>::run() const
             for (int i = v_->from(); i < v_->to(); i += v_->stride())
             {
                 if (fabs((*v_)[i] - old_) < this->precision_)
-                    (*v_)[i] = new_;
+                    (*v_).set(i, new_);
             }
         }
     }

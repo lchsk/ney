@@ -17,11 +17,11 @@ void unique<T>::run() const
     if (ney::config.target == Intel)
     {
         // a little hack: status class is unknown at this point (by some compilers...)
-        
+
         ney::sort<T>(v_).run();
 
         int j = 0;
-        v_[0] = v_[v_.from()];
+        v_.set(0, v_[v_.from()]);
 
         if (this->is_integer_)
         {
@@ -29,7 +29,7 @@ void unique<T>::run() const
             {
                 if (v_[i] != v_[j])
                 {
-                    v_[++j] = v_[i];
+                    v_.set(++j, v_[i]);
                 }
             }
 
@@ -42,7 +42,7 @@ void unique<T>::run() const
             {
                 if (fabs(v_[i] - v_[j]) >= this->precision_)
                 {
-                    v_[++j] = v_[i];
+                    v_.set(++j, v_[i]);
                 }
             }
 

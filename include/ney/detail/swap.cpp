@@ -44,15 +44,34 @@ void swap<T>::run() const
                 #pragma simd
                 #pragma ivdep
                 for (int i = v1_->from(); i < d; i += v1_->stride())
-                    std::swap((*v1_)[i + d], (*v1_)[i]);
+                {
+                    T tmp = (*v1_)[i + d];
+                    v1_->set(i + d, (*v1_)[i]);
+                    v1_->set(i, tmp);
+                    // std::swap((*v1_)[i + d], (*v1_)[i]);
+
+                }
             }
             else
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
                 for (int i = v1_->from(); i < d; i += v1_->stride())
-                    if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
-                        std::swap((*v1_)[i + d], (*v1_)[i]);
+                {
+                    T a, b;
+
+                    a = (*v1_)[i];
+                    b = (*v1_)[i + d];
+
+                    // if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
+                    if (this->cond_(&a, &b))
+                    {
+                        // T tmp = (*v1_)[i + d];
+                        v1_->set(i + d, a);
+                        v1_->set(i, b);
+                    }
+                        // std::swap((*v1_)[i + d], (*v1_)[i]);
+                }
             }
         }
         else
@@ -65,7 +84,12 @@ void swap<T>::run() const
                 #pragma simd
                 #pragma ivdep
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    std::swap((*v1_)[i], (*v2_)[i]);
+                {
+                    T tmp = (*v1_)[i];
+                    v1_->set(i, (*v2_)[i]);
+                    v2_->set(i, tmp);
+                }
+                    // std::swap((*v1_)[i], (*v2_)[i]);
             }
             else
             {
@@ -73,8 +97,20 @@ void swap<T>::run() const
                 #pragma simd
                 #pragma ivdep
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    if (this->cond_(&(*v1_)[i], &(*v2_)[i]))
-                        std::swap((*v1_)[i], (*v2_)[i]);
+                {
+                    T a, b;
+                    a = (*v1_)[i];
+                    b = (*v2_)[i];
+
+                    if (this->cond_(&a, &b))
+                    // if (this->cond_(&(*v1_)[i], &(*v2_)[i]))
+                    {
+                        T tmp = (*v1_)[i];
+                        v1_->set(i, (*v2_)[i]);
+                        v2_->set(i, tmp);
+                    }
+                        // std::swap((*v1_)[i], (*v2_)[i]);
+                }
             }
         }
     }

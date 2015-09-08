@@ -3,6 +3,10 @@
 #ifndef NEY_FILL_HPP_
 #define NEY_FILL_HPP_
 
+// #if CC_CUDA
+// #include "cuda/fill.cuh"
+// #endif
+
 NEY_NS_BEGIN
 
 //! Fills a vector with a specified value. Can fill a part of a vector and/or use a stride.

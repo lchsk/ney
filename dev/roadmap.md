@@ -19,14 +19,14 @@
 
 |Name|CUDA|Unit tests|
 |---|---|---|---|---|---|---|---|---|
-|`vector`|||
+|`vector`|yes||
 |`status`|||
 |`fill`|||
 |`config`|||
 |`time measurement`|||
 |`random`|||
 |`replace`|||
-|`reduce`|yes (mul*)|yes|
+|`reduce`|yes|yes|
 |`count`|||
 |`apply`|
 |`compare`|
@@ -62,6 +62,7 @@
 |at least one function on GPU||
 |bitonic sort performance measurement||
 |GPU/Xeon/Xeon Phi measurements||
+|Fix examples (`.set()`)||
 
 
 #### Tools

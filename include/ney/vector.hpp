@@ -4,6 +4,10 @@
 #ifndef NEY_VECTOR_HPP_
 #define NEY_VECTOR_HPP_
 
+#if CC_CUDA
+#include <thrust/device_vector.h>
+#endif
+
 NEY_NS_BEGIN
 
 //! A vector class
@@ -63,7 +67,7 @@ class vector
 
         //! Changes a value of a vector by element such as this: `vector1[0] = 100;`
 
-        T& operator[] (unsigned index);
+        // T& operator[] (unsigned index);
 
         //! Reads a value stored in a vector such as this: `int value = vector1[0];`
 
@@ -99,7 +103,15 @@ class vector
 
         unsigned stride () const;
 
+        void set(unsigned index, T value);
+
+        T get(unsigned index) const;
+
         T* raw() const;
+
+        #if CC_CUDA
+            thrust::device_vector<T>& device();
+        #endif
 
     private:
 
@@ -122,6 +134,10 @@ class vector
         //! Vector data
 
         T* data_;
+
+        #if CC_CUDA
+            thrust::device_vector<T> dv_;
+        #endif
 };
 
 #include "detail/vector.cpp"

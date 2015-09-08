@@ -9,11 +9,20 @@ vector(const new_vector& config)
     , from_(0)
     , to_(config.size_)
     , stride_(1)
+    , data_(NULL)
 {
-    #if ALIGNMENT_OK
-        data_ = (T*) MALLOC (sizeof (T*) * config.size_, ALIGN);
+    #if CC_CUDA
+        std::cout << "setting size: " << config.size_ << "\n";
+        dv_.resize(config.size_);
+        std::cout << "hej : " << dv_.size() << "\n";
     #else
-        data_ = (T*) MALLOC (sizeof (T*) * config.size_);
+
+        #if ALIGNMENT_OK
+            data_ = (T*) MALLOC (sizeof (T*) * config.size_, ALIGN);
+        #else
+            data_ = (T*) MALLOC (sizeof (T*) * config.size_);
+        #endif
+
     #endif
 
 }
@@ -25,18 +34,28 @@ vector(const vector<T>& that)
     config_ = that.config_;
     config_.size_ = that.length();
 
-    #if ALIGNMENT_OK
-        data_ = (T*) MALLOC (sizeof (T*) * that.length(), ALIGN);
+    #if CC_CUDA
+        dv_.resize(that.length());
+
+        for (int i = that.from(); i < that.to(); i += that.stride())
+            dv_.push_back(that[i]);
+
     #else
-        data_ = (T*) MALLOC (sizeof (T*) * that.length());
+
+        #if ALIGNMENT_OK
+            data_ = (T*) MALLOC (sizeof (T*) * that.length(), ALIGN);
+        #else
+            data_ = (T*) MALLOC (sizeof (T*) * that.length());
+        #endif
+
+        int j = 0;
+
+        for (int i = that.from(); i < that.to(); i += that.stride())
+        {
+            data_[j++] = that[i];
+        }
+
     #endif
-
-    int j = 0;
-
-    for (int i = that.from(); i < that.to(); i += that.stride())
-    {
-        data_[j++] = that[i];
-    }
 
     this->reset();
 }
@@ -51,15 +70,17 @@ vector()
     , from_(0)
     , to_(0)
     , stride_(1)
+    , data_(NULL)
 {
-    data_ = NULL;
 }
 
 template <typename T>
 inline
 void vector<T>::swap_(vector<T>& second)
 {
-    // using std::swap;
+    #if CC_CUDA
+        std::swap(this->dv_, second.dv_);
+    #endif
 
     std::swap(this->data_, second.data_);
     std::swap(this->config_, second.config_);
@@ -116,7 +137,12 @@ inline vector<T>& vector<T>::reset()
 template <typename T>
 vector<T>& vector<T>::operator<<(T x)
 {
-    data_[incr_++] = x;
+    #if CC_CUDA
+        dv_[incr_++] = x;
+    #else
+        data_[incr_++] = x;
+    #endif
+
     return *this;
 }
 
@@ -139,16 +165,49 @@ std::ostream& operator<<(std::ostream& s, const vector<T>& v)
 }
 
 template <typename T>
-inline T& vector<T>::operator[] (unsigned index)
+void vector<T>::set(unsigned index, T value)
 {
-    return data_[index];
+    #if CC_CUDA
+        dv_[index] = value;
+    #else
+        data_[index] = value;
+    #endif
+}
+
+
+// template <typename T>
+// inline T& vector<T>::operator[] (unsigned index)
+// {
+//     // #if CC_CUDA
+//         // return dv_[index];
+//     // #else
+//         return data_[index];
+//     // #endif
+// }
+
+template <typename T>
+T vector<T>::get(unsigned index) const
+{
+    return this->operator[](index);
 }
 
 template <typename T>
 inline T vector<T>::operator[] (unsigned index) const
 {
-    return data_[index];
+    #if CC_CUDA
+        return dv_[index];
+    #else
+        return data_[index];
+    #endif
 }
+
+#if CC_CUDA
+template <typename T>
+inline thrust::device_vector<T>& vector<T>::device()
+{
+    return dv_;
+}
+#endif
 
 template <typename T>
 inline T* vector<T>::raw() const
@@ -164,12 +223,12 @@ inline vector<T> vector<T>::operator+(const vector<T>& v) const
 
     for (int i = from_; i < to_; i += stride_)
     {
-        out_[j++] = data_[i];
+        out_.set(j++, data_[i]);
     }
 
     for (int i = v.from(); i < v.to(); i += v.stride())
     {
-        out_[j++] = v.data_[i];
+        out_.set(j++, v.data_[i]);
     }
 
     return out_;

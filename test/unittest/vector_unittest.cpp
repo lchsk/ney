@@ -16,7 +16,7 @@ TEST(VectorTests, Basic)
         EXPECT_NEAR(v1[i], 0, ERROR);
 
     // 3 Check reading and assigning new single values
-    v1[0] = 2.5;
+    v1.set(0, 2.5);
     EXPECT_NEAR(v1[0], 2.5, ERROR);
 
     // 4 Check if << operator is correctly overloaded
@@ -62,9 +62,9 @@ TEST(VectorTests, Advanced)
     v2.slice(2, 10, 3);
     EXPECT_EQ(v2.length(), 3);
 
-    v2[0] = 500;
-    v2[1] = 400;
-    v2[2] = 300;
+    v2.set(0, 500);
+    v2.set(1, 400);
+    v2.set(2, 300);
 
     // Invoke copy-constructor
     // Data from v2 should be in v3
@@ -80,7 +80,7 @@ TEST(VectorTests, Advanced)
     EXPECT_EQ(v2.reset().length(), v3.length());
 
     v2.stride(2);
-    v3[0] = 1000;
+    v3.set(0, 1000);
 
     // Invoke assignment operator
     // v2 and v3 should have the same data and the same information on slicing
