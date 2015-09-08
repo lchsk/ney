@@ -36,4 +36,10 @@ void random<T>::run() const
         for (int i = out.from(); i < out.to(); i += out.stride())
             out.set(i, min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_))));
     }
+    #if CC_CUDA
+    else if (ney::config.target == GPU)
+    {
+        ney::gpu::random<T>(out, min_, max_);
+    }
+    #endif
 }

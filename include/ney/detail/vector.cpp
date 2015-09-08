@@ -23,7 +23,15 @@ vector(const new_vector& config)
         #endif
 
     #endif
+}
 
+template <typename T>
+inline bool vector<T>::is_int() const
+{
+    if ((T) 2.5 == 2)
+        return true;
+    else
+        return false;
 }
 
 template <typename T>

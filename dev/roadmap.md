@@ -24,7 +24,7 @@
 |`fill`|yes|yes|
 |`config`|yes||
 |`time measurement`|yes||
-|`random`|||
+|`random`|yes|yes|
 |`replace`|||
 |`reduce`|yes|yes|
 |`count`|||

@@ -14,10 +14,8 @@ NEY_NS_BEGIN
 namespace gpu{
 
 template <typename T>
-T fill(ney::vector<T>& v, T value)
+void fill(ney::vector<T>& v, T value)
 {
-    T result;
-
     if (v.host_active())
         v.copy_to_gpu();
 
@@ -25,8 +23,6 @@ T fill(ney::vector<T>& v, T value)
 
     strided_range< Iterator > slice(v.device().begin() + v.from(), v.device().begin() + v.to(), v.stride());
     thrust::fill(slice.begin(), slice.end(), value);
-
-    return result;
 }
 
 }

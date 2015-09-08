@@ -51,31 +51,31 @@ TEST(BasicOperations, Fill)
         EXPECT_EQ(v[i], 10);
 }
 
-// TEST(BasicOperations, Random)
-// {
-//     ney::vector<int> v = ney::new_vector().size(5);
-//     ney::status s;
-//
-//     // Expect an error
-//
-//     s = ney::random<int>(v).min(10).max(5);
-//
-//     EXPECT_FALSE(s.success());
-//     EXPECT_NE(s.error(), "");
-//
-//     // That should be ok
-//     s = ney::random<int>(v).min(5).max(10);
-//
-//     EXPECT_TRUE(s.success());
-//     EXPECT_EQ(s.error(), "");
-//
-//     for (int i = 0; i < 5; i++)
-//     {
-//         EXPECT_LT(v[i], 10);
-//         EXPECT_GE(v[i], 5);
-//     }
-// }
-//
+TEST(BasicOperations, Random)
+{
+    ney::vector<int> v = ney::new_vector().size(5);
+    ney::status s;
+
+    // Expect an error
+
+    s = ney::random<int>(v).min(10).max(5);
+
+    EXPECT_FALSE(s.success());
+    EXPECT_NE(s.error(), "");
+
+    // That should be ok
+    s = ney::random<int>(v).min(5).max(10);
+
+    EXPECT_TRUE(s.success());
+    EXPECT_EQ(s.error(), "");
+
+    for (int i = 0; i < 5; i++)
+    {
+        EXPECT_LE(v[i], 10);
+        EXPECT_GE(v[i], 5);
+    }
+}
+
 // TEST(BasicOperations, Count)
 // {
 //     ney::vector<int> v = ney::new_vector().size(7);

@@ -3,6 +3,10 @@
 #ifndef NEY_RANDOM_HPP_
 #define NEY_RANDOM_HPP_
 
+#if CC_CUDA
+#include "cuda/random.cuh"
+#endif
+
 NEY_NS_BEGIN
 
 //! Fill a vector with random numbers
@@ -27,7 +31,7 @@ class random : public base_operation<T, random>
         random& min(T min);
 
         //! Maximum value in a range of generated numbers (exclusive)
-        
+
         random& max(T max);
 
     private:

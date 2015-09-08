@@ -110,6 +110,8 @@ class vector
 
         T* raw() const;
 
+        bool is_int() const;
+
         #if CC_CUDA
             thrust::device_vector<T>& device();
             void copy_to_gpu();
