@@ -42,10 +42,15 @@ vector(const vector<T>& that)
     config_.size_ = that.length();
 
     #if CC_CUDA
+        hv_.clear();
         hv_.resize(that.length());
+        host_active_ = true;
 
-        for (int i = that.from(); i < that.to(); i += that.stride())
-            hv_.push_back(that[i]);
+        hv_ = that.hv_;
+        // for (int i = that.from(); i < that.to(); i += that.stride())
+        // {
+        //     hv_.push_back(that[i]);
+        // }
 
     #else
 
@@ -116,11 +121,15 @@ template <typename T>
 inline vector<T>::
 ~vector()
 {
-    if (data_ != NULL)
-    {
-        FREE (data_);
-        data_ = NULL;
-    }
+    #if CC_CUDA
+
+    #else
+        if (data_ != NULL)
+        {
+            FREE (data_);
+            data_ = NULL;
+        }
+    #endif
 }
 
 #if CC_CUDA
@@ -251,17 +260,32 @@ template <typename T>
 inline vector<T> vector<T>::operator+(const vector<T>& v) const
 {
     vector<T> out_ = new_vector().size(this->length() + v.length());
-    int j = 0;
 
-    for (int i = from_; i < to_; i += stride_)
-    {
-        out_.set(j++, data_[i]);
-    }
+    #if CC_CUDA
+        int j = 0;
 
-    for (int i = v.from(); i < v.to(); i += v.stride())
-    {
-        out_.set(j++, v.data_[i]);
-    }
+        for (int i = from_; i < to_; i += stride_)
+        {
+            out_.set(j++, this->operator[](i));
+        }
+
+        for (int i = v.from(); i < v.to(); i += v.stride())
+        {
+            out_.set(j++, v[i]);
+        }
+    #else
+        int j = 0;
+
+        for (int i = from_; i < to_; i += stride_)
+        {
+            out_.set(j++, data_[i]);
+        }
+
+        for (int i = v.from(); i < v.to(); i += v.stride())
+        {
+            out_.set(j++, v.data_[i]);
+        }
+    #endif
 
     return out_;
 }

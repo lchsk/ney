@@ -19,7 +19,7 @@
 
 |Name|CUDA|Unit tests|
 |---|---|---|---|---|---|---|---|---|
-|`vector`|yes||
+|`vector`|yes|yes|
 |`status`|yes||
 |`fill`|yes|yes|
 |`config`|yes||
