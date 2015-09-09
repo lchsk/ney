@@ -4,17 +4,17 @@
 
 int main (int argc, char** argv)
 {
-    // int size;
-    //
-    // if (argv[1] == NULL)
-    // {
-    //     std::cerr << "usage: " << argv[0] << " <size>" << std::endl;
-    //     return 1;
-    // }
-    // else
-    // {
-    //     size = atoi(argv[1]);
-    // }
+    int size;
+
+    if (argv[1] == NULL)
+    {
+        std::cerr << "usage: " << argv[0] << " <size>" << std::endl;
+        return 1;
+    }
+    else
+    {
+        size = atoi(argv[1]);
+    }
 
     ney::config.target = ney::Intel;
 
@@ -25,26 +25,19 @@ int main (int argc, char** argv)
     ney::clock::get().start().precision(7);
 
     ney::status s;
-    ney::vector<int> x1 = ney::new_vector().size(1000);
-
-    s = ney::random<int>(x1).min(0).max(100).time();
-    std::cout << s << "\n";
-
     int r;
-    s = ney::reduce<int>(x1).use(ney::operation::add).output(r).time();
-    std::cout << s << "\n";
 
-    ney::vector<int> x2 = ney::new_vector().size(100000);
+    ney::vector<int> x2 = ney::new_vector().size(size);
 
-    s = ney::random<int>(x2).min(0).max(100).time();
+    s = ney::fill<int>(x2).value(1).time();
     std::cout << s << "\n";
 
     s = ney::reduce<int>(x2).use(ney::operation::add).output(r).time();
     std::cout << s << "\n";
 
-    ney::vector<int> x3 = ney::new_vector().size(1000000);
+    ney::vector<int> x3 = ney::new_vector().size(100000000);
 
-    s = ney::random<int>(x3).min(0).max(100).time();
+    s = ney::fill<int>(x3).value(1).time();
     std::cout << s << "\n";
 
     s = ney::reduce<int>(x3).use(ney::operation::add).output(r).time();

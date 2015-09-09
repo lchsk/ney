@@ -304,7 +304,7 @@ status& status::print()
 {
     if ( this->success_)
     {
-        std::cout << "status(success, total time: " << std::setiosflags(std::ios::fixed) << std::setprecision(2) << this->engine_.time() << ")";
+        std::cout << "status(success, total time: " << std::setiosflags(std::ios::fixed) << std::setprecision(5) << this->engine_.time() << ")";
     }
     else
     {
