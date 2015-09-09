@@ -176,6 +176,7 @@ template <typename T>
 vector<T>& vector<T>::operator<<(T x)
 {
     #if CC_CUDA
+        if ( ! host_active_) host_active_ = true;
         hv_[incr_++] = x;
     #else
         data_[incr_++] = x;

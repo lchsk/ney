@@ -28,7 +28,7 @@
 |`replace`|yes|yes|
 |`reduce`|yes|yes|
 |`count`|yes|yes|
-|`apply`|
+|`apply`|yes|yes|
 |`compare`|
 |`slicing`|
 |`swap`|

@@ -3,10 +3,11 @@
 
 #include "vector.hpp"
 
+#if CC_CUDA
+#include "cuda/apply.cuh"
+#endif
+
 NEY_NS_BEGIN
-
-
-
 
 // enum mode_t{
 //     FUN_VEC

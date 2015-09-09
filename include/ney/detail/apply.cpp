@@ -80,11 +80,11 @@ template <typename T>
 inline
 void apply<T>::run() const
 {
+    if (output_ == NULL)
+        output_ = v1_;
+
     if (ney::config.target == Intel)
     {
-        if (output_ == NULL)
-            output_ = v1_;
-
         // Use case 1
         // if (f_ != function::none)
         // {
@@ -208,6 +208,29 @@ void apply<T>::run() const
                     (*output_).set(i, (*v1_)[i] * d_value_);
             }
         }
+    }
+    #if CC_CUDA
+    else if (ney::config.target == GPU)
+    {
+        if (f_ != ney::function::none)
+            ney::gpu::apply<T>(*output_, *v1_, f_, output_ == v1_);
+        else if(v1_ != NULL && v2_ != NULL && use_scalar_)
+        {
+            ney::gpu::apply<T>(*output_, *v1_, *v2_, value_, op_, output_ == v1_);
+        }
+        else if(v1_ != NULL && v2_ != NULL  && ! use_scalar_)
+        {
+            ney::gpu::apply<T>(*output_, *v1_, *v2_, op_, output_ == v1_);
+        }
+        else if (use_scalar_ && v1_ != NULL)
+        {
+            ney::gpu::apply<T>(*output_, *v1_, value_, op_, output_ == v1_);
+        }
+        else if (use_d_value && v1_ != NULL)
+        {
+            ney::gpu::apply<T>(*output_, *v1_, use_d_value, d_value_, op_, output_ == v1_);
+        }
 
     }
+    #endif
 }
