@@ -53,7 +53,6 @@ void compare<T>::run() const
                 {
                     #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
-                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
                     {
                         (*output_).set(i, ((*v1_)[i] == v2_i[i]) ? true : false);
@@ -63,7 +62,6 @@ void compare<T>::run() const
                 {
                     #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
-                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                     {
                         (*output_).set(i, ((*v1_)[i] == v2_i[i]) ? true : false);
@@ -76,7 +74,6 @@ void compare<T>::run() const
                 {
                     #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
-                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
                     {
                         (*output_).set(i, (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false);
@@ -86,7 +83,6 @@ void compare<T>::run() const
                 {
                     #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
-                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                     {
                         (*output_).set(i, (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false);
@@ -101,7 +97,6 @@ void compare<T>::run() const
             {
                 #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
-                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
                 {
                     T a = (*v1_)[i];
@@ -113,7 +108,6 @@ void compare<T>::run() const
             {
                 #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
-                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     T a = (*v1_)[i];
