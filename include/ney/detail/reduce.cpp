@@ -57,6 +57,7 @@ void reduce<T>::run() const
             int from1 = this->from1;
             int to1 = this->to1;
             int stride = v_.stride();
+            // T value = this->value_;
 
             if (stride == 1)
             {
@@ -68,7 +69,7 @@ void reduce<T>::run() const
                         {
                             T* raw = v_.raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride) inout(r1)
                         	{
                                 #pragma omp parallel for schedule(static) reduction(+:r)
                                 for (int i = from1; i < to1; i++)
@@ -101,7 +102,7 @@ void reduce<T>::run() const
                         {
                             T* raw = v_.raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride) inout(r1)
                         	{
                                 #pragma omp parallel for schedule(static) reduction(*:r)
                                 for (int i = from1; i < to1; i++)
@@ -135,7 +136,7 @@ void reduce<T>::run() const
                         {
                             T* raw = v_.raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride) inout(r1)
                         	{
                                 #pragma omp parallel for schedule(static) reduction(+:r)
                                 for (int i = from1; i < to1; i += stride)
@@ -168,7 +169,7 @@ void reduce<T>::run() const
                         {
                             T* raw = v_.raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride) inout(r1)
                         	{
                                 #pragma omp parallel for schedule(static) reduction(*:r)
                                 for (int i = from1; i < to1; i += stride)

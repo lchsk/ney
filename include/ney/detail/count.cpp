@@ -45,6 +45,7 @@ void count<T>::run() const
             int from1 = this->from1;
             int to1 = this->to1;
             int stride = v_->stride();
+            T value = this->value_;
 
             if (stride == 1)
             {
@@ -56,7 +57,7 @@ void count<T>::run() const
                         {
                             T* raw = v_->raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value) inout(c1)
                         	{
                                 #pragma omp parallel for schedule(static)
                                 for (int i = from1; i < to1; i ++)
@@ -91,7 +92,7 @@ void count<T>::run() const
                         {
                             T* raw = v_->raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value) inout(c1)
                         	{
                                 #pragma omp parallel for schedule(static)
                                 for (int i = from1; i < to1; i++)
@@ -129,7 +130,7 @@ void count<T>::run() const
                         {
                             T* raw = v_->raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value) inout(c1)
                         	{
                                 #pragma omp parallel for schedule(static)
                                 for (int i = from1; i < to1; i += stride)
@@ -164,7 +165,7 @@ void count<T>::run() const
                         {
                             T* raw = v_->raw();
 
-                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value) inout(c1)
                         	{
                                 #pragma omp parallel for schedule(static)
                                 for (int i = from1; i < to1; i += stride)

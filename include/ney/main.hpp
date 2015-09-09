@@ -282,12 +282,12 @@ class config_t
 
             #if USE_MIC && ! CC_GNU
                 #if MIC
-                    running_on_mic = true;
+                    this->running_on_mic = true;
                 #else
                     #if USE_MKL
-                        mic_count_ = mkl_mic_get_device_count();
+                        this->mic_count_ = mkl_mic_get_device_count();
                     #else
-                        mic_count_ = _Offload_number_of_devices();
+                        this->mic_count_ = _Offload_number_of_devices();
                     #endif
                 #endif
             #endif
