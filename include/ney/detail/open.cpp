@@ -59,7 +59,11 @@ void open<T>::run() const
                 }
             #else
                 if (ney::config.target == Intel)
+                {
+                    *v_ = new_vector().size(size);
                     fread(v_->data_, size, 1, f);
+                }
+
 
             #endif
 
