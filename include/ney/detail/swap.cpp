@@ -42,7 +42,7 @@ void swap<T>::run() const
             {
                 if (this->cond_ == NULL)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma ivdep
                     #pragma vector aligned
@@ -57,7 +57,7 @@ void swap<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < d; i++)
@@ -82,7 +82,7 @@ void swap<T>::run() const
             {
                 if (this->cond_ == NULL)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma ivdep
                     #pragma vector aligned
@@ -97,7 +97,7 @@ void swap<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < d; i += v1_->stride())
@@ -128,7 +128,7 @@ void swap<T>::run() const
             {
                 if (this->cond_ == NULL)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma ivdep
                     #pragma vector aligned
@@ -142,7 +142,7 @@ void swap<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma ivdep
                     #pragma vector aligned
@@ -167,7 +167,7 @@ void swap<T>::run() const
             {
                 if (this->cond_ == NULL)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma ivdep
                     #pragma vector aligned
@@ -181,7 +181,7 @@ void swap<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma ivdep
                     #pragma vector aligned

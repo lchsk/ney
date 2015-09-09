@@ -276,6 +276,7 @@ class config_t
             #pragma omp master
 
             threads = max_threads_ = omp_get_num_threads();
+            #define NUM_THREADS ney::config.threads
 
             #pragma omp barrier
 

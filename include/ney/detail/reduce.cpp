@@ -81,7 +81,7 @@ void reduce<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static) reduction(+:r)
+                            #pragma omp parallel for schedule(static) reduction(+:r)  num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i++)
                             {
                                 r2 += v_[i];
@@ -114,7 +114,7 @@ void reduce<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static) reduction(*:r)
+                            #pragma omp parallel for schedule(static) reduction(*:r)  num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i++)
                             {
                                 r2 *= v_[i];
@@ -148,7 +148,7 @@ void reduce<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static) reduction(+:r)
+                            #pragma omp parallel for schedule(static) reduction(+:r)  num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i += stride)
                             {
                                 r2 += v_[i];
@@ -181,7 +181,7 @@ void reduce<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static) reduction(*:r)
+                            #pragma omp parallel for schedule(static) reduction(*:r)  num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i += stride)
                             {
                                 r2 *= v_[i];
@@ -202,7 +202,7 @@ void reduce<T>::run() const
             {
                 if (operation_ == operation::add)
                 {
-                    #pragma omp parallel for schedule(static) reduction(+:r)
+                    #pragma omp parallel for schedule(static) reduction(+:r) num_threads(NUM_THREADS)
                     for (int i = v_.from(); i < v_.to(); i++)
                     {
                         r += v_[i];
@@ -210,7 +210,7 @@ void reduce<T>::run() const
                 }
                 else if (operation_ == operation::mul)
                 {
-                    #pragma omp parallel for schedule(static) reduction(*:r)
+                    #pragma omp parallel for schedule(static) reduction(*:r) num_threads(NUM_THREADS)
                     for (int i = v_.from(); i < v_.to(); i++)
                     {
                         r *= v_[i];
@@ -221,7 +221,7 @@ void reduce<T>::run() const
             {
                 if (operation_ == operation::add)
                 {
-                    #pragma omp parallel for schedule(static) reduction(+:r)
+                    #pragma omp parallel for schedule(static) reduction(+:r) num_threads(NUM_THREADS)
                     for (int i = v_.from(); i < v_.to(); i += v_.stride())
                     {
                         r += v_[i];
@@ -229,7 +229,7 @@ void reduce<T>::run() const
                 }
                 else if (operation_ == operation::mul)
                 {
-                    #pragma omp parallel for schedule(static) reduction(*:r)
+                    #pragma omp parallel for schedule(static) reduction(*:r) num_threads(NUM_THREADS)
                     for (int i = v_.from(); i < v_.to(); i += v_.stride())
                     {
                         r *= v_[i];

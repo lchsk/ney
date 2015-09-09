@@ -92,7 +92,7 @@ void apply<T>::run() const
         {
             if (v1_->stride() == 1)
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
@@ -102,7 +102,7 @@ void apply<T>::run() const
             }
             else
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -116,7 +116,7 @@ void apply<T>::run() const
         {
             if (v1_->stride() == 1)
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
@@ -126,7 +126,7 @@ void apply<T>::run() const
             }
             else
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -140,7 +140,7 @@ void apply<T>::run() const
         {
             if (v1_->stride() == 1)
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
@@ -151,7 +151,7 @@ void apply<T>::run() const
             }
             else
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -166,7 +166,7 @@ void apply<T>::run() const
         {
             if (v1_->stride() == 1)
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
@@ -177,7 +177,7 @@ void apply<T>::run() const
             }
             else
             {
-                #pragma omp parallel for schedule(static)
+                #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -199,7 +199,7 @@ void apply<T>::run() const
                 {
                     if (v1_->stride() == 1)
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
@@ -209,7 +209,7 @@ void apply<T>::run() const
                     }
                     else
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -223,7 +223,7 @@ void apply<T>::run() const
                 {
                     if (v1_->stride() == 1)
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
@@ -233,7 +233,7 @@ void apply<T>::run() const
                     }
                     else
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -252,7 +252,7 @@ void apply<T>::run() const
                 {
                     if (v1_->stride() == 1)
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
@@ -260,7 +260,7 @@ void apply<T>::run() const
                     }
                     else
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -272,7 +272,7 @@ void apply<T>::run() const
                 {
                     if (v1_->stride() == 1)
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
@@ -280,7 +280,7 @@ void apply<T>::run() const
                     }
                     else
                     {
-                        #pragma omp parallel for schedule(static)
+                        #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                         #pragma simd
                         #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -297,7 +297,7 @@ void apply<T>::run() const
             {
                 if (v1_->stride() == 1)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
@@ -305,7 +305,7 @@ void apply<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -317,7 +317,7 @@ void apply<T>::run() const
             {
                 if (v1_->stride() == 1)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
@@ -325,7 +325,7 @@ void apply<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -341,7 +341,7 @@ void apply<T>::run() const
             {
                 if (v1_->stride() == 1)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
@@ -349,7 +349,7 @@ void apply<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
@@ -361,7 +361,7 @@ void apply<T>::run() const
             {
                 if (v1_->stride() == 1)
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
@@ -369,7 +369,7 @@ void apply<T>::run() const
                 }
                 else
                 {
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     #pragma simd
                     #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())

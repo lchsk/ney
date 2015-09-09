@@ -71,7 +71,7 @@ void count<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static)
+                            #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i ++)
                             {
                                 if ((*v_)[i] == value_)
@@ -106,7 +106,7 @@ void count<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static)
+                            #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i++)
                             {
                                 if (fabs((*v_)[i] - value_) < this->precision_)
@@ -144,7 +144,7 @@ void count<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static)
+                            #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i += stride)
                             {
                                 if ((*v_)[i] == value_)
@@ -179,7 +179,7 @@ void count<T>::run() const
                         {
                             // running on the host
 
-                            #pragma omp parallel for schedule(static)
+                            #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                             for (int i = this->from2; i < this->to2; i += stride)
                             {
                                 if (fabs((*v_)[i] - value_) < this->precision_)
@@ -204,7 +204,7 @@ void count<T>::run() const
                 {
                     // cannot vectorise it
 
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     for (int i = v_->from(); i < v_->to(); i++)
                     {
                         if ((*v_)[i] == value_)
@@ -216,7 +216,7 @@ void count<T>::run() const
                 {
                     // cannot vectorise it
 
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     for (int i = v_->from(); i < v_->to(); i++)
                     {
                         if (fabs((*v_)[i] - value_) < this->precision_)
@@ -231,7 +231,7 @@ void count<T>::run() const
                 {
                     // cannot vectorise it
 
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     for (int i = v_->from(); i < v_->to(); i += v_->stride())
                     {
                         if ((*v_)[i] == value_)
@@ -243,7 +243,7 @@ void count<T>::run() const
                 {
                     // cannot vectorise it
 
-                    #pragma omp parallel for schedule(static)
+                    #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                     for (int i = v_->from(); i < v_->to(); i += v_->stride())
                     {
                         if (fabs((*v_)[i] - value_) < this->precision_)
