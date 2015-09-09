@@ -33,7 +33,9 @@ int main (int argc, char** argv)
 
         for (int i = 0; i < v.length(); i++)
         {
-            s = ney::count<int>(v[i]).in(v2).output(counts[i]);
+            int tmp = counts[i];
+            s = ney::count<int>(v[i]).in(v2).output(tmp);
+            counts.set(i, tmp);
         }
 
         std::cout << std::endl << "encoded: " << std::endl;

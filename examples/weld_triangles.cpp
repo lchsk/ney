@@ -63,7 +63,7 @@ int main (int argc, char** argv)
     ney::vector<int> tmp = ney::new_vector().size(x[x.length() - 1]);
 
     for (int i = 0; i < x.length(); i++)
-        tmp[x[i]] = i;
+        tmp.set(x[i], i);
 
     // indices
 

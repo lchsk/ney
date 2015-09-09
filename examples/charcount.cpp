@@ -35,7 +35,9 @@ int main (int argc, char** argv)
 
         for (int i = letters.from(); i < letters.to(); i += letters.stride())
         {
-            s = ney::count<char>(letters[i]).in(text).output(counts[i]);
+            int tmp = counts[i];
+            s = ney::count<char>(letters[i]).in(text).output(tmp);
+            counts.set(i, tmp);
 
             // print
 

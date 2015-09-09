@@ -24,8 +24,8 @@ void readBMP(const char* filename, struct image_bmp& frame)
 
     // little endian
 
-    int width = *(int*) &frame.header[18];
-    int height = *(int*) &frame.header[22];
+    int width = *(int*) &frame.header.raw()[18];
+    int height = *(int*) &frame.header.raw()[22];
     frame.width = width;
     frame.height = height;
 
@@ -93,9 +93,9 @@ int main (int argc, char** argv)
     {
         g = img.data[i] + img.data[i + 1] + img.data[i + 2];
 
-        img.data[i] = g;
-        img.data[i + 1] = g;
-        img.data[i + 2] = g;
+        img.data.set(i, g);
+        img.data.set(i + 1, g);
+        img.data.set(i + 2, g);
     }
 
     //

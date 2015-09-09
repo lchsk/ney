@@ -65,15 +65,15 @@ int main (int argc, char** argv)
         {
             if (o[j] && alive[j])
             {
-                alive[j] = false;
+                alive.set(j, false);
 
-                x[particles] = rand() % BOX_W;
-                y[particles] = rand() % BOX_H;
+                x.set(particles, rand() % BOX_W);
+                y.set(particles, rand() % BOX_H);
 
                 particles++;
 
-                x[particles] = rand() % BOX_W;
-                y[particles] = rand() % BOX_H;
+                x.set(particles, rand() % BOX_W);
+                y.set(particles, rand() % BOX_H);
 
                 particles++;
             }
