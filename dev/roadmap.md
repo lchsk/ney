@@ -30,7 +30,7 @@
 |`count`|yes|yes|
 |`apply`|yes|yes|
 |`compare`|
-|`slicing`|
+|`slicing`|yes|yes|
 |`swap`|
 |`sort`|yes|yes|
 |`unique`|yes|yes|
@@ -59,10 +59,10 @@
 |conditional `swap`|yes|
 |single vector bitonic sort||
 |GPU vector|yes|
-|at least one function on GPU||
+|at least one function on GPU|yes|
 |bitonic sort performance measurement||
 |GPU/Xeon/Xeon Phi measurements||
-|Fix examples (`.set()`)||
+|Fix examples (`.set()`)|yes|
 
 
 #### Tools

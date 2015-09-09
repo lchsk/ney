@@ -27,7 +27,7 @@ struct sine
     __host__ __device__
     void operator()(T &y) const
     {
-        y = sin(y);
+        y = sinf(y);
     }
 };
 
@@ -39,7 +39,7 @@ struct cosine
     __host__ __device__
     void operator()(T &y) const
     {
-        y = cos(y);
+        y = cosf(y);
     }
 };
 
