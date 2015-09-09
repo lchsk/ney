@@ -58,69 +58,139 @@ void reduce<T>::run() const
             int to1 = this->to1;
             int stride = v_.stride();
 
-            if (operation_ == operation::add)
+            if (stride == 1)
             {
-                #pragma omp parallel sections
+                if (operation_ == operation::add)
                 {
-                    #pragma omp section
+                    #pragma omp parallel sections
                     {
-                        T* raw = v_.raw();
+                        #pragma omp section
+                        {
+                            T* raw = v_.raw();
 
-                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
-                    	{
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                        	{
+                                #pragma omp parallel for schedule(static) reduction(+:r)
+                                for (int i = from1; i < to1; i++)
+                                {
+                                    r1 += raw[i];
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
                             #pragma omp parallel for schedule(static) reduction(+:r)
-                            for (int i = from1; i < to1; i += stride)
+                            for (int i = this->from2; i < this->to2; i++)
                             {
-                                r1 += raw[i];
+                                r2 += v_[i];
                             }
-                    	}
-                    }
-                    #pragma omp section
-                    {
-                        // running on the host
-
-                        #pragma omp parallel for schedule(static) reduction(+:r)
-                        for (int i = this->from2; i < this->to2; i += stride)
-                        {
-                            r2 += v_[i];
                         }
                     }
+
+                    r = r + r1 + r2;
                 }
-
-                r = r + r1 + r2;
-            }
-            else if (operation_ == operation::mul)
-            {
-                r1 = r2 = init_value_;
-
-                #pragma omp parallel sections
+                else if (operation_ == operation::mul)
                 {
-                    #pragma omp section
-                    {
-                        T* raw = v_.raw();
+                    r1 = r2 = init_value_;
 
-                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
-                    	{
-                            #pragma omp parallel for schedule(static) reduction(*:r)
-                            for (int i = from1; i < to1; i += stride)
-                            {
-                                r1 *= raw[i];
-                            }
-                    	}
-                    }
-                    #pragma omp section
+                    #pragma omp parallel sections
                     {
-                        // running on the host
-
-                        #pragma omp parallel for schedule(static) reduction(*:r)
-                        for (int i = this->from2; i < this->to2; i += stride)
+                        #pragma omp section
                         {
-                            r2 *= v_[i];
+                            T* raw = v_.raw();
+
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                        	{
+                                #pragma omp parallel for schedule(static) reduction(*:r)
+                                for (int i = from1; i < to1; i++)
+                                {
+                                    r1 *= raw[i];
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
+                            #pragma omp parallel for schedule(static) reduction(*:r)
+                            for (int i = this->from2; i < this->to2; i++)
+                            {
+                                r2 *= v_[i];
+                            }
                         }
                     }
-                }
 
-                r = r1 * r2;
+                    r = r1 * r2;
+                }
+            } // end stride == 1
+            else
+            {
+                if (operation_ == operation::add)
+                {
+                    #pragma omp parallel sections
+                    {
+                        #pragma omp section
+                        {
+                            T* raw = v_.raw();
+
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                        	{
+                                #pragma omp parallel for schedule(static) reduction(+:r)
+                                for (int i = from1; i < to1; i += stride)
+                                {
+                                    r1 += raw[i];
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
+                            #pragma omp parallel for schedule(static) reduction(+:r)
+                            for (int i = this->from2; i < this->to2; i += stride)
+                            {
+                                r2 += v_[i];
+                            }
+                        }
+                    }
+
+                    r = r + r1 + r2;
+                }
+                else if (operation_ == operation::mul)
+                {
+                    r1 = r2 = init_value_;
+
+                    #pragma omp parallel sections
+                    {
+                        #pragma omp section
+                        {
+                            T* raw = v_.raw();
+
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(r1)
+                        	{
+                                #pragma omp parallel for schedule(static) reduction(*:r)
+                                for (int i = from1; i < to1; i += stride)
+                                {
+                                    r1 *= raw[i];
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
+                            #pragma omp parallel for schedule(static) reduction(*:r)
+                            for (int i = this->from2; i < this->to2; i += stride)
+                            {
+                                r2 *= v_[i];
+                            }
+                        }
+                    }
+
+                    r = r1 * r2;
+                }
             }
         }
 
@@ -128,20 +198,42 @@ void reduce<T>::run() const
 
         if ( ! this->offloaded_)
         {
-            if (operation_ == operation::add)
+            if (v_.stride() == 1)
             {
-                #pragma omp parallel for schedule(static) reduction(+:r)
-                for (int i = v_.from(); i < v_.to(); i += v_.stride())
+                if (operation_ == operation::add)
                 {
-                    r += v_[i];
+                    #pragma omp parallel for schedule(static) reduction(+:r)
+                    for (int i = v_.from(); i < v_.to(); i++)
+                    {
+                        r += v_[i];
+                    }
+                }
+                else if (operation_ == operation::mul)
+                {
+                    #pragma omp parallel for schedule(static) reduction(*:r)
+                    for (int i = v_.from(); i < v_.to(); i++)
+                    {
+                        r *= v_[i];
+                    }
                 }
             }
-            else if (operation_ == operation::mul)
+            else
             {
-                #pragma omp parallel for schedule(static) reduction(*:r)
-                for (int i = v_.from(); i < v_.to(); i += v_.stride())
+                if (operation_ == operation::add)
                 {
-                    r *= v_[i];
+                    #pragma omp parallel for schedule(static) reduction(+:r)
+                    for (int i = v_.from(); i < v_.to(); i += v_.stride())
+                    {
+                        r += v_[i];
+                    }
+                }
+                else if (operation_ == operation::mul)
+                {
+                    #pragma omp parallel for schedule(static) reduction(*:r)
+                    for (int i = v_.from(); i < v_.to(); i += v_.stride())
+                    {
+                        r *= v_[i];
+                    }
                 }
             }
         }

@@ -33,26 +33,54 @@ void replace<T>::run() const
 {
     if (ney::config.target == Intel)
     {
-        if (this->is_integer_)
+        if (v_->stride() == 1)
         {
-            #pragma omp parallel for schedule(static)
-            #pragma simd
-            #pragma vector aligned
-            for (int i = v_->from(); i < v_->to(); i += v_->stride())
+            if (this->is_integer_)
             {
-                if ((*v_)[i] == old_)
-                    (*v_).set(i, new_);
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                #pragma vector aligned
+                for (int i = v_->from(); i < v_->to(); i++)
+                {
+                    if ((*v_)[i] == old_)
+                        (*v_).set(i, new_);
+                }
+            }
+            else
+            {
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                #pragma vector aligned
+                for (int i = v_->from(); i < v_->to(); i++)
+                {
+                    if (fabs((*v_)[i] - old_) < this->precision_)
+                        (*v_).set(i, new_);
+                }
             }
         }
         else
         {
-            #pragma omp parallel for schedule(static)
-            #pragma simd
-            #pragma vector aligned
-            for (int i = v_->from(); i < v_->to(); i += v_->stride())
+            if (this->is_integer_)
             {
-                if (fabs((*v_)[i] - old_) < this->precision_)
-                    (*v_).set(i, new_);
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                #pragma vector aligned
+                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                {
+                    if ((*v_)[i] == old_)
+                        (*v_).set(i, new_);
+                }
+            }
+            else
+            {
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                #pragma vector aligned
+                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                {
+                    if (fabs((*v_)[i] - old_) < this->precision_)
+                        (*v_).set(i, new_);
+                }
             }
         }
     }

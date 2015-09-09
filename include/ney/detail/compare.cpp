@@ -49,12 +49,64 @@ void compare<T>::run() const
         {
             if (this->is_integer_)
             {
+                if (v1_->stride() == 1)
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i++)
+                    {
+                        (*output_).set(i, ((*v1_)[i] == v2_i[i]) ? true : false);
+                    }
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    {
+                        (*output_).set(i, ((*v1_)[i] == v2_i[i]) ? true : false);
+                    }
+                }
+            }
+            else
+            {
+                if (v1_->stride() == 1)
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i++)
+                    {
+                        (*output_).set(i, (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false);
+                    }
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    {
+                        (*output_).set(i, (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false);
+                    }
+                }
+
+            }
+        }
+        else
+        {
+            if (v1_->stride() == 1)
+            {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
                 #pragma vector aligned
-                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                for (int i = v1_->from(); i < v1_->to(); i++)
                 {
-                    (*output_).set(i, ((*v1_)[i] == v2_i[i]) ? true : false);
+                    T a = (*v1_)[i];
+                    T b = (v2_i[i]);
+                    (*output_).set(i, this->cond_(&a, &b));
                 }
             }
             else
@@ -64,20 +116,10 @@ void compare<T>::run() const
                 #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
-                    (*output_).set(i, (fabs((*v1_)[i] - v2_i[i]) < this->precision_) ? true : false);
+                    T a = (*v1_)[i];
+                    T b = (v2_i[i]);
+                    (*output_).set(i, this->cond_(&a, &b));
                 }
-            }
-        }
-        else
-        {
-            #pragma omp parallel for schedule(static)
-            #pragma simd
-            #pragma vector aligned
-            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-            {
-                T a = (*v1_)[i];
-                T b = (v2_i[i]);
-                (*output_).set(i, this->cond_(&a, &b));
             }
         }
     }

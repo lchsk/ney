@@ -23,31 +23,63 @@ void unique<T>::run() const
         int j = 0;
         v_.set(0, v_[v_.from()]);
 
-        if (this->is_integer_)
+        if (v_.stride() == 1)
         {
-            for (int i = v_.from() + v_.stride(); i < v_.to(); i += v_.stride())
+            if (this->is_integer_)
             {
-                if (v_[i] != v_[j])
+                for (int i = v_.from() + v_.stride(); i < v_.to(); i++)
                 {
-                    v_.set(++j, v_[i]);
+                    if (v_[i] != v_[j])
+                    {
+                        v_.set(++j, v_[i]);
+                    }
                 }
-            }
 
-            v_.reset();
-            v_.to(j + 1);
+                v_.reset();
+                v_.to(j + 1);
+            }
+            else
+            {
+                for (int i = v_.from() + v_.stride(); i < v_.to(); i++)
+                {
+                    if (fabs(v_[i] - v_[j]) >= this->precision_)
+                    {
+                        v_.set(++j, v_[i]);
+                    }
+                }
+
+                v_.reset();
+                v_.to(j + 1);
+            }
         }
         else
         {
-            for (int i = v_.from() + v_.stride(); i < v_.to(); i += v_.stride())
+            if (this->is_integer_)
             {
-                if (fabs(v_[i] - v_[j]) >= this->precision_)
+                for (int i = v_.from() + v_.stride(); i < v_.to(); i += v_.stride())
                 {
-                    v_.set(++j, v_[i]);
+                    if (v_[i] != v_[j])
+                    {
+                        v_.set(++j, v_[i]);
+                    }
                 }
-            }
 
-            v_.reset();
-            v_.to(j + 1);
+                v_.reset();
+                v_.to(j + 1);
+            }
+            else
+            {
+                for (int i = v_.from() + v_.stride(); i < v_.to(); i += v_.stride())
+                {
+                    if (fabs(v_[i] - v_[j]) >= this->precision_)
+                    {
+                        v_.set(++j, v_[i]);
+                    }
+                }
+
+                v_.reset();
+                v_.to(j + 1);
+            }
         }
     }
     #if CC_CUDA

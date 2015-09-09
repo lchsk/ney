@@ -31,11 +31,23 @@ void random<T>::run() const
 {
     if (ney::config.target == Intel)
     {
-        #pragma omp parallel for schedule(static)
-        #pragma simd
-        #pragma vector aligned
-        for (int i = out.from(); i < out.to(); i += out.stride())
-            out.set(i, min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_))));
+        if (out.stride() == 1)
+        {
+            #pragma omp parallel for schedule(static)
+            #pragma simd
+            #pragma vector aligned
+            for (int i = out.from(); i < out.to(); i++)
+                out.set(i, min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_))));
+        }
+        else
+        {
+            #pragma omp parallel for schedule(static)
+            #pragma simd
+            #pragma vector aligned
+            for (int i = out.from(); i < out.to(); i += out.stride())
+                out.set(i, min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_))));
+        }
+
     }
     #if CC_CUDA
     else if (ney::config.target == GPU)

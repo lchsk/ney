@@ -38,82 +38,168 @@ void swap<T>::run() const
 
             int d = floor((v1_->to() - v1_->from()) / 2.0);
 
-            if (this->cond_ == NULL)
+            if (v1_->stride() == 1)
             {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                #pragma ivdep
-                #pragma vector aligned
-                for (int i = v1_->from(); i < d; i += v1_->stride())
+                if (this->cond_ == NULL)
                 {
-                    T tmp = (*v1_)[i + d];
-                    v1_->set(i + d, (*v1_)[i]);
-                    v1_->set(i, tmp);
-                    // std::swap((*v1_)[i + d], (*v1_)[i]);
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma ivdep
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < d; i++)
+                    {
+                        T tmp = (*v1_)[i + d];
+                        v1_->set(i + d, (*v1_)[i]);
+                        v1_->set(i, tmp);
+                        // std::swap((*v1_)[i + d], (*v1_)[i]);
 
+                    }
                 }
-            }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < d; i++)
+                    {
+                        T a, b;
+
+                        a = (*v1_)[i];
+                        b = (*v1_)[i + d];
+
+                        // if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
+                        if (this->cond_(&a, &b))
+                        {
+                            // T tmp = (*v1_)[i + d];
+                            v1_->set(i + d, a);
+                            v1_->set(i, b);
+                        }
+                            // std::swap((*v1_)[i + d], (*v1_)[i]);
+                    }
+                }
+            } // end stride == 1
             else
             {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                #pragma vector aligned
-                for (int i = v1_->from(); i < d; i += v1_->stride())
+                if (this->cond_ == NULL)
                 {
-                    T a, b;
-
-                    a = (*v1_)[i];
-                    b = (*v1_)[i + d];
-
-                    // if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
-                    if (this->cond_(&a, &b))
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma ivdep
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < d; i += v1_->stride())
                     {
-                        // T tmp = (*v1_)[i + d];
-                        v1_->set(i + d, a);
-                        v1_->set(i, b);
-                    }
+                        T tmp = (*v1_)[i + d];
+                        v1_->set(i + d, (*v1_)[i]);
+                        v1_->set(i, tmp);
                         // std::swap((*v1_)[i + d], (*v1_)[i]);
+
+                    }
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < d; i += v1_->stride())
+                    {
+                        T a, b;
+
+                        a = (*v1_)[i];
+                        b = (*v1_)[i + d];
+
+                        // if (this->cond_(&(*v1_)[i], &(*v1_)[i + d]))
+                        if (this->cond_(&a, &b))
+                        {
+                            // T tmp = (*v1_)[i + d];
+                            v1_->set(i + d, a);
+                            v1_->set(i, b);
+                        }
+                            // std::swap((*v1_)[i + d], (*v1_)[i]);
+                    }
                 }
             }
+
         }
         else
         {
             // swap elements in two vectors
 
-            if (this->cond_ == NULL)
+            if (v1_->stride() == 1)
             {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                #pragma ivdep
-                #pragma vector aligned
-                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                if (this->cond_ == NULL)
                 {
-                    T tmp = (*v1_)[i];
-                    v1_->set(i, (*v2_)[i]);
-                    v2_->set(i, tmp);
-                }
-                    // std::swap((*v1_)[i], (*v2_)[i]);
-            }
-            else
-            {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                #pragma ivdep
-                #pragma vector aligned
-                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                {
-                    T a, b;
-                    a = (*v1_)[i];
-                    b = (*v2_)[i];
-
-                    if (this->cond_(&a, &b))
-                    // if (this->cond_(&(*v1_)[i], &(*v2_)[i]))
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma ivdep
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i++)
                     {
                         T tmp = (*v1_)[i];
                         v1_->set(i, (*v2_)[i]);
                         v2_->set(i, tmp);
                     }
                         // std::swap((*v1_)[i], (*v2_)[i]);
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma ivdep
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i++)
+                    {
+                        T a, b;
+                        a = (*v1_)[i];
+                        b = (*v2_)[i];
+
+                        if (this->cond_(&a, &b))
+                        // if (this->cond_(&(*v1_)[i], &(*v2_)[i]))
+                        {
+                            T tmp = (*v1_)[i];
+                            v1_->set(i, (*v2_)[i]);
+                            v2_->set(i, tmp);
+                        }
+                            // std::swap((*v1_)[i], (*v2_)[i]);
+                    }
+                }
+            } // end stride == 1
+            else
+            {
+                if (this->cond_ == NULL)
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma ivdep
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    {
+                        T tmp = (*v1_)[i];
+                        v1_->set(i, (*v2_)[i]);
+                        v2_->set(i, tmp);
+                    }
+                        // std::swap((*v1_)[i], (*v2_)[i]);
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    #pragma ivdep
+                    #pragma vector aligned
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    {
+                        T a, b;
+                        a = (*v1_)[i];
+                        b = (*v2_)[i];
+
+                        if (this->cond_(&a, &b))
+                        // if (this->cond_(&(*v1_)[i], &(*v2_)[i]))
+                        {
+                            T tmp = (*v1_)[i];
+                            v1_->set(i, (*v2_)[i]);
+                            v2_->set(i, tmp);
+                        }
+                            // std::swap((*v1_)[i], (*v2_)[i]);
+                    }
                 }
             }
         }

@@ -46,75 +46,150 @@ void count<T>::run() const
             int to1 = this->to1;
             int stride = v_->stride();
 
-            if (this->is_integer_)
+            if (stride == 1)
             {
-                #pragma omp parallel sections
+                if (this->is_integer_)
                 {
-                    #pragma omp section
+                    #pragma omp parallel sections
                     {
-                        T* raw = v_->raw();
-
-                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
-                    	{
-                            #pragma omp parallel for schedule(static)
-                            for (int i = from1; i < to1; i += stride)
-                            {
-                                if (raw[i] == value_)
-                                    #pragma omp atomic
-                                    c1++;
-                            }
-                    	}
-                    }
-                    #pragma omp section
-                    {
-                        // running on the host
-
-                        #pragma omp parallel for schedule(static)
-                        for (int i = this->from2; i < this->to2; i += stride)
+                        #pragma omp section
                         {
-                            if ((*v_)[i] == value_)
-                                #pragma omp atomic
-                                c2++;
+                            T* raw = v_->raw();
+
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                        	{
+                                #pragma omp parallel for schedule(static)
+                                for (int i = from1; i < to1; i ++)
+                                {
+                                    if (raw[i] == value_)
+                                        #pragma omp atomic
+                                        c1++;
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
+                            #pragma omp parallel for schedule(static)
+                            for (int i = this->from2; i < this->to2; i ++)
+                            {
+                                if ((*v_)[i] == value_)
+                                    #pragma omp atomic
+                                    c2++;
+                            }
                         }
                     }
-                }
 
-                *count_ = c1 + c2;
-            }
+                    *count_ = c1 + c2;
+                }
+                else
+                {
+                    #pragma omp parallel sections
+                    {
+                        #pragma omp section
+                        {
+                            T* raw = v_->raw();
+
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                        	{
+                                #pragma omp parallel for schedule(static)
+                                for (int i = from1; i < to1; i++)
+                                {
+                                    if (fabs(raw[i] - value_) < this->precision_)
+                                        #pragma omp atomic
+                                        c1++;
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
+                            #pragma omp parallel for schedule(static)
+                            for (int i = this->from2; i < this->to2; i++)
+                            {
+                                if (fabs((*v_)[i] - value_) < this->precision_)
+                                    #pragma omp atomic
+                                    c2++;
+                            }
+                        }
+                    }
+
+                    *count_ = c1 + c2;
+                }
+            } // end stride == 1
             else
             {
-                #pragma omp parallel sections
+                if (this->is_integer_)
                 {
-                    #pragma omp section
+                    #pragma omp parallel sections
                     {
-                        T* raw = v_->raw();
-
-                        #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
-                    	{
-                            #pragma omp parallel for schedule(static)
-                            for (int i = from1; i < to1; i += stride)
-                            {
-                                if (fabs(raw[i] - value_) < this->precision_)
-                                    #pragma omp atomic
-                                    c1++;
-                            }
-                    	}
-                    }
-                    #pragma omp section
-                    {
-                        // running on the host
-
-                        #pragma omp parallel for schedule(static)
-                        for (int i = this->from2; i < this->to2; i += stride)
+                        #pragma omp section
                         {
-                            if (fabs((*v_)[i] - value_) < this->precision_)
-                                #pragma omp atomic
-                                c2++;
+                            T* raw = v_->raw();
+
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                        	{
+                                #pragma omp parallel for schedule(static)
+                                for (int i = from1; i < to1; i += stride)
+                                {
+                                    if (raw[i] == value_)
+                                        #pragma omp atomic
+                                        c1++;
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
+                            #pragma omp parallel for schedule(static)
+                            for (int i = this->from2; i < this->to2; i += stride)
+                            {
+                                if ((*v_)[i] == value_)
+                                    #pragma omp atomic
+                                    c2++;
+                            }
                         }
                     }
-                }
 
-                *count_ = c1 + c2;
+                    *count_ = c1 + c2;
+                }
+                else
+                {
+                    #pragma omp parallel sections
+                    {
+                        #pragma omp section
+                        {
+                            T* raw = v_->raw();
+
+                            #pragma offload target(mic) in(raw:length(to1)) in(from1, to1, stride, value_) inout(c1)
+                        	{
+                                #pragma omp parallel for schedule(static)
+                                for (int i = from1; i < to1; i += stride)
+                                {
+                                    if (fabs(raw[i] - value_) < this->precision_)
+                                        #pragma omp atomic
+                                        c1++;
+                                }
+                        	}
+                        }
+                        #pragma omp section
+                        {
+                            // running on the host
+
+                            #pragma omp parallel for schedule(static)
+                            for (int i = this->from2; i < this->to2; i += stride)
+                            {
+                                if (fabs((*v_)[i] - value_) < this->precision_)
+                                    #pragma omp atomic
+                                    c2++;
+                            }
+                        }
+                    }
+                    *count_ = c1 + c2;
+                }
             }
         }
         #endif
@@ -123,30 +198,62 @@ void count<T>::run() const
         {
             // No MIC features
 
-            if (this->is_integer_)
+            if (v_->stride() == 1)
             {
-                // cannot vectorise it
-
-                #pragma omp parallel for schedule(static)
-                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                if (this->is_integer_)
                 {
-                    if ((*v_)[i] == value_)
-                        #pragma omp atomic
-                        (*count_)++;
+                    // cannot vectorise it
+
+                    #pragma omp parallel for schedule(static)
+                    for (int i = v_->from(); i < v_->to(); i++)
+                    {
+                        if ((*v_)[i] == value_)
+                            #pragma omp atomic
+                            (*count_)++;
+                    }
                 }
-            }
+                else
+                {
+                    // cannot vectorise it
+
+                    #pragma omp parallel for schedule(static)
+                    for (int i = v_->from(); i < v_->to(); i++)
+                    {
+                        if (fabs((*v_)[i] - value_) < this->precision_)
+                            #pragma omp atomic
+                            (*count_)++;
+                    }
+                }
+            } // end stride == 1
             else
             {
-                // cannot vectorise it
-
-                #pragma omp parallel for schedule(static)
-                for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                if (this->is_integer_)
                 {
-                    if (fabs((*v_)[i] - value_) < this->precision_)
-                        #pragma omp atomic
-                        (*count_)++;
+                    // cannot vectorise it
+
+                    #pragma omp parallel for schedule(static)
+                    for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                    {
+                        if ((*v_)[i] == value_)
+                            #pragma omp atomic
+                            (*count_)++;
+                    }
+                }
+                else
+                {
+                    // cannot vectorise it
+
+                    #pragma omp parallel for schedule(static)
+                    for (int i = v_->from(); i < v_->to(); i += v_->stride())
+                    {
+                        if (fabs((*v_)[i] - value_) < this->precision_)
+                            #pragma omp atomic
+                            (*count_)++;
+                    }
                 }
             }
+
+
         }
 
     }
