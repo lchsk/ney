@@ -1,8 +1,8 @@
-CXXFLAGS = -fopenmp -O3
+CXXFLAGS = -fopenmp -O3 -Ofast -opt-assume-safe-padding -fno-alias
 NVCCFLAGS = -Xcompiler "-fopenmp"
 NVCC = nvcc
 
-EXAMPLES = saxpy_cpu saxpy_gpu
+EXAMPLES = saxpy_cpu saxpy_gpu saxpy_mic
 
 
 all : $(EXAMPLES)
@@ -15,3 +15,6 @@ saxpy_cpu :
 
 saxpy_gpu :
 	$(NVCC) saxpy.cu $(NVCCFLAGS) -o saxpy_gpu
+
+saxpy_mic :
+	$(CXX) saxpy.cpp $(CXXFLAGS) -mmic -o saxpy_mic

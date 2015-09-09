@@ -90,41 +90,95 @@ void apply<T>::run() const
         // {
         if (f_ == function::sine)
         {
-            #pragma omp parallel for schedule(static)
-            #pragma simd
-            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+            if (v1_->stride() == 1)
             {
-                (*output_).set(i, sin((*v1_)[i]));
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i++)
+                {
+                    (*output_).set(i, sin((*v1_)[i]));
+                }
             }
+            else
+            {
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                {
+                    (*output_).set(i, sin((*v1_)[i]));
+                }
+            }
+
         }
         else if (f_ == function::cosine)
         {
-            #pragma omp parallel for schedule(static)
-            #pragma simd
-            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+            if (v1_->stride() == 1)
             {
-                (*output_).set(i, cos((*v1_)[i]));
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i++)
+                {
+                    (*output_).set(i, cos((*v1_)[i]));
+                }
             }
+            else
+            {
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                {
+                    (*output_).set(i, cos((*v1_)[i]));
+                }
+            }
+
         }
         else if (f_ == function::lower)
         {
-            #pragma omp parallel for schedule(static)
-            #pragma simd
-            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+            if (v1_->stride() == 1)
             {
-                if ((*v1_)[i] >= 'A' && (*v1_)[i] <= 'Z')
-                    (*output_).set(i, (*v1_)[i] + 32);
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i++)
+                {
+                    if ((*v1_)[i] >= 'A' && (*v1_)[i] <= 'Z')
+                        (*output_).set(i, (*v1_)[i] + 32);
+                }
             }
+            else
+            {
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                {
+                    if ((*v1_)[i] >= 'A' && (*v1_)[i] <= 'Z')
+                        (*output_).set(i, (*v1_)[i] + 32);
+                }
+            }
+
         }
         else if (f_ == function::upper)
         {
-            #pragma omp parallel for schedule(static)
-            #pragma simd
-            for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+            if (v1_->stride() == 1)
             {
-                if ((*v1_)[i] >= 'a' && (*v1_)[i] <= 'z')
-                    (*output_).set(i, (*v1_)[i] - 32);
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i++)
+                {
+                    if ((*v1_)[i] >= 'a' && (*v1_)[i] <= 'z')
+                        (*output_).set(i, (*v1_)[i] - 32);
+                }
             }
+            else
+            {
+                #pragma omp parallel for schedule(static)
+                #pragma simd
+                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                {
+                    if ((*v1_)[i] >= 'a' && (*v1_)[i] <= 'z')
+                        (*output_).set(i, (*v1_)[i] - 32);
+                }
+            }
+
         }
 
         else if (v1_ != NULL && v2_ != NULL)
@@ -135,21 +189,47 @@ void apply<T>::run() const
 
                 if (op_ == operation::add)
                 {
-                    #pragma omp parallel for schedule(static)
-                    #pragma simd
-                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    if (v1_->stride() == 1)
                     {
-                        (*output_).set(i, ((*v1_)[i] + (*v2_)[i]) + value_);
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i++)
+                        {
+                            (*output_).set(i, ((*v1_)[i] + (*v2_)[i]) + value_);
+                        }
                     }
+                    else
+                    {
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                        {
+                            (*output_).set(i, ((*v1_)[i] + (*v2_)[i]) + value_);
+                        }
+                    }
+
                 }
                 else if (op_ == operation::mul)
                 {
-                    #pragma omp parallel for schedule(static)
-                    #pragma simd
-                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                    if (v1_->stride() == 1)
                     {
-                        (*output_).set(i, ((*v1_)[i] * (*v2_)[i]) + value_);
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i++)
+                        {
+                            (*output_).set(i, ((*v1_)[i] * (*v2_)[i]) + value_);
+                        }
                     }
+                    else
+                    {
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                        {
+                            (*output_).set(i, ((*v1_)[i] * (*v2_)[i]) + value_);
+                        }
+                    }
+
                 }
             }
             else
@@ -158,17 +238,39 @@ void apply<T>::run() const
 
                 if (op_ == operation::add)
                 {
-                    #pragma omp parallel for schedule(static)
-                    #pragma simd
-                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                        (*output_).set(i, (*v1_)[i] + (*v2_)[i]);
+                    if (v1_->stride() == 1)
+                    {
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i++)
+                            (*output_).set(i, (*v1_)[i] + (*v2_)[i]);
+                    }
+                    else
+                    {
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                            (*output_).set(i, (*v1_)[i] + (*v2_)[i]);
+                    }
+
                 }
                 else if (op_ == operation::mul)
                 {
-                    #pragma omp parallel for schedule(static)
-                    #pragma simd
-                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                        (*output_).set(i, (*v1_)[i] * (*v2_)[i]);
+                    if (v1_->stride() == 1)
+                    {
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i++)
+                            (*output_).set(i, (*v1_)[i] * (*v2_)[i]);
+                    }
+                    else
+                    {
+                        #pragma omp parallel for schedule(static)
+                        #pragma simd
+                        for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                            (*output_).set(i, (*v1_)[i] * (*v2_)[i]);
+                    }
+
                 }
             }
         }
@@ -177,17 +279,39 @@ void apply<T>::run() const
         {
             if (op_ == operation::add)
             {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    (*output_).set(i, (*v1_)[i] + value_);
+                if (v1_->stride() == 1)
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i++)
+                        (*output_).set(i, (*v1_)[i] + value_);
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                        (*output_).set(i, (*v1_)[i] + value_);
+                }
+
             }
             else if (op_ == operation::mul)
             {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    (*output_).set(i, (*v1_)[i] * value_);
+                if (v1_->stride() == 1)
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i++)
+                        (*output_).set(i, (*v1_)[i] * value_);
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                        (*output_).set(i, (*v1_)[i] * value_);
+                }
+
             }
         }
         // use ney::value<T1>
@@ -195,17 +319,39 @@ void apply<T>::run() const
         {
             if (op_ == operation::add)
             {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    (*output_).set(i, (*v1_)[i] + d_value_);
+                if (v1_->stride() == 1)
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i++)
+                        (*output_).set(i, (*v1_)[i] + d_value_);
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                        (*output_).set(i, (*v1_)[i] + d_value_);
+                }
+
             }
             else if (op_ == operation::mul)
             {
-                #pragma omp parallel for schedule(static)
-                #pragma simd
-                for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
-                    (*output_).set(i, (*v1_)[i] * d_value_);
+                if (v1_->stride() == 1)
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i++)
+                        (*output_).set(i, (*v1_)[i] * d_value_);
+                }
+                else
+                {
+                    #pragma omp parallel for schedule(static)
+                    #pragma simd
+                    for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
+                        (*output_).set(i, (*v1_)[i] * d_value_);
+                }
+
             }
         }
     }
