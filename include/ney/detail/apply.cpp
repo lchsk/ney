@@ -94,6 +94,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
                 {
                     (*output_).set(i, sin((*v1_)[i]));
@@ -103,6 +104,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     (*output_).set(i, sin((*v1_)[i]));
@@ -116,6 +118,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
                 {
                     (*output_).set(i, cos((*v1_)[i]));
@@ -125,6 +128,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     (*output_).set(i, cos((*v1_)[i]));
@@ -138,6 +142,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
                 {
                     if ((*v1_)[i] >= 'A' && (*v1_)[i] <= 'Z')
@@ -148,6 +153,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     if ((*v1_)[i] >= 'A' && (*v1_)[i] <= 'Z')
@@ -162,6 +168,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i++)
                 {
                     if ((*v1_)[i] >= 'a' && (*v1_)[i] <= 'z')
@@ -172,6 +179,7 @@ void apply<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     if ((*v1_)[i] >= 'a' && (*v1_)[i] <= 'z')
@@ -193,6 +201,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
                         {
                             (*output_).set(i, ((*v1_)[i] + (*v2_)[i]) + value_);
@@ -202,6 +211,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                         {
                             (*output_).set(i, ((*v1_)[i] + (*v2_)[i]) + value_);
@@ -215,6 +225,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
                         {
                             (*output_).set(i, ((*v1_)[i] * (*v2_)[i]) + value_);
@@ -224,6 +235,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                         {
                             (*output_).set(i, ((*v1_)[i] * (*v2_)[i]) + value_);
@@ -242,6 +254,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
                             (*output_).set(i, (*v1_)[i] + (*v2_)[i]);
                     }
@@ -249,6 +262,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                             (*output_).set(i, (*v1_)[i] + (*v2_)[i]);
                     }
@@ -260,6 +274,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i++)
                             (*output_).set(i, (*v1_)[i] * (*v2_)[i]);
                     }
@@ -267,6 +282,7 @@ void apply<T>::run() const
                     {
                         #pragma omp parallel for schedule(static)
                         #pragma simd
+                        #pragma vector aligned
                         for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                             (*output_).set(i, (*v1_)[i] * (*v2_)[i]);
                     }
@@ -283,6 +299,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
                         (*output_).set(i, (*v1_)[i] + value_);
                 }
@@ -290,6 +307,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                         (*output_).set(i, (*v1_)[i] + value_);
                 }
@@ -301,6 +319,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
                         (*output_).set(i, (*v1_)[i] * value_);
                 }
@@ -308,6 +327,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                         (*output_).set(i, (*v1_)[i] * value_);
                 }
@@ -323,6 +343,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
                         (*output_).set(i, (*v1_)[i] + d_value_);
                 }
@@ -330,6 +351,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                         (*output_).set(i, (*v1_)[i] + d_value_);
                 }
@@ -341,6 +363,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i++)
                         (*output_).set(i, (*v1_)[i] * d_value_);
                 }
@@ -348,6 +371,7 @@ void apply<T>::run() const
                 {
                     #pragma omp parallel for schedule(static)
                     #pragma simd
+                    #pragma vector aligned
                     for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                         (*output_).set(i, (*v1_)[i] * d_value_);
                 }
