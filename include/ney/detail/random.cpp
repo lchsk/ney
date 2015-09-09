@@ -33,6 +33,7 @@ void random<T>::run() const
     {
         #pragma omp parallel for schedule(static)
         #pragma simd
+        #pragma vector aligned
         for (int i = out.from(); i < out.to(); i += out.stride())
             out.set(i, min_ + static_cast <T> (rand()) / (static_cast<T> (RAND_MAX / (max_ - min_))));
     }

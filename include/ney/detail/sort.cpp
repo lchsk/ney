@@ -72,6 +72,7 @@ void sort<T>::merge(int low, int mid, int high) const
     if(h > mid)
     {
         #pragma simd
+        #pragma vector aligned
         for(k = j; k <= high; k++)
         {
             (b_)[i] = a_[k];
@@ -81,6 +82,7 @@ void sort<T>::merge(int low, int mid, int high) const
     else
     {
         #pragma simd
+        #pragma vector aligned
         for(k = h; k <= mid; k++)
         {
             (b_)[i] = a_[k];
@@ -89,6 +91,7 @@ void sort<T>::merge(int low, int mid, int high) const
     }
 
     #pragma simd
+    #pragma vector aligned
     for(k = low; k <= high; k++)
         a_.set(k, (b_)[k]);
 }

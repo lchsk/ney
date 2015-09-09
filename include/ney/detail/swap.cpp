@@ -43,6 +43,7 @@ void swap<T>::run() const
                 #pragma omp parallel for schedule(static)
                 #pragma simd
                 #pragma ivdep
+                #pragma vector aligned
                 for (int i = v1_->from(); i < d; i += v1_->stride())
                 {
                     T tmp = (*v1_)[i + d];
@@ -56,6 +57,7 @@ void swap<T>::run() const
             {
                 #pragma omp parallel for schedule(static)
                 #pragma simd
+                #pragma vector aligned
                 for (int i = v1_->from(); i < d; i += v1_->stride())
                 {
                     T a, b;
@@ -83,6 +85,7 @@ void swap<T>::run() const
                 #pragma omp parallel for schedule(static)
                 #pragma simd
                 #pragma ivdep
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     T tmp = (*v1_)[i];
@@ -96,6 +99,7 @@ void swap<T>::run() const
                 #pragma omp parallel for schedule(static)
                 #pragma simd
                 #pragma ivdep
+                #pragma vector aligned
                 for (int i = v1_->from(); i < v1_->to(); i += v1_->stride())
                 {
                     T a, b;
