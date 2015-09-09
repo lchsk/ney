@@ -67,19 +67,21 @@ void random(ney::vector<T>& v, T min, T max)
 
     strided_range< Iterator > slice(v.device().begin() + v.from(), v.device().begin() + v.to(), v.stride());
 
+    int seed = time(NULL) + 472882049 * rand();
+
     if (v.is_int())
     {
         thrust::transform(thrust::make_counting_iterator(1),
             thrust::make_counting_iterator((int) v.size() + 1),
             slice.begin(),
-            prg_int<T>(min, max, time(NULL)));
+            prg_int<T>(min, max, seed));
     }
     else
     {
         thrust::transform(thrust::make_counting_iterator(1),
             thrust::make_counting_iterator((int) v.size() + 1),
             slice.begin(),
-            prg_real<T>(min, max, time(NULL)));
+            prg_real<T>(min, max, seed));
     }
 }
 
