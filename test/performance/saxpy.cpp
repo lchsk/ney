@@ -32,15 +32,19 @@ int main (int argc, char** argv)
     ney::vector<int> Y = ney::new_vector().size(size);
     int a = 2;
 
-    s = ney::random<int>(X).min(0).max(10);
-    s = ney::random<int>(Y).min(0).max(10);
+    s = ney::random<int>(X).min(0).max(10).time();
+    std::cout << s << "\n";
+    s = ney::random<int>(Y).min(0).max(10).time();
+    std::cout << s << "\n";
 
     // std::cout << "scalar a: " << a << "\n";
     // std::cout << "X: \n" << X << "\n";
     // std::cout << "Y: \n" << Y << "\n";
 
-    s = ney::apply<int>(ney::operation::mul).vector1(X).value(a);
-    s = ney::apply<int>(ney::operation::add).vector1(Y).vector2(X);
+    s = ney::apply<int>(ney::operation::mul).vector1(X).value(a).time();
+    std::cout << s << "\n";
+    s = ney::apply<int>(ney::operation::add).vector1(Y).vector2(X).time();
+    std::cout << s << "\n";
 
     // std::cout << "result: \n" << Y << "\n";
 
