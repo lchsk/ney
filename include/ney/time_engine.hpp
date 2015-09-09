@@ -33,7 +33,7 @@ class time_engine
                 cudaEventSynchronize(cuda_stop);
                 float tmp = 0;
                 cudaEventElapsedTime(&tmp, cuda_start, cuda_stop);
-                total_time_ = tmp;
+                total_time_ = tmp / 1000.0;
             #else
                 if (ney::config.target == Intel)
                     #if USE_OPENMP_TIME
