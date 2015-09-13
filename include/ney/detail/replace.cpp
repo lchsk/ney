@@ -39,7 +39,7 @@ void replace<T>::run() const
             {
                 #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
-                #pragma vector aligned
+                // #pragma vector aligned
                 for (int i = v_->from(); i < v_->to(); i++)
                 {
                     if ((*v_)[i] == old_)
@@ -50,7 +50,7 @@ void replace<T>::run() const
             {
                 #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
-                #pragma vector aligned
+                // #pragma vector aligned
                 for (int i = v_->from(); i < v_->to(); i++)
                 {
                     if (fabs((*v_)[i] - old_) < this->precision_)
@@ -64,7 +64,7 @@ void replace<T>::run() const
             {
                 #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
-                #pragma vector aligned
+                // #pragma vector aligned
                 for (int i = v_->from(); i < v_->to(); i += v_->stride())
                 {
                     if ((*v_)[i] == old_)
@@ -75,7 +75,7 @@ void replace<T>::run() const
             {
                 #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
                 #pragma simd
-                #pragma vector aligned
+                // #pragma vector aligned
                 for (int i = v_->from(); i < v_->to(); i += v_->stride())
                 {
                     if (fabs((*v_)[i] - old_) < this->precision_)

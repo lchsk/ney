@@ -1,9 +1,9 @@
 CXXFLAGS = -fopenmp -O3 -Ofast -opt-assume-safe-padding -fno-alias
-NVCCFLAGS = -Xcompiler "-fopenmp"
+NVCCFLAGS = -Xcompiler "-fopenmp -O3"
 NVCC = nvcc
 
 EXAMPLES = saxpy_cpu saxpy_gpu saxpy_mic \
-reduce_cpu reduce_gpu reduce_mic
+functions_cpu functions_gpu functions_mic
 
 
 all : $(EXAMPLES)
@@ -20,11 +20,11 @@ saxpy_gpu :
 saxpy_mic :
 	$(CXX) saxpy.cpp $(CXXFLAGS) -mmic -o saxpy_mic
 
-reduce_cpu :
-	$(CXX) reduce.cpp $(CXXFLAGS) -o reduce_cpu
+functions_cpu :
+	$(CXX) functions.cpp $(CXXFLAGS) -o functions_cpu
 
-reduce_gpu :
-	$(NVCC) reduce.cu $(NVCCFLAGS) -o reduce_gpu
+functions_gpu :
+	$(NVCC) functions.cu $(NVCCFLAGS) -o functions_gpu
 
-reduce_mic :
-	$(CXX) reduce.cpp $(CXXFLAGS) -mmic -o reduce_mic
+functions_mic :
+	$(CXX) functions.cpp $(CXXFLAGS) -mmic -o functions_mic
