@@ -50,7 +50,7 @@ void open<T>::run() const
                 {
                     *v_ = new_vector().size(size);
                     char* tmp = new char[size];
-                    fread(tmp, size, 1, f);
+                    int res = fread(tmp, size, 1, f);
 
                     for (int i = 0; i < size; i++)
                     {

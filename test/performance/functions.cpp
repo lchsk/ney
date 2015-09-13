@@ -36,27 +36,33 @@ int main (int argc, char** argv)
 
     std::cout << "fill\n";
     s = ney::fill<TYPE>(x).value(1).time();
-    std::cout << s << "\n\n";
+    std::cout << s << "\n";
+    std::cout << size * 1e-9 / s.time() << " Gwrites\n\n";
 
     std::cout << "random\n";
     s = ney::random<TYPE>(x).min(0).max(1).time();
-    std::cout << s << "\n\n";
+    std::cout << s << "\n";
+    std::cout << size * 1e-9 / s.time() << " Gwrites\n\n";
 
     std::cout << "replace\n";
     s = ney::replace<TYPE>(0.1).with(0.2).in(x);
-    std::cout << s << "\n\n";
+    std::cout << s << "\n";
+    std::cout << size * 1e-9 / s.time() << " Gcomparisons\n\n";
 
     std::cout << "reduce\n";
     s = ney::reduce<TYPE>(x).use(ney::operation::add).output(r).time();
-    std::cout << s << "\n\n";
+    std::cout << s << "\n";
+    std::cout << size * 1e-9 / s.time() << " Gflops\n\n";
 
     std::cout << "count\n";
     s = ney::count<TYPE>(0.2).precision(2).in(x).output(c).time();
-    std::cout << s << "\n\n";
+    std::cout << s << "\n";
+    std::cout << size * 1e-9 / s.time() << " Gcomparisons\n\n";
 
     std::cout << "apply (v1 + v2)\n";
     s = ney::apply<TYPE>(ney::operation::add).vector1(x).vector2(y).time();
-    std::cout << s << "\n\n";
+    std::cout << s << "\n";
+    std::cout << size * 1e-9 / s.time() << " Gflops\n\n";
 
     std::cout << "sort\n";
     s = ney::sort<TYPE>(y).time();
