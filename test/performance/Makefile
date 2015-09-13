@@ -3,7 +3,8 @@ NVCCFLAGS = -Xcompiler "-fopenmp -O3"
 NVCC = nvcc
 
 EXAMPLES = saxpy_cpu saxpy_gpu saxpy_mic \
-functions_cpu functions_gpu functions_mic
+functions_cpu functions_gpu functions_mic \
+charcount_cpu charcount_gpu charcount_mic
 
 
 all : $(EXAMPLES)
@@ -19,6 +20,15 @@ saxpy_gpu :
 
 saxpy_mic :
 	$(CXX) saxpy.cpp $(CXXFLAGS) -mmic -o saxpy_mic
+
+charcount_cpu :
+	$(CXX) charcount.cpp $(CXXFLAGS) -o charcount_cpu
+
+charcount_gpu :
+	$(NVCC) charcount.cu $(NVCCFLAGS) -o charcount_gpu
+
+charcount_mic :
+	$(CXX) charcount.cpp $(CXXFLAGS) -mmic -o charcount_mic
 
 functions_cpu :
 	$(CXX) functions.cpp $(CXXFLAGS) -o functions_cpu
