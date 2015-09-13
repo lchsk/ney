@@ -38,15 +38,15 @@ int main (int argc, char** argv)
     std::cout << s << "\n";
 
     // std::cout << "scalar a: " << a << "\n";
-    std::cout << "X: \n" << X << "\n";
-    std::cout << "Y: \n" << Y << "\n";
+    // std::cout << "X: \n" << X << "\n";
+    // std::cout << "Y: \n" << Y << "\n";
 
     s = ney::apply<int>(ney::operation::mul).vector1(X).value(a).time();
     std::cout << s << "\n";
     s = ney::apply<int>(ney::operation::add).vector1(Y).vector2(X).time();
     std::cout << s << "\n";
 
-    std::cout << "result: \n" << Y << "\n";
+    // std::cout << "result: \n" << Y << "\n";
 
     // print time
 
