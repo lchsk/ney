@@ -4,7 +4,8 @@ NVCC = nvcc
 
 EXAMPLES = saxpy_cpu saxpy_gpu saxpy_mic \
 functions_cpu functions_gpu functions_mic \
-charcount_cpu charcount_gpu charcount_mic
+charcount_cpu charcount_gpu charcount_mic \
+off_cpu
 
 
 all : $(EXAMPLES)
@@ -20,6 +21,9 @@ saxpy_gpu :
 
 saxpy_mic :
 	$(CXX) saxpy.cpp $(CXXFLAGS) -mmic -o saxpy_mic
+
+off_cpu :
+	$(CXX) off.cpp $(CXXFLAGS) -o off_cpu
 
 charcount_cpu :
 	$(CXX) charcount.cpp $(CXXFLAGS) -o charcount_cpu
