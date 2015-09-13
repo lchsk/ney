@@ -1,0 +1,9 @@
+PROC,FUNC,SIZE,TIME
+i5,charcount,303B,0.0016758
+i5,charcount,100MB,3.7000551
+i5,charcount,1GB,33.0969331
+i5,charcount,5GB,36.9345188
+geforce,charcount,303B,0.0019299
+geforce,charcount,100MB,0.9441310
+geforce,charcount,1GB,8.7233926
+geforce,charcount,5GB,8.7233926

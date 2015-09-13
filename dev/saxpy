@@ -1,0 +1,7 @@
+PROC,FUNC,SIZE,TIME
+i5,saxpy,1000000,0.00179
+i5,saxpy,10000000,0.02114
+i5,saxpy,100000000,0.2013
+geforce,saxpy,1000000,0.00158
+geforce,saxpy,10000000,0.01728
+geforce,saxpy,100000000,0.16765

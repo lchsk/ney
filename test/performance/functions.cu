@@ -45,7 +45,7 @@ int main (int argc, char** argv)
     std::cout << size * 1e-9 / s.time() << " Gwrites\n\n";
 
     std::cout << "replace\n";
-    s = ney::replace<TYPE>(0.1).with(0.2).in(x);
+    s = ney::replace<TYPE>(0.1).with(0.2).in(x).time();
     std::cout << s << "\n";
     std::cout << size * 1e-9 / s.time() << " Gcomparisons\n\n";
 
