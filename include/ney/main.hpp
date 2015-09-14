@@ -280,16 +280,15 @@ class config_t
 
             #pragma omp barrier
 
+            #if MIC
+                this->running_on_mic_ = true;
+            #else
+                    // #if USE_MKL
+                        // this->mic_count_ = mkl_mic_get_device_count();
+                    // #else
+
             #if USE_MIC && ! CC_GNU
-                #if MIC
-                    this->running_on_mic_ = true;
-                #else
-                    #if USE_MKL
-                        this->mic_count_ = mkl_mic_get_device_count();
-                    #else
-                        this->mic_count_ = _Offload_number_of_devices();
-                    #endif
-                #endif
+                this->mic_count_ = _Offload_number_of_devices();
             #endif
 
             srand(time(NULL));
