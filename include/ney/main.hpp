@@ -282,7 +282,7 @@ class config_t
 
             #if MIC
                 this->running_on_mic_ = true;
-            #else
+            #endif
                     // #if USE_MKL
                         // this->mic_count_ = mkl_mic_get_device_count();
                     // #else
